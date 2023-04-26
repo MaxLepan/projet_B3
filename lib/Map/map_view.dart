@@ -38,6 +38,7 @@ class MyHomePage extends StatefulWidget {
 final scaffoldKey = GlobalKey<ScaffoldState>();
 
 class _MapState extends State<MyHomePage> {
+
   final List<Marker> _markers = [];
   final picker = ImagePicker();
   final mapController = MapController();
@@ -198,7 +199,6 @@ class _MapState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
       appBar: AppBar(
         title: Text(widget.title),
       ),
