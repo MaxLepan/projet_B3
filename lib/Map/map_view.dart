@@ -65,97 +65,108 @@ class _MapState extends State<MyHomePage> {
     await showDialog(
         context: scaffoldKey.currentContext!,
         builder: (BuildContext context) {
-          return AlertDialog(
-              title: const Text('Ajouter un marqeur'),
-              content:
-                  Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                TextField(
-                  decoration: const InputDecoration(
-                    hintText: 'Entrez une description',
-                  ),
-                  onChanged: (value) {
-                    description = value;
-                  },
-                ),
-                GestureDetector(
-                    onTap: () async {
-                      final pickedFile =
-                          await picker.pickImage(source: ImageSource.gallery);
-                      if (pickedFile != null) {
-                        setState(() {
-                          image = File(pickedFile.path);
-                        });
-                      }
+          return StatefulBuilder(builder: (context, setState) {
+            return AlertDialog(
+                title: const Text('Ajouter un marqeur'),
+                content:
+                    Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                  TextField(
+                    decoration: const InputDecoration(
+                      hintText: 'Entrez une description',
+                    ),
+                    onChanged: (value) {
+                      description = value;
                     },
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(vertical: 20),
-                      height: 100,
-                      width: 100,
-                      child: image != null
-                          ? Image.file(
-                              image!,
-                              fit: BoxFit.cover,
-                            )
-                          : const Icon(Icons.add_a_photo),
-                    ))
-              ]),
-              actions: <Widget>[
-                TextButton(
-                  child: Text('Annuler'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-                TextButton(
-                  child: Text('Ajouter'),
-                  onPressed: () {
-                    setState(() {
-                      _markers.add(Marker(
-                          width: 80.0,
-                          height: 80.0,
-                          point: latLng.LatLng(_currentPosition.latitude,
-                              _currentPosition.longitude),
-                          builder: (ctx) => Container(
-                              child: GestureDetector(
-                                  onTap: () {
-                                    showDialog(
-                                        context: scaffoldKey.currentContext!,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            content: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Image.file(
-                                                    image!,
-                                                    fit: BoxFit.contain,
-                                                  ),
-                                                  Text(description)
-                                                ]),
-                                          );
-                                        });
-                                  },
-                                  child: Image.file(
-                                    image!,
-                                    fit: BoxFit.cover,
-                                  )))));
-                    });
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ]);
+                  ),
+                  Stack(
+                    children: [
+                      GestureDetector(
+                          onTap: () async {
+                            final pickedFile = await picker.pickImage(
+                                source: ImageSource.gallery);
+                            if (pickedFile != null) {
+                              setState(() {
+                                image = File(pickedFile.path);
+                              });
+                            }
+                          },
+                          child: Container(
+                              margin: const EdgeInsets.symmetric(vertical: 20),
+                              height: 100,
+                              width: 100,
+                              child: image != null
+                                  ? Image.file(
+                                      image!,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : const Icon(
+                                      Icons.add_a_photo,
+                                      size: 50,
+                                    ))),
+                    ],
+                  ),
+                ]),
+                actions: <Widget>[
+                  TextButton(
+                    child: const Text('Annuler'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  ElevatedButton(
+                    onPressed: (image != null && description.isNotEmpty)
+                        ? () {
+                            setState(() {
+                              _markers.add(newMarker(image, description));
+                              image = null;
+                              description = '';
+                            });
+                            Navigator.of(context).pop();
+                          }
+                        : null,
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      disabledBackgroundColor: Colors.grey,
+                      disabledForegroundColor: Colors.black,
+                    ),
+                    child: const Text('Ajouter'),
+                  ),
+                ]);
+          });
         });
+  }
 
-    /*
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    setState(() {
-      _markers.add(Marker(
+  Marker newMarker(File? image, String description) {
+    return Marker(
         width: 80.0,
         height: 80.0,
-        point: latLng.LatLng(position.latitude, position.longitude),
-        builder: (ctx) => const Icon(Icons.location_on),
-      ));
-    });*/
+        point: latLng.LatLng(
+            _currentPosition.latitude, _currentPosition.longitude),
+        builder: (ctx) => GestureDetector(
+            onTap: () {
+              showDialog(
+                  context: scaffoldKey.currentContext!,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      content:
+                          Column(mainAxisSize: MainAxisSize.min, children: [
+                        Image.file(
+                          image!,
+                          fit: BoxFit.contain,
+                        ),
+                        Text(description)
+                      ]),
+                    );
+                  });
+            },
+            child: Image.file(
+              image!,
+              fit: BoxFit.cover,
+            )));
   }
 
   Widget drawMap(BuildContext context) {
