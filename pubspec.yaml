@@ -12,10 +12,10 @@ dependencies:
   flutter_map_location_marker: any
   flutter:
     sdk: flutter
-  flutter_tflite: ^1.0.1
   image_picker: ^0.8.7+4
   cupertino_icons: ^1.0.2
   flutter_map: ^3.1.0
+  geolocator: ^9.0.2
 
 dev_dependencies:
   flutter_test:
