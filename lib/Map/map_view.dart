@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:latlong2/latlong.dart' as latLng;
 
 void main() {
@@ -32,22 +35,119 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MapState();
 }
 
-class _MapState extends State<MyHomePage> {
+final scaffoldKey = GlobalKey<ScaffoldState>();
 
+class _MapState extends State<MyHomePage> {
   final List<Marker> _markers = [];
-  late Future<Position> _currentPositionFuture;
+  final picker = ImagePicker();
+  final mapController = MapController();
+  late Position _currentPosition;
 
   @override
   void initState() {
     super.initState();
-    _currentPositionFuture = _getCurrentLocation();
+    _getCurrentLocation();
   }
 
-  void _addMarker() async {
+  Future<void> _getCurrentLocation() async {
+    final Position position = await Geolocator.getCurrentPosition();
+    setState(() {
+      _currentPosition = position;
+      mapController.move(
+          latLng.LatLng(position.latitude, position.longitude), 15.0);
+    });
+  }
+
+  Future<void> _addMarker() async {
+    String description = '';
+    File? image;
+
+    await showDialog(
+        context: scaffoldKey.currentContext!,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: const Text('Ajouter un marqeur'),
+              content:
+                  Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                TextField(
+                  decoration: const InputDecoration(
+                    hintText: 'Entrez une description',
+                  ),
+                  onChanged: (value) {
+                    description = value;
+                  },
+                ),
+                GestureDetector(
+                    onTap: () async {
+                      final pickedFile =
+                          await picker.pickImage(source: ImageSource.gallery);
+                      if (pickedFile != null) {
+                        setState(() {
+                          image = File(pickedFile.path);
+                        });
+                      }
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(vertical: 20),
+                      height: 100,
+                      width: 100,
+                      child: image != null
+                          ? Image.file(
+                              image!,
+                              fit: BoxFit.cover,
+                            )
+                          : const Icon(Icons.add_a_photo),
+                    ))
+              ]),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('Annuler'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: Text('Ajouter'),
+                  onPressed: () {
+                    setState(() {
+                      _markers.add(Marker(
+                          width: 80.0,
+                          height: 80.0,
+                          point: latLng.LatLng(_currentPosition.latitude,
+                              _currentPosition.longitude),
+                          builder: (ctx) => Container(
+                              child: GestureDetector(
+                                  onTap: () {
+                                    showDialog(
+                                        context: scaffoldKey.currentContext!,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            content: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Image.file(
+                                                    image!,
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                  Text(description)
+                                                ]),
+                                          );
+                                        });
+                                  },
+                                  child: Image.file(
+                                    image!,
+                                    fit: BoxFit.cover,
+                                  )))));
+                    });
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ]);
+        });
+
+    /*
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    print(
-        "Latitude : ${position.latitude} | Longitude : ${position.longitude}");
     setState(() {
       _markers.add(Marker(
         width: 80.0,
@@ -55,53 +155,39 @@ class _MapState extends State<MyHomePage> {
         point: latLng.LatLng(position.latitude, position.longitude),
         builder: (ctx) => const Icon(Icons.location_on),
       ));
-      print("Markers Length : ${_markers.length}");
-    });
+    });*/
   }
 
-  Future<Position> _getCurrentLocation() async {
-    return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-  }
-
-  Widget drawMap(BuildContext context){
-    return FutureBuilder<Position>(
-        future: _currentPositionFuture,
-        builder: (BuildContext context, AsyncSnapshot<Position> snapshot) {
-          if (snapshot.hasData) {
-            final currentPosition = snapshot.data;
-            return FlutterMap(
-              options: MapOptions(
-                center: latLng.LatLng(currentPosition!.latitude, currentPosition.longitude),
-                zoom: 13.0,
-              ),
-              nonRotatedChildren: [
-                AttributionWidget.defaultWidget(
-                  source: 'OpenStreetMap contributors',
-                  onSourceTapped: null,
-                )
-              ],
-              children: [
-                TileLayer(
-                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                  userAgentPackageName: 'com.example.app',
-                ),
-                CurrentLocationLayer(),
-                MarkerLayer(
-                  markers: _markers,
-                ),
-              ],
-            );
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        }
+  Widget drawMap(BuildContext context) {
+    return FlutterMap(
+      mapController: mapController,
+      options: MapOptions(
+        center: latLng.LatLng(0, 0),
+        zoom: 13.0,
+      ),
+      nonRotatedChildren: [
+        AttributionWidget.defaultWidget(
+          source: 'OpenStreetMap contributors',
+          onSourceTapped: null,
+        )
+      ],
+      children: [
+        TileLayer(
+          urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+          userAgentPackageName: 'com.example.app',
+        ),
+        CurrentLocationLayer(),
+        MarkerLayer(
+          markers: _markers,
+        ),
+      ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: Text(widget.title),
       ),
