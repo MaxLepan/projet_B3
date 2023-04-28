@@ -8,11 +8,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:latlong2/latlong.dart' as latLng;
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MapView());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MapView extends StatelessWidget {
+  const MapView({super.key});
 
   @override
   Widget build(BuildContext context) {
