@@ -1,13 +1,18 @@
 import 'dart:io';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:latlong2/latlong.dart' as latLng;
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
-void main() {
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MapView());
 }
 
@@ -116,8 +121,21 @@ class _MapState extends State<MyHomePage> {
                   ElevatedButton(
                     onPressed: (image != null && description.isNotEmpty)
                         ? () {
+                            print("*** $description");
                             setState(() {
                               _markers.add(newMarker(image, description));
+                              uploadImage(image!).then((value) => {
+                                FirebaseFirestore.instance.collection('marker').add({
+                                  'creationDate': DateTime.now(),
+                                  'description': description,
+                                  'location': GeoPoint(
+                                      _currentPosition.latitude,
+                                      _currentPosition.longitude),
+                                  'image': value,
+                                  'userId': "thatOneUser"
+                                })
+                              });
+                              
                               image = null;
                               description = '';
                             });
@@ -167,6 +185,16 @@ class _MapState extends State<MyHomePage> {
               image!,
               fit: BoxFit.cover,
             )));
+  }
+
+  Future<String> uploadImage(File file) async {
+    await Firebase.initializeApp();
+    final firebaseStorage = FirebaseStorage.instance;
+
+    var snapshot = await firebaseStorage.ref().child('images/${DateTime.now().toString()}').putFile(file);
+    var downloadUrl = await snapshot.ref.getDownloadURL();
+
+    return downloadUrl;
   }
 
   Widget drawMap(BuildContext context) {
