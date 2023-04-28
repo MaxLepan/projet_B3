@@ -121,17 +121,16 @@ class _MapState extends State<MyHomePage> {
                   ElevatedButton(
                     onPressed: (image != null && description.isNotEmpty)
                         ? () {
-                            print("*** $description");
                             setState(() {
                               _markers.add(newMarker(image, description));
-                              uploadImage(image!).then((value) => {
+                              uploadImage(image!, description).then((value) => {
                                 FirebaseFirestore.instance.collection('marker').add({
                                   'creationDate': DateTime.now(),
-                                  'description': description,
+                                  'description': value[1],
                                   'location': GeoPoint(
                                       _currentPosition.latitude,
                                       _currentPosition.longitude),
-                                  'image': value,
+                                  'image': value[0],
                                   'userId': "thatOneUser"
                                 })
                               });
@@ -187,14 +186,14 @@ class _MapState extends State<MyHomePage> {
             )));
   }
 
-  Future<String> uploadImage(File file) async {
+  Future<List> uploadImage(File file, String description) async {
     await Firebase.initializeApp();
     final firebaseStorage = FirebaseStorage.instance;
 
     var snapshot = await firebaseStorage.ref().child('images/${DateTime.now().toString()}').putFile(file);
     var downloadUrl = await snapshot.ref.getDownloadURL();
 
-    return downloadUrl;
+    return [downloadUrl, description];
   }
 
   Widget drawMap(BuildContext context) {
