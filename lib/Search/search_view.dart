@@ -1,9 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../Species/species_view_model.dart';
 
-class SearchView extends StatelessWidget {
-  SearchView({super.key});
+
+class SearchView extends StatefulWidget{
+  const SearchView({Key? key}) : super(key: key);
+
+  @override
+  SearchViewState createState() => SearchViewState();
+}
+
+class SearchViewState extends State<SearchView> {
+  final SpeciesViewModel speciesViewModel = SpeciesViewModel();
+
   final List<String> speciesImages = [
     "https://cdn.vox-cdn.com/thumbor/Lqw4lEEh11oLoXJdJv34A-5NI4s=/0x0:4928x3280/1200x0/filters:focal(0x0:4928x3280):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/23286183/GettyImages_1238172363.jpg",
     "https://images.ctfassets.net/cnu0m8re1exe/jIodPqeb9lDZW6WaerUCq/a07e6130fe401e714ed8521a818be880/shutterstock_2120543582.jpg",
@@ -15,7 +25,14 @@ class SearchView extends StatelessWidget {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    speciesViewModel.getSpecies();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    print(speciesViewModel.getSpecies());
     return Scaffold(
       appBar: AppBar(
         title: Text("Rechercher une bête"),
