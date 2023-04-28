@@ -1,13 +1,18 @@
 import 'dart:collection';
-
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:projet_b3/firebase_options.dart';
 import 'package:projet_b3/routes.dart';
 import 'Search/search_view.dart';
 import 'Home/home_view.dart';
 import 'Map/map_view.dart';
 
 
-void main() {
+Future<void> main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 

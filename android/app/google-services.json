@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "191714839922",
+    "project_id": "appb3projet",
+    "storage_bucket": "appb3projet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:191714839922:android:28d2f8adf7c68703b0e1eb",
+        "android_client_info": {
+          "package_name": "com.gardiens.AppB3Projet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "191714839922-r782v95fhhj2rjvo51sg78u9vh2238d6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeejcSGQSzY8YBlL7WECdY-ww8gKfjLLM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "191714839922-r782v95fhhj2rjvo51sg78u9vh2238d6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

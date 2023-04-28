@@ -1,4 +1,4 @@
-package com.gardiens.projet_b3
+package com.gardiens.AppB3Projet
 
 import io.flutter.embedding.android.FlutterActivity
 

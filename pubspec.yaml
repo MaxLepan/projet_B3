@@ -12,6 +12,7 @@ dependencies:
   flutter_map_location_marker: any
   flutter:
     sdk: flutter
+  firebase_core: ^2.10.0
   flutter_tflite: ^1.0.1
   image_picker: ^0.8.7+4
   cupertino_icons: ^1.0.2

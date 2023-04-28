@@ -9,7 +9,17 @@ class SearchView extends StatelessWidget {
       appBar: AppBar(
         title: Text("Rechercher une bête"),
       ),
-      body: Center(),
-    );
+      body:
+        const Padding(
+          padding: EdgeInsets.only(left: 20, right: 20),
+          child:
+          TextField(
+            decoration: InputDecoration(
+                hintText: "Trouver une bête",
+                suffixIcon: IconButton(onPressed: null, icon: Icon(Icons.search))
+            ),
+          ),
+        ),
+      );
   }
 }
