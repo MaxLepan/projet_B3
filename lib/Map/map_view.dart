@@ -1,13 +1,11 @@
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:latlong2/latlong.dart' as latLng;
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:projet_b3/Map/map_view_model.dart';
 
 
 Future<void> main() async {
@@ -26,41 +24,32 @@ class MapView extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Map'),
+      home: const MapPage(title: 'Map'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class MapPage extends StatefulWidget {
+  const MapPage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MapState();
+  State<MapPage> createState() => _MapState();
 }
 
 final scaffoldKey = GlobalKey<ScaffoldState>();
 
-class _MapState extends State<MyHomePage> {
+class _MapState extends State<MapPage> {
   final List<Marker> _markers = [];
   final picker = ImagePicker();
-  final mapController = MapController();
-  late Position _currentPosition;
+
+  late MapViewModel viewModel;
 
   @override
   void initState() {
     super.initState();
-    _getCurrentLocation();
-  }
-
-  Future<void> _getCurrentLocation() async {
-    final Position position = await Geolocator.getCurrentPosition();
-    setState(() {
-      _currentPosition = position;
-      mapController.move(
-          latLng.LatLng(position.latitude, position.longitude), 15.0);
-    });
+    viewModel = MapViewModel();
   }
 
   Future<void> _addMarker() async {
@@ -75,42 +64,42 @@ class _MapState extends State<MyHomePage> {
                 title: const Text('Ajouter un marqeur'),
                 content:
                     Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                  TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'Entrez une description',
-                    ),
-                    onChanged: (value) {
-                      description = value;
-                    },
-                  ),
-                  Stack(
-                    children: [
-                      GestureDetector(
-                          onTap: () async {
-                            final pickedFile = await picker.pickImage(
-                                source: ImageSource.gallery);
-                            if (pickedFile != null) {
-                              setState(() {
-                                image = File(pickedFile.path);
-                              });
-                            }
-                          },
-                          child: Container(
-                              margin: const EdgeInsets.symmetric(vertical: 20),
-                              height: 100,
-                              width: 100,
-                              child: image != null
-                                  ? Image.file(
-                                      image!,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : const Icon(
-                                      Icons.add_a_photo,
-                                      size: 50,
-                                    ))),
-                    ],
-                  ),
-                ]),
+                      TextField(
+                        decoration: const InputDecoration(
+                          hintText: 'Entrez une description',
+                        ),
+                        onChanged: (value) {
+                          description = value;
+                        },
+                      ),
+                      Stack(
+                        children: [
+                          GestureDetector(
+                              onTap: () async {
+                                final pickedFile = await picker.pickImage(
+                                    source: ImageSource.gallery);
+                                if (pickedFile != null) {
+                                  setState(() {
+                                    image = File(pickedFile.path);
+                                  });
+                                }
+                              },
+                              child: Container(
+                                  margin: const EdgeInsets.symmetric(vertical: 20),
+                                  height: 100,
+                                  width: 100,
+                                  child: image != null
+                                      ? Image.file(
+                                          image!,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : const Icon(
+                                          Icons.add_a_photo,
+                                          size: 50,
+                                        ))),
+                        ],
+                      ),
+                    ]),
                 actions: <Widget>[
                   TextButton(
                     child: const Text('Annuler'),
@@ -123,18 +112,9 @@ class _MapState extends State<MyHomePage> {
                         ? () {
                             setState(() {
                               _markers.add(newMarker(image, description));
-                              uploadImage(image!, description).then((value) => {
-                                FirebaseFirestore.instance.collection('marker').add({
-                                  'creationDate': DateTime.now(),
-                                  'description': value[1],
-                                  'location': GeoPoint(
-                                      _currentPosition.latitude,
-                                      _currentPosition.longitude),
-                                  'image': value[0],
-                                  'userId': "thatOneUser"
-                                })
+                              viewModel.uploadImage(image!, description).then((value) => {
+                                viewModel.addMarkerToDb(value[1], value[0])
                               });
-                              
                               image = null;
                               description = '';
                             });
@@ -162,7 +142,9 @@ class _MapState extends State<MyHomePage> {
         width: 80.0,
         height: 80.0,
         point: latLng.LatLng(
-            _currentPosition.latitude, _currentPosition.longitude),
+            viewModel.currentPosition.latitude,
+            viewModel.currentPosition.longitude
+        ),
         builder: (ctx) => GestureDetector(
             onTap: () {
               showDialog(
@@ -171,11 +153,11 @@ class _MapState extends State<MyHomePage> {
                     return AlertDialog(
                       content:
                           Column(mainAxisSize: MainAxisSize.min, children: [
-                        Image.file(
-                          image!,
-                          fit: BoxFit.contain,
-                        ),
-                        Text(description)
+                            Image.file(
+                              image!,
+                              fit: BoxFit.contain,
+                            ),
+                            Text(description)
                       ]),
                     );
                   });
@@ -186,19 +168,9 @@ class _MapState extends State<MyHomePage> {
             )));
   }
 
-  Future<List> uploadImage(File file, String description) async {
-    await Firebase.initializeApp();
-    final firebaseStorage = FirebaseStorage.instance;
-
-    var snapshot = await firebaseStorage.ref().child('images/${DateTime.now().toString()}').putFile(file);
-    var downloadUrl = await snapshot.ref.getDownloadURL();
-
-    return [downloadUrl, description];
-  }
-
   Widget drawMap(BuildContext context) {
     return FlutterMap(
-      mapController: mapController,
+      mapController: viewModel.mapController,
       options: MapOptions(
         center: latLng.LatLng(0, 0),
         zoom: 13.0,
