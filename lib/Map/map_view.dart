@@ -1,10 +1,12 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:latlong2/latlong.dart' as latLng;
 import 'package:firebase_core/firebase_core.dart';
+import 'package:projet_b3/Map/map_model.dart';
 import 'package:projet_b3/Map/map_view_model.dart';
 
 
@@ -38,10 +40,9 @@ class MapPage extends StatefulWidget {
   State<MapPage> createState() => _MapState();
 }
 
-final scaffoldKey = GlobalKey<ScaffoldState>();
+
 
 class _MapState extends State<MapPage> {
-  final List<Marker> _markers = [];
   final picker = ImagePicker();
 
   late MapViewModel viewModel;
@@ -57,7 +58,7 @@ class _MapState extends State<MapPage> {
     File? image;
 
     await showDialog(
-        context: scaffoldKey.currentContext!,
+        context: viewModel.scaffoldKey.currentContext!,
         builder: (BuildContext context) {
           return StatefulBuilder(builder: (context, setState) {
             return AlertDialog(
@@ -111,7 +112,7 @@ class _MapState extends State<MapPage> {
                     onPressed: (image != null && description.isNotEmpty)
                         ? () {
                             setState(() {
-                              _markers.add(newMarker(image, description));
+                              //viewModel.markers.add(newMarker(image, description));
                               viewModel.uploadImage(image!, description).then((value) => {
                                 viewModel.addMarkerToDb(value[1], value[0])
                               });
@@ -148,7 +149,7 @@ class _MapState extends State<MapPage> {
         builder: (ctx) => GestureDetector(
             onTap: () {
               showDialog(
-                  context: scaffoldKey.currentContext!,
+                  context: viewModel.scaffoldKey.currentContext!,
                   builder: (BuildContext context) {
                     return AlertDialog(
                       content:
@@ -169,35 +170,47 @@ class _MapState extends State<MapPage> {
   }
 
   Widget drawMap(BuildContext context) {
-    return FlutterMap(
-      mapController: viewModel.mapController,
-      options: MapOptions(
-        center: latLng.LatLng(0, 0),
-        zoom: 13.0,
-      ),
-      nonRotatedChildren: [
-        AttributionWidget.defaultWidget(
-          source: 'OpenStreetMap contributors',
-          onSourceTapped: null,
-        )
-      ],
-      children: [
-        TileLayer(
-          urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-          userAgentPackageName: 'com.example.app',
-        ),
-        CurrentLocationLayer(),
-        MarkerLayer(
-          markers: _markers,
-        ),
-      ],
+    return StreamBuilder<List<CustomMarker>>(
+      stream: viewModel.getMarkerList(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          viewModel.markers = snapshot.data!;
+          return FlutterMap(
+            mapController: viewModel.mapController,
+            options: MapOptions(
+              center: latLng.LatLng(0, 0),
+              zoom: 13.0,
+            ),
+            nonRotatedChildren: [
+              AttributionWidget.defaultWidget(
+                source: 'OpenStreetMap contributors',
+                onSourceTapped: null,
+              )
+            ],
+            children: [
+              TileLayer(
+                urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                userAgentPackageName: 'com.gardiens.AppB3Projet',
+              ),
+              CurrentLocationLayer(),
+              MarkerLayer(
+                markers: viewModel.customMarkersToMarkers(),
+              ),
+            ],
+          );
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      }
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
+      key: viewModel.scaffoldKey,
       appBar: AppBar(
         title: Text(widget.title),
       ),
