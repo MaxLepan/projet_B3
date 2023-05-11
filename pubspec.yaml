@@ -19,6 +19,7 @@ dependencies:
   flutter_map: ^3.1.0
   geolocator: ^9.0.2
   cloud_firestore: ^4.5.3
+  graph_collection: ^2.1.0
 
 dev_dependencies:
   flutter_test:
