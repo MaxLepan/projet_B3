@@ -55,7 +55,7 @@ UndirectedValueGraph graphBuilder(){
   g.add("couleur_rocheux_souterrains_amphi");
   g.add("couleur_rocheux_souterrains_rept");
   //Rocheux et souterrains Edges
-  g.set("habitat", "espece_rocheux_souterrains", 21, "rocheux_souterrains");
+  g.set("habitat", "espece_rocheux_souterrains", 21, "rocheux souterrains");
   g.set("espece_rocheux_souterrains", "couleur_rocheux_souterrains_amphi", 22, "amphi");
   g.set("espece_rocheux_souterrains", "couleur_rocheux_souterrains_rept", 23, "rept");
   g.set("couleur_rocheux_souterrains_amphi", "crapaud_epineux", 24, "brun");
@@ -70,7 +70,7 @@ UndirectedValueGraph graphBuilder(){
   g.add("couleur_ouvert_semi_amphi");
   g.add("motif_ouvert_semi_amphi_brun");
   //Ouvert et semi ouvert Edges
-  g.set("habitat", "espece_ouvert_semi", 29, "ouvert_semi_ouvert");
+  g.set("habitat", "espece_ouvert_semi", 29, "ouvert semi ouvert");
   g.set("espece_ouvert_semi", "couleur_ouvert_semi_amphi", 30, "amphi");
   g.set("couleur_ouvert_semi_amphi", "rainette_meridionale", 31, "vert");
   g.set("couleur_ouvert_semi_amphi", "motif_ouvert_semi_amphi_brun", 32, "brun");
@@ -88,8 +88,20 @@ UndirectedValueGraph graphBuilder(){
   g.add("grenouille_lessona");
 
   var grapheList = g.items.toList();
-  
+  var grapheMap = g.items;
+  var test = grapheMap.cast();
+
+  var current = g.firstWhere((element) => element == "habitat", orElse: () => -1);
+  var iterator = g.iterator;
+
   print("test");
+
+
+  /*
+  var grapheIterator = g.iterator;
+  var contain = grapheMap.contains("espece_rocheux_souterrains");*/
+
+
   return g;
 }
 
