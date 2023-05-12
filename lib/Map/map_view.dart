@@ -1,13 +1,18 @@
 import 'dart:io';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:latlong2/latlong.dart' as latLng;
+import 'package:firebase_core/firebase_core.dart';
+import 'package:projet_b3/Map/map_model.dart';
+import 'package:projet_b3/Map/map_view_model.dart';
 
-void main() {
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MapView());
 }
 
@@ -21,41 +26,31 @@ class MapView extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Map'),
+      home: const MapPage(title: 'Map'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class MapPage extends StatefulWidget {
+  const MapPage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MapState();
+  State<MapPage> createState() => _MapState();
 }
 
-final scaffoldKey = GlobalKey<ScaffoldState>();
 
-class _MapState extends State<MyHomePage> {
-  final List<Marker> _markers = [];
+
+class _MapState extends State<MapPage> {
   final picker = ImagePicker();
-  final mapController = MapController();
-  late Position _currentPosition;
+
+  late MapViewModel viewModel;
 
   @override
   void initState() {
     super.initState();
-    _getCurrentLocation();
-  }
-
-  Future<void> _getCurrentLocation() async {
-    final Position position = await Geolocator.getCurrentPosition();
-    setState(() {
-      _currentPosition = position;
-      mapController.move(
-          latLng.LatLng(position.latitude, position.longitude), 15.0);
-    });
+    viewModel = MapViewModel();
   }
 
   Future<void> _addMarker() async {
@@ -63,49 +58,49 @@ class _MapState extends State<MyHomePage> {
     File? image;
 
     await showDialog(
-        context: scaffoldKey.currentContext!,
+        context: viewModel.scaffoldKey.currentContext!,
         builder: (BuildContext context) {
           return StatefulBuilder(builder: (context, setState) {
             return AlertDialog(
                 title: const Text('Ajouter un marqeur'),
                 content:
                     Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                  TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'Entrez une description',
-                    ),
-                    onChanged: (value) {
-                      description = value;
-                    },
-                  ),
-                  Stack(
-                    children: [
-                      GestureDetector(
-                          onTap: () async {
-                            final pickedFile = await picker.pickImage(
-                                source: ImageSource.gallery);
-                            if (pickedFile != null) {
-                              setState(() {
-                                image = File(pickedFile.path);
-                              });
-                            }
-                          },
-                          child: Container(
-                              margin: const EdgeInsets.symmetric(vertical: 20),
-                              height: 100,
-                              width: 100,
-                              child: image != null
-                                  ? Image.file(
-                                      image!,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : const Icon(
-                                      Icons.add_a_photo,
-                                      size: 50,
-                                    ))),
-                    ],
-                  ),
-                ]),
+                      TextField(
+                        decoration: const InputDecoration(
+                          hintText: 'Entrez une description',
+                        ),
+                        onChanged: (value) {
+                          description = value;
+                        },
+                      ),
+                      Stack(
+                        children: [
+                          GestureDetector(
+                              onTap: () async {
+                                final pickedFile = await picker.pickImage(
+                                    source: ImageSource.gallery);
+                                if (pickedFile != null) {
+                                  setState(() {
+                                    image = File(pickedFile.path);
+                                  });
+                                }
+                              },
+                              child: Container(
+                                  margin: const EdgeInsets.symmetric(vertical: 20),
+                                  height: 100,
+                                  width: 100,
+                                  child: image != null
+                                      ? Image.file(
+                                          image!,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : const Icon(
+                                          Icons.add_a_photo,
+                                          size: 50,
+                                        ))),
+                        ],
+                      ),
+                    ]),
                 actions: <Widget>[
                   TextButton(
                     child: const Text('Annuler'),
@@ -117,7 +112,10 @@ class _MapState extends State<MyHomePage> {
                     onPressed: (image != null && description.isNotEmpty)
                         ? () {
                             setState(() {
-                              _markers.add(newMarker(image, description));
+                              //viewModel.markers.add(newMarker(image, description));
+                              viewModel.uploadImage(image!, description).then((value) => {
+                                viewModel.addMarkerToDb(value[1], value[0])
+                              });
                               image = null;
                               description = '';
                             });
@@ -145,20 +143,22 @@ class _MapState extends State<MyHomePage> {
         width: 80.0,
         height: 80.0,
         point: latLng.LatLng(
-            _currentPosition.latitude, _currentPosition.longitude),
+            viewModel.currentPosition.latitude,
+            viewModel.currentPosition.longitude
+        ),
         builder: (ctx) => GestureDetector(
             onTap: () {
               showDialog(
-                  context: scaffoldKey.currentContext!,
+                  context: viewModel.scaffoldKey.currentContext!,
                   builder: (BuildContext context) {
                     return AlertDialog(
                       content:
                           Column(mainAxisSize: MainAxisSize.min, children: [
-                        Image.file(
-                          image!,
-                          fit: BoxFit.contain,
-                        ),
-                        Text(description)
+                            Image.file(
+                              image!,
+                              fit: BoxFit.contain,
+                            ),
+                            Text(description)
                       ]),
                     );
                   });
@@ -170,35 +170,48 @@ class _MapState extends State<MyHomePage> {
   }
 
   Widget drawMap(BuildContext context) {
-    return FlutterMap(
-      mapController: mapController,
-      options: MapOptions(
-        center: latLng.LatLng(0, 0),
-        zoom: 13.0,
-      ),
-      nonRotatedChildren: [
-        AttributionWidget.defaultWidget(
-          source: 'OpenStreetMap contributors',
-          onSourceTapped: null,
-        )
-      ],
-      children: [
-        TileLayer(
-          urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-          userAgentPackageName: 'com.example.app',
-        ),
-        CurrentLocationLayer(),
-        MarkerLayer(
-          markers: _markers,
-        ),
-      ],
+    return StreamBuilder<List<CustomMarker>>(
+      stream: viewModel.getMarkerList(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          viewModel.markers = snapshot.data!;
+          return FlutterMap(
+            mapController: viewModel.mapController,
+            options: MapOptions(
+              center: latLng.LatLng(0, 0),
+              zoom: 13.0,
+              interactiveFlags: InteractiveFlag.all & ~InteractiveFlag.rotate,
+            ),
+            nonRotatedChildren: [
+              AttributionWidget.defaultWidget(
+                source: 'OpenStreetMap contributors',
+                onSourceTapped: null,
+              )
+            ],
+            children: [
+              TileLayer(
+                urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                userAgentPackageName: 'com.gardiens.AppB3Projet',
+              ),
+              CurrentLocationLayer(),
+              MarkerLayer(
+                markers: viewModel.customMarkersToMarkers(),
+              ),
+            ],
+          );
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      }
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
+      key: viewModel.scaffoldKey,
       appBar: AppBar(
         title: Text(widget.title),
       ),
