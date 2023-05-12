@@ -180,6 +180,7 @@ class _MapState extends State<MapPage> {
             options: MapOptions(
               center: latLng.LatLng(0, 0),
               zoom: 13.0,
+              interactiveFlags: InteractiveFlag.all & ~InteractiveFlag.rotate,
             ),
             nonRotatedChildren: [
               AttributionWidget.defaultWidget(
