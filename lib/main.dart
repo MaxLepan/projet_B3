@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:projet_b3/Search/search_quizz_view.dart';
 import 'package:projet_b3/firebase_options.dart';
 import 'package:projet_b3/routes.dart';
 import 'Search/search_view.dart';
