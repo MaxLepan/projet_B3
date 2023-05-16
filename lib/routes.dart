@@ -12,7 +12,7 @@ final Map<String, WidgetBuilder> routes = {
     final args = ModalRoute
         .of(context)!
         .settings
-        .arguments as String;
+        .arguments as int;
       return SearchQuizzView(args);
     },
 };

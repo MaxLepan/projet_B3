@@ -7,8 +7,9 @@ class Graph {
 class Node {
   final int id;
   final String data;
+  final String? questionKey;
 
-  Node(this.id, this.data);
+  Node(this.id, this.data, this.questionKey);
 
   @override
   bool operator ==(Object other) => other is Node && other.id == id;
@@ -20,61 +21,61 @@ class Node {
   String toString() => '<$id -> $data>';
 }
 
-final node_habitat = Node(1, 'habitat');
+final node_habitat = Node(1, 'habitat', 'habitat');
 
 //humide
-final node_habitat_humide = Node(2, 'habitat humide');
-final node_humide_espece_amphibien = Node(3, "amphibien");
-final node_humide_espece_reptile = Node(4, "reptile");
+final node_habitat_humide = Node(2, 'habitat humide', 'espece');
+final node_humide_espece_amphibien = Node(3, 'amphibien', null);
+final node_humide_espece_reptile = Node(4, "reptile", null);
 
 
 //forestier
-final node_habitat_forestier = Node(5, 'habitat forestier');
-final node_forestier_espece_amphibien = Node(6, "amphibien");
-final node_forestier_espece_reptile = Node(7, "reptile");
-final node_forestier_couleur_reptile_brun = Node(8, 'brun');
-final node_forestier_couleur_reptile_gris = Node(9, 'gris');
-final node_forestier_couleur_amphibien_brun = Node(10, 'brun');
-final node_forestier_couleur_amphibien_vert = Node(11, 'vert');
+final node_habitat_forestier = Node(5, 'habitat forestier', 'espece');
+final node_forestier_espece_amphibien = Node(6, 'amphibien', 'couleur');
+final node_forestier_espece_reptile = Node(7, 'reptile', 'couleur');
+final node_forestier_couleur_reptile_brun = Node(8, 'brun', null);
+final node_forestier_couleur_reptile_gris = Node(9, 'gris', null);
+final node_forestier_couleur_amphibien_brun = Node(10, 'brun', null);
+final node_forestier_couleur_amphibien_vert = Node(11, 'vert', null);
 
 
 //ouvert et semi ouvert
-final node_habitat_ouvert = Node(12, 'habitat ouvert semi ouvert');
-final node_ouvert_couleur_amphibien_vert = Node(13, 'vert');
-final node_ouvert_couleur_amphibien_brun = Node(14, 'brun');
-final node_ouvert_motif_amphibien_marbre = Node(15, 'marbré');
-final node_ouvert_motif_amphibien_uni = Node(16, 'uni');
+final node_habitat_ouvert = Node(12, 'habitat ouvert semi ouvert', 'couleur');
+final node_ouvert_couleur_amphibien_vert = Node(13, 'vert', null);
+final node_ouvert_couleur_amphibien_brun = Node(14, 'brun', 'motif');
+final node_ouvert_motif_amphibien_marbre = Node(15, 'marbré', null);
+final node_ouvert_motif_amphibien_uni = Node(16, 'uni', null);
 
 
 //aquatique
-final node_habitat_aquatique = Node(17, 'habitat aquatique');
-final node_aquatique_couleur_amphibien_brun = Node(18, 'brun');
-final node_aquatique_couleur_amphibien_vert = Node(19, 'vert');
-final node_aquatique_motif_amphibien_brun_uni = Node(20, 'uni');
-final node_aquatique_motif_amphibien_brun_marbre = Node(21, 'marbré');
-final node_aquatique_motif_amphibien_vert_uni = Node(22, 'uni');
-final node_aquatique_motif_amphibien_vert_tachete = Node(23, 'tacheté');
+final node_habitat_aquatique = Node(17, 'habitat aquatique', 'couleur');
+final node_aquatique_couleur_amphibien_brun = Node(18, 'brun', 'motif');
+final node_aquatique_couleur_amphibien_vert = Node(19, 'vert', 'motif');
+final node_aquatique_motif_amphibien_brun_uni = Node(20, 'uni', null);
+final node_aquatique_motif_amphibien_brun_marbre = Node(21, 'marbré', null);
+final node_aquatique_motif_amphibien_vert_uni = Node(22, 'uni', null);
+final node_aquatique_motif_amphibien_vert_tachete = Node(23, 'tacheté', null);
 
 
 //rocheux
-final node_habitat_rocheux = Node(24, 'habitat rocheux');
-final node_rocheux_espece_amphibien = Node(25, "amphibien");
-final node_rocheux_espece_reptile = Node(26, "reptile");
-final node_rocheux_couleur_amphibien_brun = Node(27, 'brun');
-final node_rocheux_couleur_amphibien_gris = Node(28, 'gris');
-final node_rocheux_couleur_amphibien_vert = Node(29, 'vert');
-final node_rocheux_couleur_reptile_brun = Node(30, 'brun');
-final node_rocheux_couleur_reptile_vert_olive = Node(31, 'vert-olive');
+final node_habitat_rocheux = Node(24, 'habitat rocheux', 'espece');
+final node_rocheux_espece_amphibien = Node(25, 'amphibien', 'couleur');
+final node_rocheux_espece_reptile = Node(26, "reptile", 'couleur');
+final node_rocheux_couleur_amphibien_brun = Node(27, 'brun', null);
+final node_rocheux_couleur_amphibien_gris = Node(28, 'gris', null);
+final node_rocheux_couleur_amphibien_vert = Node(29, 'vert', null);
+final node_rocheux_couleur_reptile_brun = Node(30, 'brun', null);
+final node_rocheux_couleur_reptile_vert_olive = Node(31, 'vert-olive', null);
 
 
 //leaves
-final leaf_crapaud_epineux = Node(32, "crapaud epineux");
-final leaf_crapaud_calamite = Node(33, "crapaud calamite");
-final leaf_pelodyte_ponctuee = Node(34, "pelodyte ponctuee");
-final leaf_rainette_meridionale = Node(35, "rainette meridionale");
-final leaf_couleuvre_montpellier = Node(36, "couleuvre montpellier");
-final leaf_orvette_fragile = Node(37, "orvette fragile");
-final leaf_grenouille_lessona = Node(38, "grenouille lessona");
+final leaf_crapaud_epineux = Node(32, "crapaud epineux", null);
+final leaf_crapaud_calamite = Node(33, "crapaud calamite", null);
+final leaf_pelodyte_ponctuee = Node(34, "pelodyte ponctuee", null);
+final leaf_rainette_meridionale = Node(35, "rainette meridionale", null);
+final leaf_couleuvre_montpellier = Node(36, "couleuvre montpellier", null);
+final leaf_orvette_fragile = Node(37, "orvette fragile", null);
+final leaf_grenouille_lessona = Node(38, "grenouille lessona", null);
 
 
 final graph = Graph({

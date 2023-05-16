@@ -4,7 +4,7 @@ import 'graph_tree_v2.dart';
 
 class SearchQuizzView extends StatelessWidget {
 
-  final String? questionKey;
+  final int? questionKey;
   SearchQuizzView(this.questionKey);
 
   @override
@@ -36,33 +36,32 @@ class SearchQuizzView extends StatelessWidget {
 }
 
 
-List<ElevatedButton> generateButtons(BuildContext context, String? questionKey){
+List<ElevatedButton> generateButtons(BuildContext context, int? nodeId){
 
   List buttonsTitles = [];
   List<ElevatedButton> buttonsToDisplay = [];
-  var nodes;
 
-  if(questionKey == ""){
+
+  if(nodeId == null){
     buttonsTitles = graph.nodes.entries.first.value.toList();
   }
 
   else{
-    nodes = graph.nodes.entries;
-    buttonsTitles = graph.nodes.entries.firstWhere((entry) => entry.key.data == questionKey).value.toList();
+    buttonsTitles = graph.nodes.entries.firstWhere((entry) => entry.key.id == nodeId).value.toList();
   }
 
-  print("***$questionKey");
+  print("***$nodeId");
 
 
 
-  for(var title in buttonsTitles){
+  for(var button in buttonsTitles){
     buttonsToDisplay.add(
         ElevatedButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/questions', arguments: title.data);
+            Navigator.pushNamed(context, '/questions', arguments: button.id);
           },
           child: Text(
-            title.data,
+            button.data,
             style: TextStyle(fontSize: 24),
           ),
           style: ElevatedButton.styleFrom(
@@ -76,7 +75,7 @@ List<ElevatedButton> generateButtons(BuildContext context, String? questionKey){
 
 void main() {
   runApp(MaterialApp(
-    home: SearchQuizzView(""),
+    home: SearchQuizzView(null),
     routes: routes,
   ));
 }
