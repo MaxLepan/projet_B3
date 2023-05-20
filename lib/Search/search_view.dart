@@ -27,12 +27,12 @@ class SearchViewState extends State<SearchView> {
   @override
   void initState() {
     super.initState();
-    speciesViewModel.getSpecies();
+
   }
 
   @override
   Widget build(BuildContext context) {
-    print(speciesViewModel.getSpecies());
+    print("species list : ${speciesViewModel.speciesList.toString()}");
     return Scaffold(
       appBar: AppBar(
         title: Text("Rechercher une bête"),
@@ -53,18 +53,26 @@ class SearchViewState extends State<SearchView> {
             SizedBox(
               height: 500,
               child: GridView.builder(
-                itemCount: speciesImages.length,
+                itemCount: speciesViewModel.speciesList.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   crossAxisSpacing: 4.0,
                   mainAxisSpacing: 4.0,
                 ),
-                itemBuilder: (BuildContext context, int index){
+                itemBuilder: (BuildContext context, int index) {
+                  speciesViewModel.getSpecies().then((value) =>
+                  {
+                    print("value : ${value.toString()}")
+                  });
                   return GestureDetector(
                     onTap: (){
                       print('*** Click sur image');
                     },
-                    child:  Image.network(speciesImages[index], fit: BoxFit.cover,),
+                    child:  Image.network(
+                      speciesViewModel.speciesList[index].imageUrl ?? "https://www.feteduviolon.com/wp-content/uploads/2023/02/placeholder-1.png",
+                      fit: BoxFit.cover,
+
+                    ),
                   );
 
                 },

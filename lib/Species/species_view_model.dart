@@ -5,19 +5,18 @@ import 'package:slugify/slugify.dart';
 
 class SpeciesViewModel {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  List<Species> speciesList = [];
 
-  Future<void> getSpecies() async {
+  Future<List<Species>> getSpecies() async {
     try {
       CollectionReference species = FirebaseFirestore.instance.collection('species');
       QuerySnapshot querySnapshot = await species.get();
       final data = querySnapshot.docs.map((species) => species.data()).toList();
-      List<Species> speciesList = convertToSpeciesList(data);
-      print("***DATA $data");
-      speciesList.forEach((species) {
-       print("*** $species");
-      });
+      speciesList = convertToSpeciesList(data);
+      return speciesList;
     } catch (error) {
       print('Error retrieving species: $error');
+      return [];
     }
   }
 
