@@ -19,6 +19,24 @@ class SpeciesViewModel {
     }
   }
 
+  Future<List<Species>> getSpeciesByName(String name) async {
+    try {
+      CollectionReference species = FirebaseFirestore.instance.collection('species');
+      QuerySnapshot querySnapshot = await species.where(
+          'name',
+          isGreaterThanOrEqualTo: name,
+          isLessThan: name.substring(0, name.length -1) +
+              String.fromCharCode(name.codeUnitAt(name.length - 1) + 1)
+      ).get();
+      final data = querySnapshot.docs.map((species) => species.data()).toList();
+      speciesList = convertToSpeciesList(data);
+      return speciesList;
+    } catch (error) {
+      print('Error retrieving species: $error');
+      return [];
+    }
+  }
+
   List<Species> convertToSpeciesList(List objectList) {
     List<Species> speciesList = objectList.map((object) {
       String name = object['name'] ?? 'null';

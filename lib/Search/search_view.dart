@@ -40,14 +40,22 @@ class SearchViewState extends State<SearchView> {
       body:Container(
         child: Column(
           children:[
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(left: 20, right: 20),
               child:
               TextField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: "Trouver une bête",
-                  suffixIcon: IconButton(onPressed: null, icon: Icon(Icons.search))
+                  suffixIcon: IconButton(onPressed: null, icon: Icon(Icons.search)),
                 ),
+                onChanged: (text) {
+                  if (text.length >= 3) {
+                    speciesViewModel.getSpeciesByName(text).then((value) =>
+                    {
+                      print("value : ${value.toString()}")
+                    });
+                  }
+                },
               ),
             ),
             SizedBox(
