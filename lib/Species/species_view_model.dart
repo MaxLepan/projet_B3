@@ -20,32 +20,49 @@ class SpeciesViewModel {
     }
   }
 
+  Future<List<Species>> getSpeciesByName(String name) async {
+    try {
+      CollectionReference species = FirebaseFirestore.instance.collection('species');
+      QuerySnapshot querySnapshot = await species.where(
+          'name',
+          isGreaterThanOrEqualTo: name,
+          isLessThan: name.substring(0, name.length -1) +
+              String.fromCharCode(name.codeUnitAt(name.length - 1) + 1)
+      ).get();
+      final data = querySnapshot.docs.map((species) => species.data()).toList();
+      speciesList = convertToSpeciesList(data);
+      return speciesList;
+    } catch (error) {
+      print('Error retrieving species: $error');
+      return [];
+    }
+  }
 
   Future<Species> getSpeciesByName(String name) async {
-      CollectionReference species = FirebaseFirestore.instance.collection('species');
-      QuerySnapshot querySnapshot = await species.where('name', isEqualTo: name).limit(1).get();
-      final data = querySnapshot.docs.map((species) => species.data()).toList();
+    CollectionReference species = FirebaseFirestore.instance.collection('species');
+    QuerySnapshot querySnapshot = await species.where('name', isEqualTo: name).limit(1).get();
+    final data = querySnapshot.docs.map((species) => species.data()).toList();
 
-      if (data.isNotEmpty) {
-        Map<String, dynamic>? speciesData = data.first as Map<String, dynamic>?;
-        Species speciesObj = Species(
-          name: speciesData!['name'],
-          latinName: speciesData!['latin_name'],
-          description: speciesData['description'],
-          category: speciesData['category'],
-          shortProtectionStatus: speciesData['short_protection_status'],
-          protectionStatus: speciesData['protection_status'],
-          habitats: List<String>.from(speciesData["habitats"]),
-          humanImpact: speciesData['human_impact'],
-          lastView: speciesData['last_view'],
-          observable: speciesData['observable'],
-          funFact: speciesData['fun_fact'],
-          imageUrl: speciesData['image'],
-        );
-        return speciesObj;
-      } else {
-        throw Exception('Species not found');
-      }
+    if (data.isNotEmpty) {
+      Map<String, dynamic>? speciesData = data.first as Map<String, dynamic>?;
+      Species speciesObj = Species(
+        name: speciesData!['name'],
+        latinName: speciesData!['latin_name'],
+        description: speciesData['description'],
+        category: speciesData['category'],
+        shortProtectionStatus: speciesData['short_protection_status'],
+        protectionStatus: speciesData['protection_status'],
+        habitats: List<String>.from(speciesData["habitats"]),
+        humanImpact: speciesData['human_impact'],
+        lastView: speciesData['last_view'],
+        observable: speciesData['observable'],
+        funFact: speciesData['fun_fact'],
+        imageUrl: speciesData['image'],
+      );
+      return speciesObj;
+    } else {
+      throw Exception('Species not found');
+    }
   }
 
   List<Species> convertToSpeciesList(List objectList) {
