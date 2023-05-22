@@ -5,7 +5,7 @@ import 'graph_tree_v2.dart';
 class SearchQuizzView extends StatelessWidget {
 
   final int? questionKey;
-  SearchQuizzView(this.questionKey);
+  const SearchQuizzView(this.questionKey, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -50,22 +50,24 @@ List<ElevatedButton> generateButtons(BuildContext context, int? nodeId){
     buttonsTitles = graph.nodes.entries.firstWhere((entry) => entry.key.id == nodeId).value.toList();
   }
 
-  print("***$nodeId");
-
-
 
   for(var button in buttonsTitles){
     buttonsToDisplay.add(
         ElevatedButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/questions', arguments: button.id);
+            if(button.questionKey != null){
+              Navigator.pushNamed(context, '/questions', arguments: button.id);
+            }
+            else{
+              Navigator.pushNamed(context, '/questions/result', arguments: button);
+            }
           },
+          style: ElevatedButton.styleFrom(
+            minimumSize: const Size(200, 50),
+          ),
           child: Text(
             button.data,
-            style: TextStyle(fontSize: 24),
-          ),
-          style: ElevatedButton.styleFrom(
-            minimumSize: Size(200, 50),
+            style: const TextStyle(fontSize: 24),
           ),
         ),
     );
