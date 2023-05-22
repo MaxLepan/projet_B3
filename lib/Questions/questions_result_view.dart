@@ -8,6 +8,9 @@ class QuestionsResultView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
+    /*TODO
+    *  Rajouter un appel en bdd pour recuperer l'espece avec le nom*/
     var theSpecies = graph.nodes.entries.firstWhere((entry) => entry.key == button ).value;
 
     return Scaffold(

@@ -1,9 +1,9 @@
 
-class Questions {
-  final String key;
-  final String question;
+class Question {
+  final String? key;
+  final String? question;
 
-  Questions(this.key, this.question);
+  Question(this.key, this.question);
 
   @override
   String toString() {

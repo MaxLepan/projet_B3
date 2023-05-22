@@ -1,62 +1,82 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:projet_b3/Questions/questions_model.dart';
+import 'package:projet_b3/Questions/questions_view_model.dart';
+import '../firebase_options.dart';
 import '../routes.dart';
 import 'graph_tree_v2.dart';
 
 class SearchQuizzView extends StatelessWidget {
 
-  final int? questionKey;
-  const SearchQuizzView(this.questionKey, {super.key});
+  final Node? node;
+  const SearchQuizzView(this.node, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    final List<ElevatedButton> buttonsToDisplay = generateButtons(context, questionKey);
+
+    final List<ElevatedButton> buttonsToDisplay = generateButtons(context, node);
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Search Quizz'), // Titre de la page
       ),
       body: Container(
-      color: Colors.red,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Center(
-              child: ListView.builder(
-                itemCount: buttonsToDisplay.length,
-                itemBuilder: (context, index) => buttonsToDisplay[index],
-              ),
-            ),
-          ),
-        ],
+        child: FutureBuilder<List<Question>?>(
+          future: QuestionsViewModel().getQuestionByKey(node?.questionKey),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Erreur de chargement des questions'));
+            } else {
+              final Question? question = snapshot.data?.first;
+
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(question?.question ?? 'Erreur lors du chargement de la question',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
+                      )),
+                  Expanded(
+                    child: Center(
+                      child: ListView.builder(
+                        itemCount: buttonsToDisplay.length,
+                        itemBuilder: (context, index) => buttonsToDisplay[index],
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            }
+          },
+        ),
       ),
-    ),
     );
   }
 }
 
 
-List<ElevatedButton> generateButtons(BuildContext context, int? nodeId){
+List<ElevatedButton> generateButtons(BuildContext context, Node? node){
 
   List buttonsTitles = [];
   List<ElevatedButton> buttonsToDisplay = [];
 
-
-  if(nodeId == null){
+  if(node == null){
     buttonsTitles = graph.nodes.entries.first.value.toList();
   }
 
   else{
-    buttonsTitles = graph.nodes.entries.firstWhere((entry) => entry.key.id == nodeId).value.toList();
+    buttonsTitles = graph.nodes.entries.firstWhere((entry) => entry.key == node).value.toList();
   }
-
 
   for(var button in buttonsTitles){
     buttonsToDisplay.add(
         ElevatedButton(
           onPressed: () {
             if(button.questionKey != null){
-              Navigator.pushNamed(context, '/questions', arguments: button.id);
+              Navigator.pushNamed(context, '/questions', arguments: button);
             }
             else{
               Navigator.pushNamed(context, '/questions/result', arguments: button);
@@ -75,9 +95,14 @@ List<ElevatedButton> generateButtons(BuildContext context, int? nodeId){
   return buttonsToDisplay;
 }
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(MaterialApp(
-    home: SearchQuizzView(null),
+    home: const SearchQuizzView(null),
     routes: routes,
   ));
 }

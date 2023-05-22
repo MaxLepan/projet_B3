@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projet_b3/Search/graph_tree_v2.dart';
 import 'package:projet_b3/Search/search_quizz_view.dart';
 import 'package:projet_b3/Search/search_view.dart';
 import 'Home/home_view.dart';
@@ -14,7 +15,7 @@ final Map<String, WidgetBuilder> routes = {
     final args = ModalRoute
         .of(context)!
         .settings
-        .arguments as int;
+        .arguments as Node?;
       return SearchQuizzView(args);
     },
   '/questions/result': (BuildContext context){

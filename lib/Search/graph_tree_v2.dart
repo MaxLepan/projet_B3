@@ -25,14 +25,14 @@ final node_habitat = Node(1, 'habitat', 'habitat');
 
 //humide
 final node_habitat_humide = Node(2, 'habitat humide', 'espece');
-final node_humide_espece_amphibien = Node(3, 'amphibien', null);
-final node_humide_espece_reptile = Node(4, "reptile", null);
+final node_humide_espece_amphibien = Node(3, 'non', null);
+final node_humide_espece_reptile = Node(4, "oui", null);
 
 
 //forestier
 final node_habitat_forestier = Node(5, 'habitat forestier', 'espece');
-final node_forestier_espece_amphibien = Node(6, 'amphibien', 'couleur');
-final node_forestier_espece_reptile = Node(7, 'reptile', 'couleur');
+final node_forestier_espece_amphibien = Node(6, 'non', 'couleur');
+final node_forestier_espece_reptile = Node(7, 'oui', 'couleur');
 final node_forestier_couleur_reptile_brun = Node(8, 'brun', null);
 final node_forestier_couleur_reptile_gris = Node(9, 'gris', null);
 final node_forestier_couleur_amphibien_brun = Node(10, 'brun', null);
@@ -59,8 +59,8 @@ final node_aquatique_motif_amphibien_vert_tachete = Node(23, 'tacheté', null);
 
 //rocheux
 final node_habitat_rocheux = Node(24, 'habitat rocheux', 'espece');
-final node_rocheux_espece_amphibien = Node(25, 'amphibien', 'couleur');
-final node_rocheux_espece_reptile = Node(26, "reptile", 'couleur');
+final node_rocheux_espece_amphibien = Node(25, 'non', 'couleur');
+final node_rocheux_espece_reptile = Node(26, "oui", 'couleur');
 final node_rocheux_couleur_amphibien_brun = Node(27, 'brun', null);
 final node_rocheux_couleur_amphibien_gris = Node(28, 'gris', null);
 final node_rocheux_couleur_amphibien_vert = Node(29, 'vert', null);
