@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:projet_b3/Species/species_view_model.dart';
 import '../Search/graph_tree_v2.dart';
+import '../Species/species_model.dart';
 
 class QuestionsResultView extends StatelessWidget {
   final Object? button;
@@ -8,33 +10,43 @@ class QuestionsResultView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
-    /*TODO
-    *  Rajouter un appel en bdd pour recuperer l'espece avec le nom*/
-    var theSpecies = graph.nodes.entries.firstWhere((entry) => entry.key == button ).value;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(theSpecies.first.data),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'L\'espèce que vous observez est probablement un ${theSpecies.first.data}, cliquez sur le bouton pour voir sa fiche',
-              textAlign: TextAlign.center,
+    var speciesName = graph.nodes.entries.firstWhere((entry) => entry.key == button ).value;
+
+    return FutureBuilder<Species>(
+      future: SpeciesViewModel().getSpeciesByName(speciesName.first.data),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('Une erreur s\'est produite lors du chargement des données.');
+        } else {
+          Species species = snapshot.data!;
+
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(speciesName.first.data),
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushReplacementNamed(context, '/home');
-              },
-              child:
-                Text('Voir la fiche')
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'L\'espèce que vous observez est probablement un ${speciesName.first.data}, cliquez sur le bouton pour voir sa fiche',
+                    textAlign: TextAlign.center,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, '/sheet', arguments: species);
+                    },
+                    child: Text('Voir la fiche'),
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
+          );
+        }
+      },
     );
   }
 }

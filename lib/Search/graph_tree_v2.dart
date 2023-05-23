@@ -69,13 +69,13 @@ final node_rocheux_couleur_reptile_vert_olive = Node(31, 'vert-olive', null);
 
 
 //leaves
-final leaf_crapaud_epineux = Node(32, "crapaud epineux", null);
-final leaf_crapaud_calamite = Node(33, "crapaud calamite", null);
-final leaf_pelodyte_ponctuee = Node(34, "pelodyte ponctuee", null);
-final leaf_rainette_meridionale = Node(35, "rainette meridionale", null);
-final leaf_couleuvre_montpellier = Node(36, "couleuvre montpellier", null);
-final leaf_orvette_fragile = Node(37, "orvette fragile", null);
-final leaf_grenouille_lessona = Node(38, "grenouille lessona", null);
+final leaf_crapaud_epineux = Node(32, "Crapaud épineux", null);
+final leaf_crapaud_calamite = Node(33, "Crapaud calamite", null);
+final leaf_pelodyte_ponctuee = Node(34, "Pélodyte ponctuée", null);
+final leaf_rainette_meridionale = Node(35, "Rainette méridionale", null);
+final leaf_couleuvre_montpellier = Node(36, "Couleuvre vipérine", null);
+final leaf_orvette_fragile = Node(37, "Vipère aspic", null);
+final leaf_grenouille_lessona = Node(38, "Grenouille de Lessona", null);
 
 
 final graph = Graph({

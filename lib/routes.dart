@@ -6,6 +6,7 @@ import 'Home/home_view.dart';
 import 'Map/map_view.dart';
 import 'Questions/questions_result_view.dart';
 import 'Species/species_model.dart';
+import 'Species/species_view.dart';
 
 final Map<String, WidgetBuilder> routes = {
   '/home': (BuildContext context) => HomePage(),
@@ -30,6 +31,6 @@ final Map<String, WidgetBuilder> routes = {
         .of(context)!
         .settings
         .arguments as Species;
-    return  QuestionsResultView(args);
+    return  SpeciesView(args);
   }
 };

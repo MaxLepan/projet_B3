@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:projet_b3/Species/species_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:slugify/slugify.dart';
 
 class SpeciesViewModel {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -18,6 +19,32 @@ class SpeciesViewModel {
     } catch (error) {
       print('Error retrieving species: $error');
     }
+  }
+
+
+  Future<Species> getSpeciesByName(String name) async {
+      CollectionReference species = FirebaseFirestore.instance.collection('species');
+      QuerySnapshot querySnapshot = await species.where('name', isEqualTo: name).limit(1).get();
+      final data = querySnapshot.docs.map((species) => species.data()).toList();
+
+      if (data.isNotEmpty) {
+        Map<String, dynamic>? speciesData = data.first as Map<String, dynamic>?;
+        Species speciesObj = Species(
+          name: speciesData!['name'],
+          description: speciesData['description'],
+          category: speciesData['category'],
+          protectionStatus: speciesData['protectionStatus'],
+          habitat: speciesData['habitat'],
+          humanImpact: speciesData['humanImpact'],
+          lastView: speciesData['lastView'],
+          observable: speciesData['observable'],
+          funFact: speciesData['funFact'],
+          imageUrl: speciesData['imageUrl'],
+        );
+        return speciesObj;
+      } else {
+        throw Exception('Species not found');
+      }
   }
 
   List<Species> convertToSpeciesList(List objectList) {

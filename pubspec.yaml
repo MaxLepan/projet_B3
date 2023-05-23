@@ -21,6 +21,7 @@ dependencies:
   cloud_firestore: ^4.5.3
   graph_collection: ^2.1.0
   graphs: ^2.3.0
+  slugify: ^2.0.0
 
 dev_dependencies:
   flutter_test:
