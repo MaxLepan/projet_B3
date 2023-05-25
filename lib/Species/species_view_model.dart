@@ -31,15 +31,17 @@ class SpeciesViewModel {
         Map<String, dynamic>? speciesData = data.first as Map<String, dynamic>?;
         Species speciesObj = Species(
           name: speciesData!['name'],
+          latinName: speciesData!['latin_name'],
           description: speciesData['description'],
           category: speciesData['category'],
-          protectionStatus: speciesData['protectionStatus'],
+          shortProtectionStatus: speciesData['short_protection_status'],
+          protectionStatus: speciesData['protection_status'],
           habitat: speciesData['habitat'],
-          humanImpact: speciesData['humanImpact'],
-          lastView: speciesData['lastView'],
+          humanImpact: speciesData['human_mpact'],
+          lastView: speciesData['last_view'],
           observable: speciesData['observable'],
-          funFact: speciesData['funFact'],
-          imageUrl: speciesData['imageUrl'],
+          funFact: speciesData['fun_fact'],
+          imageUrl: speciesData['image'],
         );
         return speciesObj;
       } else {
@@ -50,6 +52,7 @@ class SpeciesViewModel {
   List<Species> convertToSpeciesList(List objectList) {
     List<Species> speciesList = objectList.map((object) {
       String name = object['name'];
+      String latinName = object['latin_name'];
       String description = object['description'];
       String category = object['category'];
       String imageUrl = object['image'];
@@ -58,10 +61,12 @@ class SpeciesViewModel {
       String humanImpact = object['human_impact'];
       Timestamp lastView = object['last_view'];
       String observable = object['observable'];
+      String shortProtectionStatus = object['short_protection_status'];
       String protectionStatus = object['protection_status'];
 
       return Species(
           name: name,
+          latinName: latinName,
           description: description,
           imageUrl: imageUrl,
           category: category,
@@ -70,7 +75,8 @@ class SpeciesViewModel {
           humanImpact: humanImpact,
           lastView: lastView,
           observable: observable,
-          protectionStatus: protectionStatus
+          protectionStatus: protectionStatus,
+          shortProtectionStatus: shortProtectionStatus
       );
     }).toList();
     return speciesList;

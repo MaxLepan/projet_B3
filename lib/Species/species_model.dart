@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Species {
   final String name;
+  final String latinName;
   final String description;
   final String category;
   final String? protectionStatus;
+  final String? shortProtectionStatus;
   final String? habitat;
   final String? humanImpact;
   final Timestamp? lastView;
@@ -14,9 +16,11 @@ class Species {
 
   Species({
     required this.name,
+    required this.latinName,
     required this.description,
     required this.category,
     this.habitat,
+    this.shortProtectionStatus,
     this.protectionStatus,
     this.lastView,
     this.humanImpact,
