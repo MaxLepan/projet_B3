@@ -44,6 +44,7 @@ class MyAppState extends State<MyApp> {
       title: 'Home Page',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: const Color(0xFFFEFAF4),
       ),
       home: Scaffold(
         body: _pages[_selectedIndex],

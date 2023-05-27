@@ -32,6 +32,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: custom_icons_species_categories
+      fonts:
+        - asset: fonts/custom_icons_species_categories.ttf
   assets:
      - assets/
 
