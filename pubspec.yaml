@@ -19,6 +19,7 @@ dependencies:
   flutter_map: ^3.1.0
   geolocator: ^9.0.2
   cloud_firestore: ^4.5.3
+  firebase_storage: ^11.1.1
   graph_collection: ^2.1.0
   graphs: ^2.3.0
   slugify: ^2.0.0
