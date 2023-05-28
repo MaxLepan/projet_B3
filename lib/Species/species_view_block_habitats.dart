@@ -14,7 +14,7 @@ class SpeciesViewBlockHabitats extends StatelessWidget {
       backgroundColor: beige,
       body:
         Padding(
-          padding: EdgeInsets.only(left: 16, right: 16),
+          padding: const EdgeInsets.only(left: 16, right: 16),
           child: Column(
             children: <Widget> [
               Column(
