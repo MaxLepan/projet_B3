@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projet_b3/Species/species_model.dart';
+import 'package:projet_b3/Species/species_view_block_habitats.dart';
 import 'package:projet_b3/Species/species_view_header.dart';
+import 'package:projet_b3/Themes/colors.dart';
 
 class SpeciesView extends StatelessWidget {
   final Species subject;
@@ -15,11 +17,17 @@ class SpeciesView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 0,
-        leading:Container(margin: const EdgeInsets.only(top: 3),child: const Icon(CupertinoIcons.xmark, size: 28),),
+        leading:Container(
+          margin: const EdgeInsets.only(top: 3),
+          child: IconButton(
+            icon: const Icon(CupertinoIcons.xmark, size: 28,),
+            onPressed: () { Navigator.pop(context); },
+          ),
+        ),
         elevation: 0.0,
-        iconTheme: const IconThemeData(color: Color(0xFF242a2b)),
+        iconTheme: const IconThemeData(color: black),
         backgroundColor: Colors.white,
-        title: const Text("Fermer", style: TextStyle(color: Color(0xFF242a2b), fontSize: 18), ),
+        title: const Text("Fermer", style: TextStyle(color: black, fontSize: 18)),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,6 +35,10 @@ class SpeciesView extends StatelessWidget {
           Expanded(
             child: SpeciesViewHeader(subject: subject, mainColor: mainColor),
           ),
+          if(subject.habitats != null)
+            Expanded(
+              child: SpeciesViewBlockHabitats(subject: subject, mainColor: mainColor)
+            )
         ],
       ),
     );
@@ -35,11 +47,11 @@ class SpeciesView extends StatelessWidget {
   Color _getColor(Species species) {
     switch (species.category) {
       case 'amphibien':
-        return const Color(0xFFA4C89A); // Replace with your desired icon for amphibians
+        return green; // Replace with your desired icon for amphibians
       case 'reptile':
-        return const Color(0xFFB6ABD4); // Replace with your desired icon for reptiles
+        return blue; // Replace with your desired icon for reptiles
       default:
-        return const Color(0xFFEBA15A); // Replace with a default icon if needed
+        return orange; // Replace with a default icon if needed
     }
   }
 

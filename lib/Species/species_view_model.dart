@@ -36,8 +36,8 @@ class SpeciesViewModel {
           category: speciesData['category'],
           shortProtectionStatus: speciesData['short_protection_status'],
           protectionStatus: speciesData['protection_status'],
-          habitat: speciesData['habitat'],
-          humanImpact: speciesData['human_mpact'],
+          habitats: List<String>.from(speciesData["habitats"]),
+          humanImpact: speciesData['human_impact'],
           lastView: speciesData['last_view'],
           observable: speciesData['observable'],
           funFact: speciesData['fun_fact'],
@@ -57,7 +57,7 @@ class SpeciesViewModel {
       String category = object['category'];
       String imageUrl = object['image'];
       String funFact = object['fun_fact'];
-      String habitat = object['habitat'];
+      List<String> habitats = List<String>.from(object['habitats']);
       String humanImpact = object['human_impact'];
       Timestamp lastView = object['last_view'];
       String observable = object['observable'];
@@ -71,7 +71,7 @@ class SpeciesViewModel {
           imageUrl: imageUrl,
           category: category,
           funFact: funFact,
-          habitat: habitat,
+          habitats: habitats,
           humanImpact: humanImpact,
           lastView: lastView,
           observable: observable,

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:projet_b3/Icons/species_categories_icons.dart';
 import 'package:projet_b3/Species/species_model.dart';
 
+import '../Themes/colors.dart';
+
 class SpeciesViewHeader extends StatelessWidget {
   final Species subject;
   final Color mainColor;
@@ -20,14 +22,14 @@ class SpeciesViewHeader extends StatelessWidget {
               children: <Widget>[
                 Text(
                   subject.name,
-                  style: const TextStyle(color: Color(0xFF242a2b), fontSize: 24, fontWeight: FontWeight.bold),
+                  style: const TextStyle(color: black, fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),
                 Container(
                   width: 32,
                   height: 32,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFF8F1E4),
+                    color: darkBeige,
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: mainColor,
@@ -65,7 +67,7 @@ class SpeciesViewHeader extends StatelessWidget {
                   ),
                   child: Text(
                     subject.shortProtectionStatus ?? "",
-                    style: const TextStyle(color: Color(0xFF242a2b)),
+                    style: const TextStyle(color: black, fontWeight: FontWeight.w500),
                   ),
                 ),
               ),
@@ -73,15 +75,10 @@ class SpeciesViewHeader extends StatelessWidget {
           ),
           Container(
             padding: const EdgeInsets.only(top: 24),
-            child: FractionallySizedBox(
-              widthFactor: 1.0,
-              child: Image.network(
+            child: Image.network(
                 subject.imageUrl ?? "" ,
-                fit: BoxFit.fitWidth,
-                height: 170,
-              ),
             ),
-          )
+          ),
         ],
       ),
     );

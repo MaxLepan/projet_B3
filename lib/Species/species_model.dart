@@ -7,7 +7,7 @@ class Species {
   final String category;
   final String? protectionStatus;
   final String? shortProtectionStatus;
-  final String? habitat;
+  final List<String>? habitats;
   final String? humanImpact;
   final Timestamp? lastView;
   final String? observable;
@@ -19,7 +19,7 @@ class Species {
     required this.latinName,
     required this.description,
     required this.category,
-    this.habitat,
+    this.habitats,
     this.shortProtectionStatus,
     this.protectionStatus,
     this.lastView,
