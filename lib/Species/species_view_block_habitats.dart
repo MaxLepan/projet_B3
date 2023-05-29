@@ -22,7 +22,7 @@ class SpeciesViewBlockHabitats extends StatelessWidget {
                 children: [
                   const Text(
                     "Habitats",
-                    style: TextStyle(color: black, fontSize: 21, fontWeight: FontWeight.bold),
+                    style: titleStyle,
                   ),
                   const SizedBox(height: 20),
                   Wrap(
@@ -33,7 +33,7 @@ class SpeciesViewBlockHabitats extends StatelessWidget {
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
                             color: mainColor,
-                            borderRadius: BorderRadius.circular(2.0),
+                            borderRadius: BorderRadius.circular(3.0),
                           ),
                           child: Text(
                             item,

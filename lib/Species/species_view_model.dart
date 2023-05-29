@@ -3,6 +3,8 @@ import 'package:projet_b3/Species/species_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:slugify/slugify.dart';
 
+import '../Fun_facts/fun_facts_model.dart';
+
 class SpeciesViewModel {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -12,10 +14,6 @@ class SpeciesViewModel {
       QuerySnapshot querySnapshot = await species.get();
       final data = querySnapshot.docs.map((species) => species.data()).toList();
       List<Species> speciesList = convertToSpeciesList(data);
-      print("***DATA $data");
-      speciesList.forEach((species) {
-       print("*** $species");
-      });
     } catch (error) {
       print('Error retrieving species: $error');
     }
@@ -29,18 +27,23 @@ class SpeciesViewModel {
 
       if (data.isNotEmpty) {
         Map<String, dynamic>? speciesData = data.first as Map<String, dynamic>?;
+
+        FunFact? funFact1 = await createFunFact("fun_fact1", speciesData);
+        FunFact? funFact2 = await createFunFact("fun_fact2", speciesData);
+
         Species speciesObj = Species(
           name: speciesData!['name'],
-          latinName: speciesData!['latin_name'],
+          latinName: speciesData['latin_name'],
           description: speciesData['description'],
           category: speciesData['category'],
           shortProtectionStatus: speciesData['short_protection_status'],
           protectionStatus: speciesData['protection_status'],
           habitats: List<String>.from(speciesData["habitats"]),
-          humanImpact: speciesData['human_impact'],
+          humanImpact: List<String>.from(speciesData['human_impact']),
           lastView: speciesData['last_view'],
           observable: speciesData['observable'],
-          funFact: speciesData['fun_fact'],
+          funFact1: funFact1,
+          funFact2: funFact2,
           imageUrl: speciesData['image'],
           imagesGenre: speciesData['images_genre'],
         );
@@ -50,6 +53,25 @@ class SpeciesViewModel {
       }
   }
 
+  Future<FunFact?> createFunFact(String funFactKey, Map<String, dynamic>? speciesData) async {
+    DocumentReference<Map<String, dynamic>> funFactRef = speciesData![funFactKey];
+    DocumentSnapshot<Map<String, dynamic>> funFactSnapshot = await funFactRef.get();
+
+    FunFact? funFact;
+    if (funFactSnapshot.exists) {
+      Map<String, dynamic>? funFactData = funFactSnapshot.data();
+
+      funFact = FunFact(
+        funFactData?['title'],
+        funFactData?['description'],
+        funFactData?['text'],
+        funFactData?['image_url'],
+      );
+    }
+
+    return funFact;
+  }
+
   List<Species> convertToSpeciesList(List objectList) {
     List<Species> speciesList = objectList.map((object) {
       String name = object['name'];
@@ -57,9 +79,10 @@ class SpeciesViewModel {
       String description = object['description'];
       String category = object['category'];
       String imageUrl = object['image'];
-      String funFact = object['fun_fact'];
+      List<String> funFact1 = List<String>.from(object['fun_fact1']);
+      List<String> funFact2 = List<String>.from(object['fun_fact2']);
       List<String> habitats = List<String>.from(object['habitats']);
-      String humanImpact = object['human_impact'];
+      List<String> humanImpact = List<String>.from(object['human_impact']);
       Timestamp lastView = object['last_view'];
       String observable = object['observable'];
       String shortProtectionStatus = object['short_protection_status'];
@@ -72,7 +95,6 @@ class SpeciesViewModel {
           description: description,
           imageUrl: imageUrl,
           category: category,
-          funFact: funFact,
           habitats: habitats,
           humanImpact: humanImpact,
           lastView: lastView,

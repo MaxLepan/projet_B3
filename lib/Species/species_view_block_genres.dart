@@ -11,18 +11,15 @@ class SpeciesViewBlockGenres extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("***${subject.imagesGenre?.entries}");
-    print("***${subject.imagesGenre?.entries}");
-
     return Padding(
-      padding: EdgeInsets.all(16), 
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          const Text("Genres", style: TextStyle(color: black, fontSize: 21, fontWeight: FontWeight.bold),),
+          const Text("Genres", style: titleStyle,),
           for(var entry in subject.imagesGenre!.entries)
             Padding(
-              padding: EdgeInsets.only(top: 20),
+              padding: const EdgeInsets.only(top: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
@@ -32,13 +29,13 @@ class SpeciesViewBlockGenres extends StatelessWidget {
                       Image.network(entry.value[0]),
                       Container(
                         alignment: Alignment.center,
-                        width: 38,
-                        height: 38,
+                        width: 50,
+                        height: 50,
                         decoration: BoxDecoration(
                             color: mainColor,
-                            borderRadius: BorderRadius.circular(2.0)
+                            borderRadius: BorderRadius.circular(3.0)
                         ),
-                        child : Icon(entry.key == "female" ? CustomIcons.feminin : CustomIcons.masculin, color: black, size: 38,),
+                        child : Icon(entry.key == "female" ? CustomIcons.feminin : CustomIcons.masculin, color: black, size: 50,),
 
                       ),
                     ],

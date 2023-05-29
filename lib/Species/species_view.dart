@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projet_b3/Species/species_model.dart';
+import 'package:projet_b3/Species/species_view_block_fun_fact.dart';
 import 'package:projet_b3/Species/species_view_block_genres.dart';
 import 'package:projet_b3/Species/species_view_block_habitats.dart';
+import 'package:projet_b3/Species/species_view_block_human_impact.dart';
 import 'package:projet_b3/Species/species_view_header.dart';
 import 'package:projet_b3/Themes/colors.dart';
 
@@ -13,7 +15,7 @@ class SpeciesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color mainColor = _getColor(subject);
+    final List<Color> colors = _getColor(subject);
 
     return Scaffold(
       appBar: AppBar(
@@ -32,24 +34,30 @@ class SpeciesView extends StatelessWidget {
       ),
       body: ListView(
           children: <Widget>[
-            SpeciesViewHeader(subject: subject, mainColor: mainColor),
+            SpeciesViewHeader(subject: subject, mainColor: colors[0]),
             if(subject.imagesGenre != null)
-              SpeciesViewBlockGenres(subject: subject, mainColor: mainColor),
+              SpeciesViewBlockGenres(subject: subject, mainColor: colors[0]),
+            if(subject.funFact1 != null)
+              SpeciesViewBlockFunFact(funFact: subject.funFact1!, mainColor: colors[0], secondaryColor: colors[1]),
             if(subject.habitats != null)
-              SpeciesViewBlockHabitats(subject: subject, mainColor: mainColor),
+              SpeciesViewBlockHabitats(subject: subject, mainColor: colors[0]),
+            if(subject.funFact2 != null)
+              SpeciesViewBlockFunFact(funFact: subject.funFact2!, mainColor: colors[0], secondaryColor: colors[1]),
+            if(subject.humanImpact != null)
+              SpeciesViewBlockHumanImpact(humanImpact: subject.humanImpact!, mainColor: colors[0]),
           ],
         ),
     );
   }
 
-  Color _getColor(Species species) {
+  List<Color> _getColor(Species species) {
     switch (species.category) {
       case 'amphibien':
-        return green; // Replace with your desired icon for amphibians
+        return [green, lightGreen]; // Replace with your desired icon for amphibians
       case 'reptile':
-        return blue; // Replace with your desired icon for reptiles
+        return [blue, lightBlue]; // Replace with your desired icon for reptiles
       default:
-        return orange; // Replace with a default icon if needed
+        return [orange, lightOrange]; // Replace with a default icon if needed
     }
   }
 

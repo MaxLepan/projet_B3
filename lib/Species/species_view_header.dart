@@ -67,7 +67,7 @@ class SpeciesViewHeader extends StatelessWidget {
                   ),
                   child: Text(
                     subject.shortProtectionStatus ?? "",
-                    style: const TextStyle(color: black, fontWeight: FontWeight.w500),
+                    style: const TextStyle(color: black, fontWeight: FontWeight.w500, fontSize: 17),
                   ),
                 ),
               ),
