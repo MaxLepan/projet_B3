@@ -15,27 +15,25 @@ class SpeciesViewModel {
       speciesList = convertToSpeciesList(data);
       return speciesList;
     } catch (error) {
-      print('Error retrieving all species: $error');
+      print('Error retrieving species: $error');
       return [];
     }
   }
 
   Future<List<Species>> getSpeciesByName(String name) async {
     try {
-      name = name.toLowerCase();
       CollectionReference species = FirebaseFirestore.instance.collection('species');
       QuerySnapshot querySnapshot = await species.where(
           'name',
           isGreaterThanOrEqualTo: name,
-      ).where(
-          'name',
-          isLessThan: '${name}z'
+          isLessThan: name.substring(0, name.length -1) +
+              String.fromCharCode(name.codeUnitAt(name.length - 1) + 1)
       ).get();
       final data = querySnapshot.docs.map((species) => species.data()).toList();
       speciesList = convertToSpeciesList(data);
       return speciesList;
     } catch (error) {
-      print('Error retrieving species by name: $error');
+      print('Error retrieving species: $error');
       return [];
     }
   }
