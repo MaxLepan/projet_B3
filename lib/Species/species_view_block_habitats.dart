@@ -10,15 +10,15 @@ class SpeciesViewBlockHabitats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: beige,
-      body:
+    return Container(
+      color: beige,
+      child:
         Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16),
+          padding: const EdgeInsets.only(left: 16, right: 16,top: 20),
           child: Column(
             children: <Widget> [
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const Text(
                     "Habitats",
@@ -32,7 +32,7 @@ class SpeciesViewBlockHabitats extends StatelessWidget {
                           margin: const EdgeInsets.only(right: 8, bottom: 8),
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                            color: green,
+                            color: mainColor,
                             borderRadius: BorderRadius.circular(2.0),
                           ),
                           child: Text(

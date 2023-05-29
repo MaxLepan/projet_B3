@@ -42,6 +42,7 @@ class SpeciesViewModel {
           observable: speciesData['observable'],
           funFact: speciesData['fun_fact'],
           imageUrl: speciesData['image'],
+          imagesGenre: speciesData['images_genre'],
         );
         return speciesObj;
       } else {
@@ -63,6 +64,7 @@ class SpeciesViewModel {
       String observable = object['observable'];
       String shortProtectionStatus = object['short_protection_status'];
       String protectionStatus = object['protection_status'];
+      Map imageGenre = object['images_genre'];
 
       return Species(
           name: name,
@@ -76,7 +78,8 @@ class SpeciesViewModel {
           lastView: lastView,
           observable: observable,
           protectionStatus: protectionStatus,
-          shortProtectionStatus: shortProtectionStatus
+          shortProtectionStatus: shortProtectionStatus,
+          imagesGenre: imageGenre,
       );
     }).toList();
     return speciesList;

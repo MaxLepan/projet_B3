@@ -13,6 +13,7 @@ class Species {
   final String? observable;
   final String? funFact;
   final String? imageUrl;
+  final Map? imagesGenre;
 
   Species({
     required this.name,
@@ -27,6 +28,7 @@ class Species {
     this.funFact,
     this.imageUrl,
     this.observable,
+    this.imagesGenre
   });
 
   @override

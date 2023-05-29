@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projet_b3/Species/species_model.dart';
+import 'package:projet_b3/Species/species_view_block_genres.dart';
 import 'package:projet_b3/Species/species_view_block_habitats.dart';
 import 'package:projet_b3/Species/species_view_header.dart';
 import 'package:projet_b3/Themes/colors.dart';
@@ -29,18 +30,15 @@ class SpeciesView extends StatelessWidget {
         backgroundColor: Colors.white,
         title: const Text("Fermer", style: TextStyle(color: black, fontSize: 18)),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Expanded(
-            child: SpeciesViewHeader(subject: subject, mainColor: mainColor),
-          ),
-          if(subject.habitats != null)
-            Expanded(
-              child: SpeciesViewBlockHabitats(subject: subject, mainColor: mainColor)
-            )
-        ],
-      ),
+      body: ListView(
+          children: <Widget>[
+            SpeciesViewHeader(subject: subject, mainColor: mainColor),
+            if(subject.imagesGenre != null)
+              SpeciesViewBlockGenres(subject: subject, mainColor: mainColor),
+            if(subject.habitats != null)
+              SpeciesViewBlockHabitats(subject: subject, mainColor: mainColor),
+          ],
+        ),
     );
   }
 
