@@ -1,9 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:projet_b3/Content_three_pics/content_three_pics.dart';
 import 'package:projet_b3/Species/species_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:slugify/slugify.dart';
 
-import '../Fun_facts/fun_facts_model.dart';
+import '../Content_genres/content_genres_model.dart';
+import '../Content_simple/content_simple_model.dart';
+
 
 class SpeciesViewModel {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -28,8 +30,13 @@ class SpeciesViewModel {
       if (data.isNotEmpty) {
         Map<String, dynamic>? speciesData = data.first as Map<String, dynamic>?;
 
-        FunFact? funFact1 = await createFunFact("fun_fact1", speciesData);
-        FunFact? funFact2 = await createFunFact("fun_fact2", speciesData);
+        SimpleContent? funFact1 = await SimpleContent.createContentSimple("fun_fact1", speciesData);
+        SimpleContent? funFact2 = await SimpleContent.createContentSimple("fun_fact2", speciesData);
+        SimpleContent? humanImpact = await SimpleContent.createContentSimple("human_impact", speciesData);
+
+        ContentGenres? contentGenre = await ContentGenres.createContentGenres("content_genres", speciesData);
+        
+        ContentThreePics? reproduction = await ContentThreePics.createContentThreePics("reproduction", speciesData);
 
         Species speciesObj = Species(
           name: speciesData!['name'],
@@ -39,37 +46,19 @@ class SpeciesViewModel {
           shortProtectionStatus: speciesData['short_protection_status'],
           protectionStatus: speciesData['protection_status'],
           habitats: List<String>.from(speciesData["habitats"]),
-          humanImpact: List<String>.from(speciesData['human_impact']),
+          humanImpact: humanImpact,
           lastView: speciesData['last_view'],
           observable: speciesData['observable'],
           funFact1: funFact1,
           funFact2: funFact2,
           imageUrl: speciesData['image'],
-          imagesGenre: speciesData['images_genre'],
+          contentGenres: contentGenre,
+          reproduction: reproduction
         );
         return speciesObj;
       } else {
         throw Exception('Species not found');
       }
-  }
-
-  Future<FunFact?> createFunFact(String funFactKey, Map<String, dynamic>? speciesData) async {
-    DocumentReference<Map<String, dynamic>> funFactRef = speciesData![funFactKey];
-    DocumentSnapshot<Map<String, dynamic>> funFactSnapshot = await funFactRef.get();
-
-    FunFact? funFact;
-    if (funFactSnapshot.exists) {
-      Map<String, dynamic>? funFactData = funFactSnapshot.data();
-
-      funFact = FunFact(
-        funFactData?['title'],
-        funFactData?['description'],
-        funFactData?['text'],
-        funFactData?['image_url'],
-      );
-    }
-
-    return funFact;
   }
 
   List<Species> convertToSpeciesList(List objectList) {
@@ -79,15 +68,11 @@ class SpeciesViewModel {
       String description = object['description'];
       String category = object['category'];
       String imageUrl = object['image'];
-      List<String> funFact1 = List<String>.from(object['fun_fact1']);
-      List<String> funFact2 = List<String>.from(object['fun_fact2']);
       List<String> habitats = List<String>.from(object['habitats']);
-      List<String> humanImpact = List<String>.from(object['human_impact']);
       Timestamp lastView = object['last_view'];
       String observable = object['observable'];
       String shortProtectionStatus = object['short_protection_status'];
       String protectionStatus = object['protection_status'];
-      Map imageGenre = object['images_genre'];
 
       return Species(
           name: name,
@@ -96,12 +81,10 @@ class SpeciesViewModel {
           imageUrl: imageUrl,
           category: category,
           habitats: habitats,
-          humanImpact: humanImpact,
           lastView: lastView,
           observable: observable,
           protectionStatus: protectionStatus,
           shortProtectionStatus: shortProtectionStatus,
-          imagesGenre: imageGenre,
       );
     }).toList();
     return speciesList;

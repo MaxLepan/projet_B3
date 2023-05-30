@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projet_b3/Species/species_model.dart';
+import 'package:projet_b3/Species/species_model_block_three_pics.dart';
 import 'package:projet_b3/Species/species_view_block_fun_fact.dart';
 import 'package:projet_b3/Species/species_view_block_genres.dart';
 import 'package:projet_b3/Species/species_view_block_habitats.dart';
@@ -35,8 +36,10 @@ class SpeciesView extends StatelessWidget {
       body: ListView(
           children: <Widget>[
             SpeciesViewHeader(subject: subject, mainColor: colors[0]),
-            if(subject.imagesGenre != null)
-              SpeciesViewBlockGenres(subject: subject, mainColor: colors[0]),
+            if(subject.contentGenres != null)
+              SpeciesViewBlockGenres(content: subject.contentGenres!, mainColor: colors[0]),
+            if(subject.reproduction != null)
+              SpeciesViewBlockThreePics(content: subject.reproduction!, mainColor: colors[0]),
             if(subject.funFact1 != null)
               SpeciesViewBlockFunFact(funFact: subject.funFact1!, mainColor: colors[0], secondaryColor: colors[1]),
             if(subject.habitats != null)

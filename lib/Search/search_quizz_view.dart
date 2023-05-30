@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:projet_b3/Questions/questions_model.dart';
-import 'package:projet_b3/Questions/questions_view_model.dart';
+import '../Questions/questions_model.dart';
+import '../Questions/questions_view_model.dart';
 import '../firebase_options.dart';
 import '../routes.dart';
 import 'graph_tree_v2.dart';
@@ -18,16 +18,16 @@ class SearchQuizzView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Search Quizz'), // Titre de la page
+        title: const Text('Search Quizz'), // Titre de la page
       ),
       body: Container(
         child: FutureBuilder<List<Question>?>(
           future: QuestionsViewModel().getQuestionByKey(node?.questionKey),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return Center(child: Text('Erreur de chargement des questions'));
+              return const Center(child: Text('Erreur de chargement des questions'));
             } else {
               final Question? question = snapshot.data?.first;
 
@@ -35,7 +35,7 @@ class SearchQuizzView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(question?.question ?? 'Erreur lors du chargement de la question',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 24,
                       )),

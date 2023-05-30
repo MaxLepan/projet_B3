@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../Fun_facts/fun_facts_model.dart';
+import '../Content_genres/content_genres_model.dart';
+import '../Content_simple/content_simple_model.dart';
+import '../Content_three_pics/content_three_pics.dart';
 
 class Species {
   final String name;
@@ -10,13 +12,14 @@ class Species {
   final String? protectionStatus;
   final String? shortProtectionStatus;
   final List<String>? habitats;
-  final List<String>? humanImpact;
+  final SimpleContent? humanImpact;
   final Timestamp? lastView;
   final String? observable;
-  final FunFact? funFact1;
-  final FunFact? funFact2;
+  final SimpleContent? funFact1;
+  final SimpleContent? funFact2;
   final String? imageUrl;
-  final Map? imagesGenre;
+  final ContentGenres? contentGenres;
+  final ContentThreePics? reproduction;
 
 
   Species({
@@ -33,7 +36,8 @@ class Species {
     this.funFact2,
     this.imageUrl,
     this.observable,
-    this.imagesGenre,
+    this.contentGenres,
+    this.reproduction
   });
 
   @override

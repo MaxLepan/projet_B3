@@ -1,14 +1,14 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:projet_b3/Fun_facts/fun_facts_model.dart';
 import 'package:projet_b3/Species/species_model.dart';
 import 'package:projet_b3/Themes/colors.dart';
 
+import '../Content_simple/content_simple_model.dart';
 import '../Icons/custom_icons.dart';
 
 class SpeciesViewBlockFunFact extends StatelessWidget {
-  final FunFact funFact;
+  final SimpleContent funFact;
   final Color mainColor;
   final Color secondaryColor;
 
