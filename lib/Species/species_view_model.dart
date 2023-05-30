@@ -33,8 +33,9 @@ class SpeciesViewModel {
       final data = querySnapshot.docs.map((species) => species.data()).toList();
       speciesList = convertToSpeciesList(data);
       return speciesList;
-    } catch (error) {
+    } catch (error, stackTrace) {
       print('Error retrieving species starting by: $error');
+      print(stackTrace);
       return [];
     }
   }
@@ -68,23 +69,21 @@ class SpeciesViewModel {
 
   List<Species> convertToSpeciesList(List objectList) {
     List<Species> speciesList = objectList.map((object) {
-      print('object : $object');
-      for (var value in object) {
-        print('value : $value');
-      }
+      //print('object : $object');
+      print('object : ${object['name']}');
 
-      String name = object['name'];
-      String latinName = object['latin_name'];
-      String description = object['description'];
-      String category = object['category'];
-      String imageUrl = object['image'];
-      String funFact = object['fun_fact'];
-      List<String> habitats = List<String>.from(object['habitats']);
-      String humanImpact = object['human_impact'];
-      Timestamp lastView = object['last_view'];
-      String observable = object['observable'];
-      String shortProtectionStatus = object['short_protection_status'];
-      String protectionStatus = object['protection_status'];
+      String name = object['name'] ?? 'null';
+      String latinName = object['latin_name'] ?? 'null';
+      String description = object['description'] ?? 'null';
+      String category = object['category'] ?? 'null';
+      String imageUrl = object['image'] ?? 'null';
+      String funFact = object['fun_fact'] ?? 'null';
+      List<String> habitats = List<String>.from(object['habitats']) ?? [];
+      List<String> humanImpact = List<String>.from(object['human_impact']) ?? [];
+      Timestamp lastView = object['last_view'] ?? Timestamp.now();
+      String observable = object['observable'] ?? 'null';
+      String shortProtectionStatus = object['short_protection_status'] ?? 'null';
+      String protectionStatus = object['protection_status'] ?? 'null';
 
       return Species(
           name: name,
@@ -101,6 +100,8 @@ class SpeciesViewModel {
           shortProtectionStatus: shortProtectionStatus
       );
     }).toList();
+
+    print('speciesList : $speciesList');
     return speciesList;
   }
 }

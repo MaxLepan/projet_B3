@@ -8,7 +8,7 @@ class Species {
   final String? protectionStatus;
   final String? shortProtectionStatus;
   final List<String>? habitats;
-  final String? humanImpact;
+  final List<String>? humanImpact;
   final Timestamp? lastView;
   final String? observable;
   final String? funFact;
