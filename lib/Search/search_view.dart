@@ -16,16 +16,6 @@ class SearchViewState extends State<SearchView> {
   final SpeciesViewModel speciesViewModel = SpeciesViewModel();
   List<Species> speciesList = [];
 
-  final List<String> speciesImages = [
-    "https://cdn.vox-cdn.com/thumbor/Lqw4lEEh11oLoXJdJv34A-5NI4s=/0x0:4928x3280/1200x0/filters:focal(0x0:4928x3280):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/23286183/GettyImages_1238172363.jpg",
-    "https://images.ctfassets.net/cnu0m8re1exe/jIodPqeb9lDZW6WaerUCq/a07e6130fe401e714ed8521a818be880/shutterstock_2120543582.jpg",
-    "https://cdn.britannica.com/22/152822-050-FF5E5F25/Ladybug.jpg",
-    "https://cff2.earth.com/uploads/2022/05/06093825/Flying-insects2-960x640.png",
-    "https://cdn.theatlantic.com/thumbor/B9Zqh1ap5jlJ3wFUS9LZ-Ha6etA=/0x880:4450x3383/1600x900/media/img/mt/2019/02/GettyImages_692182998/original.jpg",
-    "https://www.agproud.com/ext/resources/2022/09/12/55907-stokes-bugs.jpg?t=1663279700&width=1080",
-    "https://modernfarmer.com/wp-content/uploads/2015/06/PrayingMantis-1200x704.jpg"
-  ];
-
   @override
   void initState() {
     super.initState();
@@ -36,7 +26,7 @@ class SearchViewState extends State<SearchView> {
     print("species list : ${speciesViewModel.speciesList.toString()}");
     return Scaffold(
       appBar: AppBar(
-        title: Text("Rechercher une bête"),
+        title: const Text("Rechercher une bête"),
       ),
       body:Column(
         children:[
@@ -49,7 +39,7 @@ class SearchViewState extends State<SearchView> {
                 suffixIcon: IconButton(onPressed: null, icon: Icon(Icons.search)),
               ),
               onChanged: (text) async {
-                List<Species> speciesList = await speciesViewModel.getSpeciesByName(text);
+                List<Species> speciesList = await speciesViewModel.getSpeciesStartingBy(text);
                 setState(() {
                   this.speciesList = speciesList;
                 });
