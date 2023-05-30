@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:projet_b3/Species/species_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:slugify/slugify.dart';
 
 class SpeciesViewModel {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -15,25 +14,27 @@ class SpeciesViewModel {
       speciesList = convertToSpeciesList(data);
       return speciesList;
     } catch (error) {
-      print('Error retrieving species: $error');
+      print('Error retrieving all species: $error');
       return [];
     }
   }
 
-  Future<List<Species>> getSpeciesByName(String name) async {
+  Future<List<Species>> getSpeciesStartingBy(String name) async {
     try {
+      name = name.toLowerCase();
       CollectionReference species = FirebaseFirestore.instance.collection('species');
       QuerySnapshot querySnapshot = await species.where(
+        'name',
+        isGreaterThanOrEqualTo: name,
+      ).where(
           'name',
-          isGreaterThanOrEqualTo: name,
-          isLessThan: name.substring(0, name.length -1) +
-              String.fromCharCode(name.codeUnitAt(name.length - 1) + 1)
+          isLessThan: '${name}z'
       ).get();
       final data = querySnapshot.docs.map((species) => species.data()).toList();
       speciesList = convertToSpeciesList(data);
       return speciesList;
     } catch (error) {
-      print('Error retrieving species: $error');
+      print('Error retrieving species starting by: $error');
       return [];
     }
   }
@@ -47,7 +48,7 @@ class SpeciesViewModel {
       Map<String, dynamic>? speciesData = data.first as Map<String, dynamic>?;
       Species speciesObj = Species(
         name: speciesData!['name'],
-        latinName: speciesData!['latin_name'],
+        latinName: speciesData['latin_name'],
         description: speciesData['description'],
         category: speciesData['category'],
         shortProtectionStatus: speciesData['short_protection_status'],
@@ -67,6 +68,11 @@ class SpeciesViewModel {
 
   List<Species> convertToSpeciesList(List objectList) {
     List<Species> speciesList = objectList.map((object) {
+      print('object : $object');
+      for (var value in object) {
+        print('value : $value');
+      }
+
       String name = object['name'];
       String latinName = object['latin_name'];
       String description = object['description'];
