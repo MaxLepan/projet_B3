@@ -20,6 +20,7 @@ class Species {
   final String? imageUrl;
   final ContentGenres? contentGenres;
   final ContentThreePics? reproduction;
+  final SimpleContent? alert;
 
 
   Species({
@@ -37,7 +38,8 @@ class Species {
     this.imageUrl,
     this.observable,
     this.contentGenres,
-    this.reproduction
+    this.reproduction,
+    this.alert
   });
 
   @override

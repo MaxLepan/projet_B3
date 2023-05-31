@@ -33,6 +33,7 @@ class SpeciesViewModel {
         SimpleContent? funFact1 = await SimpleContent.createContentSimple("fun_fact1", speciesData);
         SimpleContent? funFact2 = await SimpleContent.createContentSimple("fun_fact2", speciesData);
         SimpleContent? humanImpact = await SimpleContent.createContentSimple("human_impact", speciesData);
+        SimpleContent? alert = await SimpleContent.createContentSimple("alert", speciesData);
 
         ContentGenres? contentGenre = await ContentGenres.createContentGenres("content_genres", speciesData);
         
@@ -53,7 +54,8 @@ class SpeciesViewModel {
           funFact2: funFact2,
           imageUrl: speciesData['image'],
           contentGenres: contentGenre,
-          reproduction: reproduction
+          reproduction: reproduction,
+          alert: alert
         );
         return speciesObj;
       } else {
