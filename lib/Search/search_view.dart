@@ -26,17 +26,42 @@ class SearchViewState extends State<SearchView> {
     print("species list : ${speciesViewModel.speciesList.toString()}");
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Rechercher une bête"),
+        title: const Text("Bienvenue au parc national des Cévennes"),
       ),
       body:Column(
         children:[
+          // display a title in the middle of the screen
+          const Padding(
+            padding: EdgeInsets.only(top: 20, bottom: 20),
+            child: Text(
+              "Observe autour de toi !",
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          // display a subtitle in the middle of the screen
+          const Padding(
+            padding: EdgeInsets.only(bottom: 20),
+            child: Text(
+              "Tu verras les petites-bêtes d’un\nnouvel œil.",
+              style: TextStyle(
+                fontSize: 16,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20),
             child:
             TextField(
               decoration: const InputDecoration(
                 hintText: "Trouver une bête",
-                suffixIcon: IconButton(onPressed: null, icon: Icon(Icons.search)),
+                prefixIcon: IconButton(onPressed: null, icon: Icon(Icons.search)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                ),
               ),
               onChanged: (text) async {
                 List<Species> speciesList = await speciesViewModel.getSpeciesStartingBy(text);
