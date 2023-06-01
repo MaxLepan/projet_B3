@@ -34,11 +34,9 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   fonts:
-    - family: custom_icons_species_categories
+    - family: custom_icons
       fonts:
-        - asset: fonts/custom_icons_species_categories.ttf
-  assets:
-     - assets/
+        - asset: fonts/custom_icons.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

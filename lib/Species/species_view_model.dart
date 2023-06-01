@@ -1,7 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:projet_b3/Content_three_pics/content_three_pics.dart';
 import 'package:projet_b3/Species/species_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:slugify/slugify.dart';
+
+import '../Content_genres/content_genres_model.dart';
+import '../Content_simple/content_simple_model.dart';
+
 
 class SpeciesViewModel {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -12,10 +16,6 @@ class SpeciesViewModel {
       QuerySnapshot querySnapshot = await species.get();
       final data = querySnapshot.docs.map((species) => species.data()).toList();
       List<Species> speciesList = convertToSpeciesList(data);
-      print("***DATA $data");
-      speciesList.forEach((species) {
-       print("*** $species");
-      });
     } catch (error) {
       print('Error retrieving species: $error');
     }
@@ -29,19 +29,33 @@ class SpeciesViewModel {
 
       if (data.isNotEmpty) {
         Map<String, dynamic>? speciesData = data.first as Map<String, dynamic>?;
+
+        SimpleContent? funFact1 = await SimpleContent.createContentSimple("fun_fact1", speciesData);
+        SimpleContent? funFact2 = await SimpleContent.createContentSimple("fun_fact2", speciesData);
+        SimpleContent? humanImpact = await SimpleContent.createContentSimple("human_impact", speciesData);
+        SimpleContent? alert = await SimpleContent.createContentSimple("alert", speciesData);
+
+        ContentGenres? contentGenre = await ContentGenres.createContentGenres("content_genres", speciesData);
+        
+        ContentThreePics? reproduction = await ContentThreePics.createContentThreePics("reproduction", speciesData);
+
         Species speciesObj = Species(
           name: speciesData!['name'],
-          latinName: speciesData!['latin_name'],
+          latinName: speciesData['latin_name'],
           description: speciesData['description'],
           category: speciesData['category'],
           shortProtectionStatus: speciesData['short_protection_status'],
           protectionStatus: speciesData['protection_status'],
           habitats: List<String>.from(speciesData["habitats"]),
-          humanImpact: speciesData['human_impact'],
+          humanImpact: humanImpact,
           lastView: speciesData['last_view'],
           observable: speciesData['observable'],
-          funFact: speciesData['fun_fact'],
+          funFact1: funFact1,
+          funFact2: funFact2,
           imageUrl: speciesData['image'],
+          contentGenres: contentGenre,
+          reproduction: reproduction,
+          alert: alert
         );
         return speciesObj;
       } else {
@@ -56,9 +70,7 @@ class SpeciesViewModel {
       String description = object['description'];
       String category = object['category'];
       String imageUrl = object['image'];
-      String funFact = object['fun_fact'];
       List<String> habitats = List<String>.from(object['habitats']);
-      String humanImpact = object['human_impact'];
       Timestamp lastView = object['last_view'];
       String observable = object['observable'];
       String shortProtectionStatus = object['short_protection_status'];
@@ -70,13 +82,11 @@ class SpeciesViewModel {
           description: description,
           imageUrl: imageUrl,
           category: category,
-          funFact: funFact,
           habitats: habitats,
-          humanImpact: humanImpact,
           lastView: lastView,
           observable: observable,
           protectionStatus: protectionStatus,
-          shortProtectionStatus: shortProtectionStatus
+          shortProtectionStatus: shortProtectionStatus,
       );
     }).toList();
     return speciesList;
