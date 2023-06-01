@@ -54,12 +54,12 @@ class SpeciesView extends StatelessWidget {
           ],
         ),
       floatingActionButton: Container(
-        margin: EdgeInsets.only(bottom: 16.0, right: 16.0),
+        margin: const EdgeInsets.only(bottom: 16.0, right: 16.0),
         child: FloatingActionButton(
           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
           onPressed: () {
           },
-          backgroundColor: Color(0xFFD2C65E),
+          backgroundColor: const Color(0xFFD2C65E),
           child: const Icon(CustomIcons.appareilPhoto, color: black, size: 50,),
         ),
       ),

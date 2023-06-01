@@ -17,9 +17,9 @@ class QuestionsResultView extends StatelessWidget {
       future: SpeciesViewModel().getSpeciesByName(speciesName.first.data),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         } else if (snapshot.hasError) {
-          return Text('Une erreur s\'est produite lors du chargement des données.');
+          return const Text('Une erreur s\'est produite lors du chargement des données.');
         } else {
           Species species = snapshot.data!;
 
@@ -39,7 +39,7 @@ class QuestionsResultView extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushReplacementNamed(context, '/sheet', arguments: species);
                     },
-                    child: Text('Voir la fiche'),
+                    child: const Text('Voir la fiche'),
                   ),
                 ],
               ),
