@@ -9,23 +9,47 @@ import '../Content_simple/content_simple_model.dart';
 
 class SpeciesViewModel {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  List<Species> speciesList = [];
 
-  Future<void> getSpecies() async {
+  Future<List<Species>> getSpecies() async {
     try {
       CollectionReference species = FirebaseFirestore.instance.collection('species');
       QuerySnapshot querySnapshot = await species.get();
       final data = querySnapshot.docs.map((species) => species.data()).toList();
       List<Species> speciesList = convertToSpeciesList(data);
+      speciesList = convertToSpeciesList(data);
+      return speciesList;
     } catch (error) {
-      print('Error retrieving species: $error');
+      print('Error retrieving all species: $error');
+      return [];
     }
   }
 
+  Future<List<Species>> getSpeciesStartingBy(String name) async {
+    try {
+      name = name.toLowerCase();
+      CollectionReference species = FirebaseFirestore.instance.collection('species');
+      QuerySnapshot querySnapshot = await species.where(
+        'name',
+        isGreaterThanOrEqualTo: name,
+      ).where(
+          'name',
+          isLessThan: '${name}z'
+      ).get();
+      final data = querySnapshot.docs.map((species) => species.data()).toList();
+      speciesList = convertToSpeciesList(data);
+      return speciesList;
+    } catch (error, stackTrace) {
+      print('Error retrieving species starting by: $error');
+      print(stackTrace);
+      return [];
+    }
+  }
 
   Future<Species> getSpeciesByName(String name) async {
-      CollectionReference species = FirebaseFirestore.instance.collection('species');
-      QuerySnapshot querySnapshot = await species.where('name', isEqualTo: name).limit(1).get();
-      final data = querySnapshot.docs.map((species) => species.data()).toList();
+    CollectionReference species = FirebaseFirestore.instance.collection('species');
+    QuerySnapshot querySnapshot = await species.where('name', isEqualTo: name).limit(1).get();
+    final data = querySnapshot.docs.map((species) => species.data()).toList();
 
       if (data.isNotEmpty) {
         Map<String, dynamic>? speciesData = data.first as Map<String, dynamic>?;
@@ -36,7 +60,7 @@ class SpeciesViewModel {
         SimpleContent? alert = await SimpleContent.createContentSimple("alert", speciesData);
 
         ContentGenres? contentGenre = await ContentGenres.createContentGenres("content_genres", speciesData);
-        
+
         ContentThreePics? reproduction = await ContentThreePics.createContentThreePics("reproduction", speciesData);
 
         Species speciesObj = Species(
