@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projet_b3/Species/species_model.dart';
 
+import '../Themes/colors.dart';
+import '../Icons/custom_icons.dart';
 import '../Species/species_view_model.dart';
 
-
-class SearchView extends StatefulWidget{
+class SearchView extends StatefulWidget {
   const SearchView({Key? key}) : super(key: key);
 
   @override
@@ -15,6 +16,7 @@ class SearchView extends StatefulWidget{
 class SearchViewState extends State<SearchView> {
   final SpeciesViewModel speciesViewModel = SpeciesViewModel();
   List<Species> speciesList = [];
+  bool isSearchBarClicked = false;
 
   @override
   void initState() {
@@ -26,81 +28,137 @@ class SearchViewState extends State<SearchView> {
     print("species list : ${speciesViewModel.speciesList.toString()}");
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Bienvenue au parc national des Cévennes"),
+        elevation: 0,
+        backgroundColor: darkBeige,
+        flexibleSpace: FlexibleSpaceBar(
+          centerTitle: true,
+          title: Align(
+            alignment: Alignment.bottomLeft,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                Icon(
+                  CustomIcons.place,
+                  color: black,
+                ),
+                Text(
+                  'Bienvenue au parc national des ',
+                  style: TextStyle(
+                    fontWeight: FontWeight.normal,
+                    color: black,
+                    fontSize: 18,
+                  ),
+                ),
+                Text(
+                  'Cévennes',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: black,
+                    fontSize: 18,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
-      body:Column(
-        children:[
-          // display a title in the middle of the screen
-          const Padding(
-            padding: EdgeInsets.only(top: 20, bottom: 20),
-            child: Text(
-              "Observe autour de toi !",
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Column(children: const [
+            Padding(
+              padding: EdgeInsets.only(top: 20, bottom: 20),
+              child: Text(
+                "Observe autour de toi !",
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-          // display a subtitle in the middle of the screen
-          const Padding(
-            padding: EdgeInsets.only(bottom: 20),
-            child: Text(
-              "Tu verras les petites-bêtes d’un\nnouvel œil.",
-              style: TextStyle(
-                fontSize: 16,
+            Padding(
+              padding: EdgeInsets.only(bottom: 20),
+              child: Text(
+                "Tu verras les petites-bêtes d’un\nnouvel œil.",
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
             ),
-          ),
+          ]),
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20),
-            child:
-            TextField(
+            child: TextField(
               decoration: const InputDecoration(
                 hintText: "Trouver une bête",
-                prefixIcon: IconButton(onPressed: null, icon: Icon(Icons.search)),
+                prefixIcon:
+                    IconButton(onPressed: null, icon: Icon(Icons.search)),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(50.0)),
                 ),
               ),
               onChanged: (text) async {
-                List<Species> speciesList = await speciesViewModel.getSpeciesStartingBy(text);
+                List<Species> speciesList =
+                    await speciesViewModel.getSpeciesStartingBy(text);
                 setState(() {
                   this.speciesList = speciesList;
                 });
               },
+              onTap: () {
+                setState(() {
+                  isSearchBarClicked = true;
+                });
+              },
             ),
           ),
-          SizedBox(
-            height: 500,
-            child: GridView.builder(
-              itemCount: speciesList.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                crossAxisSpacing: 4.0,
-                mainAxisSpacing: 4.0,
+          Visibility(
+            visible: !isSearchBarClicked,
+            child: Container(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: Column(
+                children: const [
+                  QuestionCard(
+                      question: "Quelle est cette petit bête ?",
+                      imagePath: "assets/images/search_view_frog.png"),
+                  SizedBox(height: 13),
+                  QuestionCard(question: "Quelles espèces observer dans le coin ?", imagePath: 'assets/images/search_view_forest.png'),
+                ],
               ),
-              itemBuilder: (BuildContext context, int index) {
-                /*speciesViewModel.getSpecies().then((value) =>
-                {
-                  //print("value : ${value.toString()}")
-                });*/
-                return GestureDetector(
-                  onTap: (){
-                    print('clicked on ${speciesList[index].name}');
-                  },
-                  child:  Image.network(
-                    speciesList[index].imageUrl ?? "https://www.feteduviolon.com/wp-content/uploads/2023/02/placeholder-1.png",
-                    fit: BoxFit.cover,
-
-                  ),
-                );
-
-              },
-            )
+            ),
           ),
+          Visibility(
+            visible: isSearchBarClicked,
+            child: SizedBox(
+              height: 500,
+              child: GridView.builder(
+                itemCount: speciesList.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 4.0,
+                  mainAxisSpacing: 4.0,
+                ),
+                itemBuilder: (BuildContext context, int index) {
+                  return GestureDetector(
+                    onTap: () {
+                      print('clicked on ${speciesList[index].name}');
+                    },
+                    child: Image.network(
+                      speciesList[index].imageUrl ??
+                          "https://www.feteduviolon.com/wp-content/uploads/2023/02/placeholder-1.png",
+                      fit: BoxFit.cover,
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 50,
+          )
         ],
-      )
+      ),
     );
   }
 }

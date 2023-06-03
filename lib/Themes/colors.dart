@@ -13,6 +13,7 @@ const lightGreen = Color(0xFFe7ead8);
 const lightBlue = Color(0xFFf3eeef);
 const lightOrange = Color(0xFFfbecdc);
 
+const beige_03 = Color(0xFFEFE5D6);
 
 const horizontalPadding = EdgeInsets.only(left: 16, right: 16);
 
