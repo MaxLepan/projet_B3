@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:projet_b3/Search/search_view_block_question_card.dart';
 import 'package:projet_b3/Species/species_model.dart';
 
 import '../Themes/colors.dart';
@@ -120,7 +121,7 @@ class SearchViewState extends State<SearchView> {
               child: Column(
                 children: const [
                   QuestionCard(
-                      question: "Quelle est cette petit bête ?",
+                      question: "Quelle est cette petite bête ?",
                       imagePath: "assets/images/search_view_frog.png"),
                   SizedBox(height: 13),
                   QuestionCard(question: "Quelles espèces observer dans le coin ?", imagePath: 'assets/images/search_view_forest.png'),
