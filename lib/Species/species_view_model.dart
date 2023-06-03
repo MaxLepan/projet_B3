@@ -38,25 +38,26 @@ class SpeciesViewModel {
         ContentGenres? contentGenre = await ContentGenres.createContentGenres("content_genres", speciesData);
         
         ContentThreePics? reproduction = await ContentThreePics.createContentThreePics("reproduction", speciesData);
+        ContentThreePics? alimentation = await ContentThreePics.createContentThreePics("alimentation", speciesData);
 
+        print("test");
         Species speciesObj = Species(
           name: speciesData!['name'],
           latinName: speciesData['latin_name'],
-          description: speciesData['description'],
           category: speciesData['category'],
           shortProtectionStatus: speciesData['short_protection_status'],
-          protectionStatus: speciesData['protection_status'],
           habitats: List<String>.from(speciesData["habitats"]),
           humanImpact: humanImpact,
           lastView: speciesData['last_view'],
-          observable: speciesData['observable'],
           funFact1: funFact1,
           funFact2: funFact2,
           imageUrl: speciesData['image'],
           contentGenres: contentGenre,
           reproduction: reproduction,
-          alert: alert
+          alert: alert,
+          alimentation: alimentation
         );
+
         return speciesObj;
       } else {
         throw Exception('Species not found');
@@ -79,13 +80,10 @@ class SpeciesViewModel {
       return Species(
           name: name,
           latinName: latinName,
-          description: description,
           imageUrl: imageUrl,
           category: category,
           habitats: habitats,
           lastView: lastView,
-          observable: observable,
-          protectionStatus: protectionStatus,
           shortProtectionStatus: shortProtectionStatus,
       );
     }).toList();

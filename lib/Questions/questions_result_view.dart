@@ -40,17 +40,23 @@ class QuestionsResultView extends StatelessWidget {
                       child: Text(
                         'C\'est probablement un ${speciesName.first.data} !',
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: black, fontSize: 25, fontWeight: FontWeight.bold),
+                        style: const TextStyle(color: black, fontSize: 25, fontWeight: FontWeight.bold),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(bottom: 60),
-                      child:  Image.network(
-                        species.imageUrl ?? "",
+                      padding: const EdgeInsets.only(bottom: 60),
+                      child: Container(
+                        height: 200,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(species.imageUrl ?? ""),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(bottom: 10),
                       child: Row(
                         children: [
                           Expanded(child:
@@ -69,7 +75,6 @@ class QuestionsResultView extends StatelessWidget {
                                   style: textStyle,
                                 ),
                               )
-
                           ),
                           )
                         ],

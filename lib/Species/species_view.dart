@@ -56,7 +56,7 @@ class SpeciesView extends StatelessWidget {
   }
 
   List<Color> _getColor(Species species) {
-    switch (species.category) {
+    switch (species.category.toLowerCase()) {
       case 'amphibien':
         return [green, lightGreen]; // Replace with your desired icon for amphibians
       case 'reptile':
