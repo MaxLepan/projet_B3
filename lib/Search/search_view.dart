@@ -123,7 +123,7 @@ class SearchViewState extends State<SearchView> {
                   QuestionCard(
                       question: "Quelle est cette petite bête ?",
                       imagePath: "assets/images/search_view_frog.png"),
-                  SizedBox(height: 13),
+                  SizedBox(height: 20),
                   QuestionCard(question: "Quelles espèces observer dans le coin ?", imagePath: 'assets/images/search_view_forest.png'),
                 ],
               ),

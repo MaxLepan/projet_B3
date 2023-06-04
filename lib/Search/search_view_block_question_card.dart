@@ -10,7 +10,10 @@ class QuestionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const double size = 145;
+
     return Container(
+      height: size,
       decoration: const BoxDecoration(
         color: beige_03,
         shape: BoxShape.rectangle,
@@ -19,8 +22,8 @@ class QuestionCard extends StatelessWidget {
       child: Row(
         children: [
           SizedBox(
-            width: 100,
-            height: 100,
+            width: size,
+            height: size,
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(5),
                 child: Image(
@@ -33,7 +36,7 @@ class QuestionCard extends StatelessWidget {
             child: Text(
               question,
               style: const TextStyle(
-                fontSize: 18,
+                fontSize: 19,
                 fontWeight: FontWeight.bold,
               ),
             ),
