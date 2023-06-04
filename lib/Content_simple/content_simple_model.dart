@@ -12,6 +12,7 @@ class SimpleContent {
   static Future<SimpleContent?> createContentSimple(String contentSimpleKey, Map<String, dynamic>? speciesData) async {
     DocumentReference<Map<String, dynamic>> contentSimpleRef = speciesData![contentSimpleKey];
     DocumentSnapshot<Map<String, dynamic>> contentSimpleSnapshot = await contentSimpleRef.get();
+    Map<String, dynamic>? contentSimpleData = contentSimpleSnapshot.data();
 
     SimpleContent? content;
     if (contentSimpleSnapshot.exists) {

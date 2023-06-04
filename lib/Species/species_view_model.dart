@@ -15,44 +15,8 @@ class SpeciesViewModel {
     try {
       CollectionReference species = FirebaseFirestore.instance.collection('species');
       QuerySnapshot querySnapshot = await species.get();
-      final data = querySnapshot.docs.map((species) => species.data()).toList();
 
-      List<Species> speciesList = [];
-
-      for (var speciesData in data) {
-        Map<String, dynamic>? speciesDataMap = speciesData as Map<String, dynamic>?;
-
-        SimpleContent? funFact1 = await SimpleContent.createContentSimple("fun_fact1", speciesDataMap);
-        SimpleContent? funFact2 = await SimpleContent.createContentSimple("fun_fact2", speciesDataMap);
-        SimpleContent? humanImpact = await SimpleContent.createContentSimple("human_impact", speciesDataMap);
-        SimpleContent? alert = await SimpleContent.createContentSimple("alert", speciesDataMap);
-
-        ContentGenres? contentGenre = await ContentGenres.createContentGenres("content_genres", speciesDataMap);
-
-        ContentThreePics? reproduction = await ContentThreePics.createContentThreePics("reproduction", speciesDataMap);
-        ContentThreePics? alimentation = await ContentThreePics.createContentThreePics("alimentation", speciesDataMap);
-
-        Species speciesObj = Species(
-          name: speciesDataMap!['name'],
-          latinName: speciesDataMap['latin_name'],
-          category: speciesDataMap['category'],
-          shortProtectionStatus: speciesDataMap['short_protection_status'],
-          habitats: List<String>.from(speciesDataMap["habitats"]),
-          humanImpact: humanImpact,
-          lastView: speciesDataMap['last_view'],
-          funFact1: funFact1,
-          funFact2: funFact2,
-          imageUrl: speciesDataMap['image'],
-          contentGenres: contentGenre,
-          reproduction: reproduction,
-          alert: alert,
-          alimentation: alimentation,
-        );
-
-        speciesList.add(speciesObj);
-      }
-
-      return speciesList;
+      return convertToSpeciesList(querySnapshot);
     } catch (error) {
       print('Error retrieving species: $error');
       return [];
@@ -70,9 +34,8 @@ class SpeciesViewModel {
           'name',
           isLessThan: '${name}z'
       ).get();
-      final data = querySnapshot.docs.map((species) => species.data()).toList();
-      speciesList = convertToSpeciesList(data);
-      return speciesList;
+      return convertToSpeciesList(querySnapshot);
+
     } catch (error, stackTrace) {
       print('Error retrieving species starting by: $error');
       print(stackTrace);
@@ -121,29 +84,43 @@ class SpeciesViewModel {
       }
   }
 
-  List<Species> convertToSpeciesList(List objectList) {
-    List<Species> speciesList = objectList.map((object) {
-      String name = object['name'];
-      String latinName = object['latin_name'];
-      String description = object['description'];
-      String category = object['category'];
-      String imageUrl = object['image'];
-      List<String> habitats = List<String>.from(object['habitats']);
-      Timestamp lastView = object['last_view'];
-      String observable = object['observable'];
-      String shortProtectionStatus = object['short_protection_status'];
-      String protectionStatus = object['protection_status'];
+  Future<List<Species>> convertToSpeciesList(QuerySnapshot<Object?> querySnapshot) async {
+    final data = querySnapshot.docs.map((species) => species.data()).toList();
+    List<Species> speciesList = [];
 
-      return Species(
-          name: name,
-          latinName: latinName,
-          imageUrl: imageUrl,
-          category: category,
-          habitats: habitats,
-          lastView: lastView,
-          shortProtectionStatus: shortProtectionStatus,
+    for (var speciesData in data) {
+      Map<String, dynamic> speciesDataMap = speciesData as Map<String, dynamic>;
+
+      SimpleContent? funFact1 = speciesDataMap['fun_fact1'] == null ? null : await SimpleContent.createContentSimple("fun_fact1", speciesDataMap);
+      SimpleContent? funFact2 = speciesDataMap['fun_fact2'] == null ? null : await SimpleContent.createContentSimple("fun_fact2", speciesDataMap);
+      SimpleContent? humanImpact = speciesDataMap['human_impact'] == null ? null : await SimpleContent.createContentSimple("human_impact", speciesDataMap);
+      SimpleContent? alert = speciesDataMap['alert'] == null ? null : await SimpleContent.createContentSimple("alert", speciesDataMap);
+
+      ContentGenres? contentGenre = speciesDataMap['content_genres'] == null ? null : await ContentGenres.createContentGenres("content_genres", speciesDataMap);
+
+      ContentThreePics? reproduction = speciesDataMap['reproduction'] == null ? null : await ContentThreePics.createContentThreePics("reproduction", speciesDataMap);
+      ContentThreePics? alimentation = speciesDataMap['alimentation'] == null ? null : await ContentThreePics.createContentThreePics("alimentation", speciesDataMap);
+
+      Species speciesObj = Species(
+        name: speciesDataMap['name'],
+        latinName: speciesDataMap['latin_name'],
+        category: speciesDataMap['category'],
+        shortProtectionStatus: speciesDataMap['short_protection_status'],
+        habitats: List<String>.from(speciesDataMap["habitats"]),
+        humanImpact: humanImpact,
+        lastView: speciesDataMap['last_view'],
+        funFact1: funFact1,
+        funFact2: funFact2,
+        imageUrl: speciesDataMap['image'],
+        contentGenres: contentGenre,
+        reproduction: reproduction,
+        alert: alert,
+        alimentation: alimentation,
       );
-    }).toList();
+
+      speciesList.add(speciesObj);
+    }
+
     return speciesList;
   }
 }
