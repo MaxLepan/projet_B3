@@ -16,11 +16,45 @@ class SpeciesViewModel {
       CollectionReference species = FirebaseFirestore.instance.collection('species');
       QuerySnapshot querySnapshot = await species.get();
       final data = querySnapshot.docs.map((species) => species.data()).toList();
-      List<Species> speciesList = convertToSpeciesList(data);
-      speciesList = convertToSpeciesList(data);
+
+      List<Species> speciesList = [];
+
+      for (var speciesData in data) {
+        Map<String, dynamic>? speciesDataMap = speciesData as Map<String, dynamic>?;
+
+        SimpleContent? funFact1 = await SimpleContent.createContentSimple("fun_fact1", speciesDataMap);
+        SimpleContent? funFact2 = await SimpleContent.createContentSimple("fun_fact2", speciesDataMap);
+        SimpleContent? humanImpact = await SimpleContent.createContentSimple("human_impact", speciesDataMap);
+        SimpleContent? alert = await SimpleContent.createContentSimple("alert", speciesDataMap);
+
+        ContentGenres? contentGenre = await ContentGenres.createContentGenres("content_genres", speciesDataMap);
+
+        ContentThreePics? reproduction = await ContentThreePics.createContentThreePics("reproduction", speciesDataMap);
+        ContentThreePics? alimentation = await ContentThreePics.createContentThreePics("alimentation", speciesDataMap);
+
+        Species speciesObj = Species(
+          name: speciesDataMap!['name'],
+          latinName: speciesDataMap['latin_name'],
+          category: speciesDataMap['category'],
+          shortProtectionStatus: speciesDataMap['short_protection_status'],
+          habitats: List<String>.from(speciesDataMap["habitats"]),
+          humanImpact: humanImpact,
+          lastView: speciesDataMap['last_view'],
+          funFact1: funFact1,
+          funFact2: funFact2,
+          imageUrl: speciesDataMap['image'],
+          contentGenres: contentGenre,
+          reproduction: reproduction,
+          alert: alert,
+          alimentation: alimentation,
+        );
+
+        speciesList.add(speciesObj);
+      }
+
       return speciesList;
     } catch (error) {
-      print('Error retrieving all species: $error');
+      print('Error retrieving species: $error');
       return [];
     }
   }
@@ -47,9 +81,9 @@ class SpeciesViewModel {
   }
 
   Future<Species> getSpeciesByName(String name) async {
-    CollectionReference species = FirebaseFirestore.instance.collection('species');
-    QuerySnapshot querySnapshot = await species.where('name', isEqualTo: name).limit(1).get();
-    final data = querySnapshot.docs.map((species) => species.data()).toList();
+      CollectionReference species = FirebaseFirestore.instance.collection('species');
+      QuerySnapshot querySnapshot = await species.where('name', isEqualTo: name).limit(1).get();
+      final data = querySnapshot.docs.map((species) => species.data()).toList();
 
       if (data.isNotEmpty) {
         Map<String, dynamic>? speciesData = data.first as Map<String, dynamic>?;
@@ -60,27 +94,27 @@ class SpeciesViewModel {
         SimpleContent? alert = await SimpleContent.createContentSimple("alert", speciesData);
 
         ContentGenres? contentGenre = await ContentGenres.createContentGenres("content_genres", speciesData);
-
+        
         ContentThreePics? reproduction = await ContentThreePics.createContentThreePics("reproduction", speciesData);
+        ContentThreePics? alimentation = await ContentThreePics.createContentThreePics("alimentation", speciesData);
 
         Species speciesObj = Species(
           name: speciesData!['name'],
           latinName: speciesData['latin_name'],
-          description: speciesData['description'],
           category: speciesData['category'],
           shortProtectionStatus: speciesData['short_protection_status'],
-          protectionStatus: speciesData['protection_status'],
           habitats: List<String>.from(speciesData["habitats"]),
           humanImpact: humanImpact,
           lastView: speciesData['last_view'],
-          observable: speciesData['observable'],
           funFact1: funFact1,
           funFact2: funFact2,
           imageUrl: speciesData['image'],
           contentGenres: contentGenre,
           reproduction: reproduction,
-          alert: alert
+          alert: alert,
+          alimentation: alimentation
         );
+
         return speciesObj;
       } else {
         throw Exception('Species not found');
@@ -103,13 +137,10 @@ class SpeciesViewModel {
       return Species(
           name: name,
           latinName: latinName,
-          description: description,
           imageUrl: imageUrl,
           category: category,
           habitats: habitats,
           lastView: lastView,
-          observable: observable,
-          protectionStatus: protectionStatus,
           shortProtectionStatus: shortProtectionStatus,
       );
     }).toList();

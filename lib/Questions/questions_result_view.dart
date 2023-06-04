@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projet_b3/Species/species_view_model.dart';
+import 'package:projet_b3/Themes/app_bar.dart';
+import 'package:projet_b3/Themes/colors.dart';
 import '../Search/graph_tree_v2.dart';
 import '../Species/species_model.dart';
 
@@ -24,29 +26,115 @@ class QuestionsResultView extends StatelessWidget {
           Species species = snapshot.data!;
 
           return Scaffold(
-            appBar: AppBar(
-              title: Text(speciesName.first.data),
-            ),
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'L\'espèce que vous observez est probablement un ${speciesName.first.data}, cliquez sur le bouton pour voir sa fiche',
-                    textAlign: TextAlign.center,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/sheet', arguments: species);
-                    },
-                    child: const Text('Voir la fiche'),
-                  ),
-                ],
-              ),
-            ),
-          );
-        }
-      },
+            backgroundColor: white,
+            appBar: CustomAppBar(),
+            body: Container(
+              padding: horizontalPadding,
+              margin: EdgeInsets.only(top: 30),
+              child:
+                Column(
+                  children: [
+                    Text("RÉSULTAT"),
+                    Padding(
+                        padding: const EdgeInsets.only(right: 16, left: 16, top: 14, bottom: 20),
+                      child: Text(
+                        'C\'est probablement un ${speciesName.first.data} !',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(color: black, fontSize: 25, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 60),
+                      child: Container(
+                        height: 200,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(species.imageUrl ?? ""),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Row(
+                        children: [
+                          Expanded(child:
+                          ElevatedButton(
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/sheet', arguments: species);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: greenBrown,
+                                  elevation: 0
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.all(13),
+                                child:
+                                Text("Je veux d'avantages d'infos !",
+                                  style: textStyle,
+                                ),
+                              )
+                          ),
+                          )
+                        ],
+                      ),
+                    ),
+
+                    Row(
+                      children:[
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushReplacementNamed(context, '/sheet', arguments: species);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: green,
+                              backgroundColor: white,
+                              side: BorderSide(color: greenBrown, width: 2.8),
+                              elevation: 0,
+                            ),
+                            child: const Padding(
+                              padding: EdgeInsets.all(13),
+                              child: Text(
+                                "J'ai gros doute...",
+                                style: textStyle,
+                              ),
+                            ) 
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    Row(
+                      children: <Widget>[
+                        IconButton(
+                          icon: const Icon(Icons.arrow_back),
+                          onPressed: () {
+                          },
+                        ),
+                        Expanded(
+                          child: Container(),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                          },
+                          child: const Text(
+                            'Ajouter sur la carte',
+                            style: TextStyle(
+                              color: Colors.black,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ]
+                ),
+              )
+            );
+          }
+       },
     );
   }
 }

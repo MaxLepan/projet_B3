@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projet_b3/Icons/custom_icons.dart';
-import 'package:projet_b3/Icons/species_categories_icons.dart';
 import 'package:projet_b3/Species/species_model.dart';
 
 import '../Themes/colors.dart';
@@ -83,7 +82,7 @@ class SpeciesViewHeader extends StatelessWidget {
       );
   }
   IconData _getIconBySpeciesType(String category) {
-    switch (category) {
+    switch (category.toLowerCase()) {
       case 'amphibien':
         return CustomIcons.frog; // Replace with your desired icon for amphibians
       case 'reptile':
