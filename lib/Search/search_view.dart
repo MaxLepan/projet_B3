@@ -62,11 +62,9 @@ class SearchViewState extends State<SearchView> {
                 itemBuilder: (BuildContext context, int index){
                   return GestureDetector(
                     onTap: (){
-                      print('*** Click sur image');
                     },
                     child:  Image.network(speciesImages[index], fit: BoxFit.cover,),
                   );
-
                 },
               )
             ),
