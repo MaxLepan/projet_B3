@@ -10,7 +10,7 @@ class QuestionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double size = 145;
+    const double size = 150;
 
     return Container(
       height: size,
