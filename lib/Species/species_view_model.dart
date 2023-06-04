@@ -10,14 +10,51 @@ import '../Content_simple/content_simple_model.dart';
 class SpeciesViewModel {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Future<void> getSpecies() async {
+  Future<List<Species>> getSpecies() async {
     try {
       CollectionReference species = FirebaseFirestore.instance.collection('species');
       QuerySnapshot querySnapshot = await species.get();
       final data = querySnapshot.docs.map((species) => species.data()).toList();
-      List<Species> speciesList = convertToSpeciesList(data);
+
+      List<Species> speciesList = [];
+
+      for (var speciesData in data) {
+        Map<String, dynamic>? speciesDataMap = speciesData as Map<String, dynamic>?;
+
+        SimpleContent? funFact1 = await SimpleContent.createContentSimple("fun_fact1", speciesDataMap);
+        SimpleContent? funFact2 = await SimpleContent.createContentSimple("fun_fact2", speciesDataMap);
+        SimpleContent? humanImpact = await SimpleContent.createContentSimple("human_impact", speciesDataMap);
+        SimpleContent? alert = await SimpleContent.createContentSimple("alert", speciesDataMap);
+
+        ContentGenres? contentGenre = await ContentGenres.createContentGenres("content_genres", speciesDataMap);
+
+        ContentThreePics? reproduction = await ContentThreePics.createContentThreePics("reproduction", speciesDataMap);
+        ContentThreePics? alimentation = await ContentThreePics.createContentThreePics("alimentation", speciesDataMap);
+
+        Species speciesObj = Species(
+          name: speciesDataMap!['name'],
+          latinName: speciesDataMap['latin_name'],
+          category: speciesDataMap['category'],
+          shortProtectionStatus: speciesDataMap['short_protection_status'],
+          habitats: List<String>.from(speciesDataMap["habitats"]),
+          humanImpact: humanImpact,
+          lastView: speciesDataMap['last_view'],
+          funFact1: funFact1,
+          funFact2: funFact2,
+          imageUrl: speciesDataMap['image'],
+          contentGenres: contentGenre,
+          reproduction: reproduction,
+          alert: alert,
+          alimentation: alimentation,
+        );
+
+        speciesList.add(speciesObj);
+      }
+
+      return speciesList;
     } catch (error) {
       print('Error retrieving species: $error');
+      return [];
     }
   }
 
@@ -40,7 +77,6 @@ class SpeciesViewModel {
         ContentThreePics? reproduction = await ContentThreePics.createContentThreePics("reproduction", speciesData);
         ContentThreePics? alimentation = await ContentThreePics.createContentThreePics("alimentation", speciesData);
 
-        print("test");
         Species speciesObj = Species(
           name: speciesData!['name'],
           latinName: speciesData['latin_name'],
