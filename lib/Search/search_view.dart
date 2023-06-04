@@ -87,7 +87,7 @@ class SearchViewState extends State<SearchView> {
                 });*/
                 return GestureDetector(
                   onTap: (){
-                    print('clicked on ${speciesList[index].name}');
+                    Navigator.pushReplacementNamed(context, '/sheet', arguments: speciesList[index]);
                   },
                   child:  Image.network(
                     speciesList[index].imageUrl ?? "https://www.feteduviolon.com/wp-content/uploads/2023/02/placeholder-1.png",
