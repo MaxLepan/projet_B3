@@ -68,13 +68,11 @@ class SpeciesView extends StatelessWidget {
         return SpeciesViewHeader(subject: subject, mainColor: color[0]);
       case 1:
         if (subject.alerts != null) {
-          print("***0:$highlighted");
           return SpeciesViewBlocAlert(alert: subject.alerts!.first, mainColor: color[0], highlighted: highlighted);
         }
         break;
       case 2:
         if (subject.genders != null) {
-          print("***1:$highlighted");
           return SpeciesViewBlockGenres(content: subject.genders!, mainColor: color[0], highlighted: highlighted);
         }
         break;
@@ -84,7 +82,7 @@ class SpeciesView extends StatelessWidget {
         }
         break;
       case 4:
-        if (subject.funFacts != null) {
+        if (subject.funFacts![0] != null) {
           return SpeciesViewBlockFunFact(funFact: subject.funFacts![0], mainColor: color[0], secondaryColor: color[1], highlighted: highlighted);
         }
         break;
@@ -94,11 +92,16 @@ class SpeciesView extends StatelessWidget {
         }
         break;
       case 6:
+        if (subject.funFacts![1] != null) {
+          return SpeciesViewBlockFunFact(funFact: subject.funFacts![1], mainColor: color[0], secondaryColor: color[1], highlighted: highlighted);
+        }
+        break;
+      case 7:
         if (subject.habitats != null) {
           return SpeciesViewBlockHabitats(subject: subject, mainColor: color[0], highlighted: highlighted);
         }
         break;
-      case 7:
+      case 8:
         if (subject.humanImpacts != null) {
           return SpeciesViewBlockHumanImpact(humanImpact: subject.humanImpacts![0], mainColor: color[0], highlighted: highlighted);
         }
