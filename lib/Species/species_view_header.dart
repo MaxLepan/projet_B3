@@ -20,8 +20,10 @@ class SpeciesViewHeader extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Text(
-                  subject.name,
+                  "${subject.name[0].toUpperCase()}${subject.name.substring(1).toLowerCase()}",
                   style: const TextStyle(color: black, fontSize: 24, fontWeight: FontWeight.bold),
+                  softWrap: false,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 const Spacer(),
                 Container(

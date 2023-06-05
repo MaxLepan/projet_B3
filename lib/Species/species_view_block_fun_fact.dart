@@ -33,14 +33,7 @@ class SpeciesViewBlockFunFact extends StatelessWidget {
                   margin: const EdgeInsets.only(top: 16, bottom: 6),
                   child: Transform.rotate(
                     angle: -3.86 * (pi / 180),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(3.0),
-                          color: mainColor
-                      ),
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(funFact!["title"], style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 18, fontWeight: FontWeight.w500, color: black),),
-                    ),
+                    child: Text(funFact!["title"], style: const TextStyle(color: black, fontSize: 21, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),),
                   ),
                 ),
               if(funFact!["subtitle"] != null)

@@ -27,7 +27,6 @@ class SpeciesView extends StatelessWidget {
         shrinkWrap: true,
         itemCount: _getBlockCount(),
         itemBuilder: (context, index) {
-          print("***$colors");
           return _buildBlockAtIndex(index, colors, index%2==0 ? false : true );
         },
       ),
@@ -49,7 +48,7 @@ class SpeciesView extends StatelessWidget {
   }
 
   int _getBlockCount() {
-    int count = 0;
+    int count = 1;
 
     if (subject.alerts != null) count++;
     if (subject.genders != null) count++;

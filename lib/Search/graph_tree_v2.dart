@@ -73,7 +73,7 @@ final node_rocheux_couleur_reptile_vert_olive = Node(31, 'vert-olive', null, nul
 
 //leaves
 final leaf_crapaud_epineux = Node(32, "crapaud épineux", null, null);
-final leaf_crapaud_calamite = Node(33, "couleuvre vipérine", null, null);
+final leaf_crapaud_calamite = Node(33, "crapaud accoucheur", null, null);
 final leaf_pelodyte_ponctuee = Node(34, "pélodyte ponctué", null, null);
 final leaf_rainette_meridionale = Node(35, "rainette méridionale", null, null);
 final leaf_couleuvre_montpellier = Node(36, "couleuvre vipérine", null, null);
