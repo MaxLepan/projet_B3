@@ -1,24 +1,23 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:projet_b3/Species/species_model.dart';
 import 'package:projet_b3/Themes/colors.dart';
 
-import '../Content_simple/content_simple_model.dart';
-import '../Icons/custom_icons.dart';
 
 class SpeciesViewBlockFunFact extends StatelessWidget {
-  final SimpleContent funFact;
+  final Map? funFact;
   final Color mainColor;
   final Color secondaryColor;
+  final bool highlighted;
 
   const SpeciesViewBlockFunFact(
-      {super.key, required this.funFact, required this.mainColor, required this.secondaryColor});
+      {super.key, required this.funFact, required this.mainColor, required this.secondaryColor, required this.highlighted});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(left: 16, right: 16, bottom: 30, top: 30),
+      color: highlighted == false ? white : darkBeige,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(3.0),
@@ -29,7 +28,7 @@ class SpeciesViewBlockFunFact extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              if(funFact.title != "")
+              if(funFact!["title"] != "")
                 Container(
                   margin: const EdgeInsets.only(top: 16, bottom: 6),
                   child: Transform.rotate(
@@ -40,25 +39,25 @@ class SpeciesViewBlockFunFact extends StatelessWidget {
                           color: mainColor
                       ),
                       padding: const EdgeInsets.all(10.0),
-                      child: Text(funFact.title!, style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 18, fontWeight: FontWeight.w500, color: black),),
+                      child: Text(funFact!["title"], style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 18, fontWeight: FontWeight.w500, color: black),),
                     ),
                   ),
                 ),
-              if(funFact.description != "")
+              if(funFact!["subtitle"] != null)
                 Container(
                   padding: const EdgeInsets.only(top: 6, bottom: 6),
-                  child: Text(funFact.description!, style: const TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 17),),
+                  child: Text(funFact!["subtitle"], style: const TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 17),),
                 ),
-              if(funFact.text != "")
+              if(funFact!["text"] != null)
                 Container(
                   padding: const EdgeInsets.only(top: 6, bottom: 6),
-                  child: Text(funFact.text!, style: textStyle,),
+                  child: Text(funFact!["text"], style: textStyle,),
                 ),
-              if(funFact.image != null)
+              if(funFact!["image_url"] != null)
                 Container(
                   padding: const EdgeInsets.only(top: 6, bottom: 6),
                   child: Image.network(
-                    funFact.image!,
+                    funFact!["image_url"],
                     fit: BoxFit.contain,
                     width: 299,
                     height: 100,

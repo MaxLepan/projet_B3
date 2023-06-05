@@ -6,12 +6,13 @@ import 'package:projet_b3/Themes/colors.dart';
 class SpeciesViewBlockHabitats extends StatelessWidget {
   final Species subject;
   final Color mainColor;
-  const SpeciesViewBlockHabitats({super.key, required this.subject, required this.mainColor});
+  final bool highlighted;
+  const SpeciesViewBlockHabitats({super.key, required this.subject, required this.mainColor, required this.highlighted});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: beige,
+      color: highlighted == false ? white : darkBeige,
       child:
         Padding(
           padding: const EdgeInsets.only(left: 16, right: 16,top: 20),

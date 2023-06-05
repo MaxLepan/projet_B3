@@ -22,48 +22,101 @@ class SpeciesView extends StatelessWidget {
 
     return Scaffold(
       appBar: const CustomAppBar(),
-      body: ListView(
-          children: <Widget>[
-            SpeciesViewHeader(subject: subject, mainColor: colors[0]),
-            if(subject.alert != null)
-              SpeciesViewBlocAlert(alert: subject.alert!, mainColor: colors[0]),
-            if(subject.contentGenres != null)
-              SpeciesViewBlockGenres(content: subject.contentGenres!, mainColor: colors[0]),
-            if(subject.reproduction != null)
-              SpeciesViewBlockThreePics(content: subject.reproduction!, mainColor: colors[0]),
-            if(subject.funFact1 != null)
-              SpeciesViewBlockFunFact(funFact: subject.funFact1!, mainColor: colors[0], secondaryColor: colors[1]),
-            if(subject.habitats != null)
-              SpeciesViewBlockHabitats(subject: subject, mainColor: colors[0]),
-            if(subject.funFact2 != null)
-              SpeciesViewBlockFunFact(funFact: subject.funFact2!, mainColor: colors[0], secondaryColor: colors[1]),
-            if(subject.humanImpact != null)
-              SpeciesViewBlockHumanImpact(humanImpact: subject.humanImpact!, mainColor: colors[0]),
-          ],
-        ),
+      body: ListView.builder(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemCount: _getBlockCount(),
+        itemBuilder: (context, index) {
+          print("***$colors");
+          return _buildBlockAtIndex(index, colors, index%2==0 ? false : true );
+        },
+      ),
       floatingActionButton: Container(
         margin: const EdgeInsets.only(bottom: 16.0, right: 16.0),
         child: FloatingActionButton(
           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
-          onPressed: () {
-          },
+          onPressed: () {},
           backgroundColor: const Color(0xFFD2C65E),
-          child: const Icon(CustomIcons.appareilPhoto, color: black, size: 50,),
+          child: const Icon(
+            CustomIcons.appareilPhoto,
+            color: black,
+            size: 50,
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 
+  int _getBlockCount() {
+    int count = 0;
+
+    if (subject.alerts != null) count++;
+    if (subject.genders != null) count++;
+    if (subject.reproduction != null) count++;
+    if (subject.funFacts != null) count += subject.funFacts!.length;
+    if (subject.diet != null) count++;
+    if (subject.habitats != null) count++;
+    if (subject.humanImpacts != null) count++;
+
+    return count;
+  }
+
+  Widget _buildBlockAtIndex(int index, List<Color> color, bool highlighted) {
+    switch (index) {
+      case 0:
+        return SpeciesViewHeader(subject: subject, mainColor: color[0]);
+      case 1:
+        if (subject.alerts != null) {
+          print("***0:$highlighted");
+          return SpeciesViewBlocAlert(alert: subject.alerts!.first, mainColor: color[0], highlighted: highlighted);
+        }
+        break;
+      case 2:
+        if (subject.genders != null) {
+          print("***1:$highlighted");
+          return SpeciesViewBlockGenres(content: subject.genders!, mainColor: color[0], highlighted: highlighted);
+        }
+        break;
+      case 3:
+        if (subject.reproduction != null) {
+          return SpeciesViewBlockThreePics(content: subject.reproduction!, mainColor: color[0], title: "Reproduction", highlighted: highlighted);
+        }
+        break;
+      case 4:
+        if (subject.funFacts != null) {
+          return SpeciesViewBlockFunFact(funFact: subject.funFacts![0], mainColor: color[0], secondaryColor: color[1], highlighted: highlighted);
+        }
+        break;
+      case 5:
+        if (subject.diet != null) {
+          return SpeciesViewBlockThreePics(content: subject.diet!, mainColor: color[0], title: "Régime alimentaire", highlighted: highlighted);
+        }
+        break;
+      case 6:
+        if (subject.habitats != null) {
+          return SpeciesViewBlockHabitats(subject: subject, mainColor: color[0], highlighted: highlighted);
+        }
+        break;
+      case 7:
+        if (subject.humanImpacts != null) {
+          return SpeciesViewBlockHumanImpact(humanImpact: subject.humanImpacts![0], mainColor: color[0], highlighted: highlighted);
+        }
+        break;
+      default:
+        break;
+    }
+    return const SizedBox();
+  }
+
   List<Color> _getColor(Species species) {
     switch (species.category.toLowerCase()) {
       case 'amphibien':
-        return [green, lightGreen]; // Replace with your desired icon for amphibians
+        return [green, lightGreen];
       case 'reptile':
-        return [blue, lightBlue]; // Replace with your desired icon for reptiles
+        return [blue, lightBlue];
       default:
-        return [orange, lightOrange]; // Replace with a default icon if needed
+        return [orange, lightOrange];
     }
   }
-
 }

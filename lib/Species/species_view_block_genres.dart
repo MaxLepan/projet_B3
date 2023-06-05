@@ -1,88 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:projet_b3/Content_genres/content_genres_model.dart';
-import 'package:projet_b3/Species/species_model.dart';
 import 'package:projet_b3/Themes/colors.dart';
 
 import '../Icons/custom_icons.dart';
 
 class SpeciesViewBlockGenres extends StatelessWidget {
-  final ContentGenres content;
+  final Map? content;
   final Color mainColor;
-  const SpeciesViewBlockGenres({super.key, required this.content, required this.mainColor});
+  final bool highlighted;
+  const SpeciesViewBlockGenres({super.key, required this.content, required this.mainColor, required this.highlighted});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      color: highlighted == false ? white : darkBeige,
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           const Text("Genres", style: titleStyle,),
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Stack(
-                    alignment: Alignment.topLeft,
-                    children: <Widget>[
-                      if(content.imageUrlMale != null)
-                        Container(
-                          height: 170,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(content.imageUrlMale!),
-                              fit: BoxFit.cover,
+            for(var gender in content!.entries)
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Stack(
+                      alignment: Alignment.topLeft,
+                      children: <Widget>[
+                        if(content != null)
+                          Container(
+                            height: 170,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage(gender.value["image_url"]),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                        ),
-                      Container(
-                        alignment: Alignment.center,
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            color: mainColor,
-                            borderRadius: BorderRadius.circular(3.0)
-                        ),
-                        child : const Icon(CustomIcons.masculin, color: black, size: 50,),
-
-                      ),
-                    ],
-                  ),
-                  Padding(padding: const EdgeInsets.only(top: 15, bottom: 15),
-                    child:
-                      Text(content.descriptionMale ?? "", style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 17),),
-                  ),
-
-                  Stack(
-                    alignment: Alignment.topLeft,
-                    children: <Widget>[
-                      if(content.imageUrlFemale != null)
                         Container(
-                          height: 170,
+                          alignment: Alignment.center,
+                          width: 50,
+                          height: 50,
                           decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(content.imageUrlFemale!),
-                              fit: BoxFit.cover,
-                            ),
+                              color: mainColor,
+                              borderRadius: BorderRadius.circular(3.0)
                           ),
-                        ),
-                      Container(
-                        alignment: Alignment.center,
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            color: mainColor,
-                            borderRadius: BorderRadius.circular(3.0)
-                        ),
-                        child : const Icon(CustomIcons.feminin, color: black, size: 50,),
+                          child : Icon(gender.key == "female" ? CustomIcons.feminin : CustomIcons.masculin, color: black, size: 50,),
 
-                      ),
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
                   Padding(padding: const EdgeInsets.only(top: 15),
                     child:
-                    Text(content.descriptionFemale ?? "", style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 17),),
+                      Text(gender.value["caption"], style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 17),),
                   ),
                 ],
               ),
