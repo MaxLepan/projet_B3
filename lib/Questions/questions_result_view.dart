@@ -30,7 +30,7 @@ class QuestionsResultView extends StatelessWidget {
             appBar: CustomAppBar(),
             body: Container(
               padding: horizontalPadding,
-              margin: EdgeInsets.only(top: 30),
+              margin: const EdgeInsets.only(top: 30),
               child:
                 Column(
                   children: [
@@ -38,7 +38,7 @@ class QuestionsResultView extends StatelessWidget {
                     Padding(
                         padding: const EdgeInsets.only(right: 16, left: 16, top: 14, bottom: 20),
                       child: Text(
-                        'C\'est probablement un ${speciesName.first.data} !',
+                        'C\'est probablement un(e) ${speciesName.first.data.toString()[0].toUpperCase()}${speciesName.first.data.toString().substring(1).toLowerCase()} !',
                         textAlign: TextAlign.center,
                         style: const TextStyle(color: black, fontSize: 25, fontWeight: FontWeight.bold),
                       ),
@@ -91,7 +91,7 @@ class QuestionsResultView extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                               foregroundColor: green,
                               backgroundColor: white,
-                              side: BorderSide(color: greenBrown, width: 2.8),
+                              side: const BorderSide(color: greenBrown, width: 2.8),
                               elevation: 0,
                             ),
                             child: const Padding(

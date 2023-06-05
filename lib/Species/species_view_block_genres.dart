@@ -27,7 +27,15 @@ class SpeciesViewBlockGenres extends StatelessWidget {
                     alignment: Alignment.topLeft,
                     children: <Widget>[
                       if(content.imageUrlMale != null)
-                        Image.network(content.imageUrlMale!),
+                        Container(
+                          height: 170,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(content.imageUrlMale!),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
                       Container(
                         alignment: Alignment.center,
                         width: 50,
@@ -50,7 +58,15 @@ class SpeciesViewBlockGenres extends StatelessWidget {
                     alignment: Alignment.topLeft,
                     children: <Widget>[
                       if(content.imageUrlFemale != null)
-                        Image.network(content.imageUrlFemale!),
+                        Container(
+                          height: 170,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(content.imageUrlFemale!),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
                       Container(
                         alignment: Alignment.center,
                         width: 50,

@@ -48,11 +48,11 @@ class SpeciesViewHeader extends StatelessWidget {
           ),
           Row(
             children: [
-              const Padding(
-                padding: EdgeInsets.only(left: 16),
+              Padding(
+                padding: const EdgeInsets.only(left: 16),
                 child: Text(
-                  'Lorem ipsum',
-                  style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
+                  subject.latinName,
+                  style: const TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
                 ),
               ),
               const Spacer(),
@@ -74,8 +74,14 @@ class SpeciesViewHeader extends StatelessWidget {
           ),
           Container(
             padding: const EdgeInsets.only(top: 24),
-            child: Image.network(
-                subject.imageUrl ?? "" ,
+            child: Container(
+              height: 250,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(subject.imageUrl ?? ""),
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
           ),
         ],

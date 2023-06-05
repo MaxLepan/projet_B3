@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:projet_b3/Content_three_pics/content_three_pics.dart';
-import 'package:projet_b3/Species/species_model.dart';
 import 'package:projet_b3/Themes/colors.dart';
 
 import '../Content_simple/content_simple_model.dart';
@@ -44,17 +43,27 @@ class SpeciesViewBlockThreePics extends StatelessWidget {
               ),
             ),
           Padding(
-            padding: EdgeInsets.only(top:5, bottom:15),
+            padding: const EdgeInsets.only(top:5, bottom:15),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
                   child: Column(
                     children: [
                       if(content.image1 != null)
-                        Image.network(content.image1!),
+                        Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(content.image1!),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
                       if(content.legend1 != null)
                         Padding(
-                          padding: EdgeInsets.only(top: 8),
+                          padding: const EdgeInsets.only(top: 8),
                           child: Text(content.legend1!, style: const TextStyle(fontSize: 18, color: black), textAlign: TextAlign.center),
                         ),
                     ],
@@ -64,10 +73,19 @@ class SpeciesViewBlockThreePics extends StatelessWidget {
                   child: Column(
                     children: [
                       if(content.image2 != null)
-                        Image.network(content.image2!),
+                        Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(content.image2!),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
                       if(content.legend2 != null)
                         Padding(
-                          padding: EdgeInsets.only(top: 8, left: 6, right : 6),
+                          padding: const EdgeInsets.only(top: 8, left: 6, right : 6),
                           child: Text(content.legend2!, style: const TextStyle(fontSize: 18, color: black), textAlign: TextAlign.center),
                         ),
                     ],
@@ -77,7 +95,16 @@ class SpeciesViewBlockThreePics extends StatelessWidget {
                   child: Column(
                     children: [
                       if(content.image3 != null)
-                        Image.network(content.image3!),
+                        Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(content.image3!),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
                       if(content.legend3 != null)
                         Padding(
                           padding: EdgeInsets.only(top: 8),
