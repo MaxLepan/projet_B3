@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projet_b3/Themes/colors.dart';
 
+import '../Icons/custom_icons.dart';
+
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key});
 
@@ -11,11 +13,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      titleSpacing: 0,
+      titleSpacing: -10,
       leading: Container(
-        margin: const EdgeInsets.only(top: 3),
+        margin: const EdgeInsets.only(top: 0),
         child: IconButton(
-          icon: const Icon(CupertinoIcons.xmark, size: 28,),
+          icon: const Icon(CustomIcons.croix , size: 36,),
           onPressed: () {
             Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
           },

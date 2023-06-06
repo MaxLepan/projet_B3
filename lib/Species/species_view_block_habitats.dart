@@ -14,14 +14,15 @@ class SpeciesViewBlockHabitats extends StatelessWidget {
     return Container(
       color: highlighted == false ? white : darkBeige,
       child:
-        Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16,top: 20),
+        Container(
+          margin: const EdgeInsets.only(left: 28, right: 28),
+          padding: const EdgeInsets.only(top: 35, bottom: 35),
           child: Column(
             children: <Widget> [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Text(
+                  Text(
                     "Habitats",
                     style: titleStyle,
                   ),
@@ -30,7 +31,7 @@ class SpeciesViewBlockHabitats extends StatelessWidget {
                     children: [
                       for (var item in subject.habitats!)
                         Container(
-                          margin: const EdgeInsets.only(right: 8, bottom: 8),
+                          margin: const EdgeInsets.only(right: 14, bottom: 14),
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
                             color: mainColor,
@@ -38,7 +39,7 @@ class SpeciesViewBlockHabitats extends StatelessWidget {
                           ),
                           child: Text(
                             item,
-                            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 17),
+                            style: smallTitle,
                           ),
                         ),
                     ],

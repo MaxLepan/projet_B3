@@ -22,28 +22,14 @@ class SpeciesView extends StatelessWidget {
 
     return Scaffold(
       appBar: const CustomAppBar(),
+      backgroundColor: white,
       body: ListView.builder(
         scrollDirection: Axis.vertical,
-        shrinkWrap: true,
         itemCount: _getBlockCount(),
         itemBuilder: (context, index) {
           return _buildBlockAtIndex(index, colors, index%2==0 ? false : true );
         },
-      ),
-      floatingActionButton: Container(
-        margin: const EdgeInsets.only(bottom: 16.0, right: 16.0),
-        child: FloatingActionButton(
-          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
-          onPressed: () {},
-          backgroundColor: const Color(0xFFD2C65E),
-          child: const Icon(
-            CustomIcons.appareilPhoto,
-            color: black,
-            size: 50,
-          ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      )
     );
   }
 

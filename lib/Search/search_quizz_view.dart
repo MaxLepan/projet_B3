@@ -84,9 +84,9 @@ class SearchQuizzView extends StatelessWidget {
                       Navigator.pop(context);
                     },
                     icon: Row(
-                      children: const [
-                        Icon(Icons.arrow_back),
-                        SizedBox(width: 8),
+                      children: [
+                        const Icon(Icons.arrow_back),
+                        const SizedBox(width: 8),
                         Text(
                           'Retour',
                           style: textStyle,

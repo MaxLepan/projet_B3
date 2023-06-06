@@ -12,11 +12,15 @@ class SpeciesViewHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return
+    Container(
+      color: white,
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(left: 16, top: 16, right: 16),
+          Container(
+            margin: const EdgeInsets.only(top: 16),
+            padding: horizontalPadding,
             child: Row(
               children: <Widget>[
                 Text(
@@ -27,8 +31,8 @@ class SpeciesViewHeader extends StatelessWidget {
                 ),
                 const Spacer(),
                 Container(
-                  width: 32,
-                  height: 32,
+                  width: 40,
+                  height: 40,
                   decoration: BoxDecoration(
                     color: darkBeige,
                     shape: BoxShape.circle,
@@ -41,53 +45,89 @@ class SpeciesViewHeader extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 1),
                     child: Icon(
                       _getIconBySpeciesType(subject.category),
-                      size: 16,
+                      size: 20,
                     ),
                   ),
                 ),
               ],
             ),
           ),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 16),
-                child: Text(
-                  subject.latinName,
-                  style: const TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
-                ),
-              ),
-              const Spacer(),
-              Padding(
-                padding: const EdgeInsets.only(top: 8, right: 16),
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: mainColor,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Text(
-                    subject.protectionStatus ?? "",
-                    style: const TextStyle(color: black, fontWeight: FontWeight.w500, fontSize: 17),
-                  ),
-                ),
-              ),
-            ],
+          Container(
+            margin: const EdgeInsets.only(bottom: 16),
+            padding: horizontalPadding,
+            child: Text(
+              subject.latinName,
+              style: const TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
+            ),
           ),
           Container(
-            padding: const EdgeInsets.only(top: 24),
+            margin: horizontalPadding,
+            padding: const EdgeInsets.only(top: 8, right: 16),
             child: Container(
-              height: 250,
+              padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(subject.imageUrl ?? ""),
-                  fit: BoxFit.cover,
-                ),
+                color: mainColor,
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Text(
+                subject.protectionStatus ?? "",
+                style: const TextStyle(color: black, fontWeight: FontWeight.w500, fontSize: 17),
               ),
             ),
           ),
+          Container(
+            padding: const EdgeInsets.only(top: 24),
+            child: Stack(
+              children: [
+                Container(
+                  height: 250,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(subject.imageUrl ?? ""),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 35,
+                  bottom: 21,
+                  child: Text(
+                    "L. 16cm",
+                    style: textItalicStyle
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            color: darkBeige,
+            padding: const EdgeInsets.only(top: 16, left: 28, right: 28),
+            child: Row(
+              children: [
+                Expanded(child:
+                ElevatedButton(
+                    onPressed: () {
+                    },
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: greenBrown,
+                        elevation: 0
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(13),
+                      child:
+                      Text("Ajouter ma photo sur la carte",
+                        style: textBoldStyle,
+                      ),
+                    )
+                ),
+                )
+              ],
+            ),
+          ),
         ],
-      );
+      ),
+    );
+
   }
   IconData _getIconBySpeciesType(String category) {
     switch (category.toLowerCase()) {

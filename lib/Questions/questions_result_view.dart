@@ -27,14 +27,14 @@ class QuestionsResultView extends StatelessWidget {
 
           return Scaffold(
             backgroundColor: white,
-            appBar: CustomAppBar(),
+            appBar: const CustomAppBar(),
             body: Container(
               padding: horizontalPadding,
               margin: const EdgeInsets.only(top: 30),
               child:
                 Column(
                   children: [
-                    Text("RÉSULTAT"),
+                    const Text("RÉSULTAT"),
                     Padding(
                         padding: const EdgeInsets.only(right: 16, left: 16, top: 14, bottom: 20),
                       child: Text(
@@ -68,8 +68,8 @@ class QuestionsResultView extends StatelessWidget {
                                   backgroundColor: greenBrown,
                                   elevation: 0
                               ),
-                              child: const Padding(
-                                padding: EdgeInsets.all(13),
+                              child: Padding(
+                                padding: const EdgeInsets.all(13),
                                 child:
                                 Text("Je veux d'avantages d'infos !",
                                   style: textStyle,
@@ -94,8 +94,8 @@ class QuestionsResultView extends StatelessWidget {
                               side: const BorderSide(color: greenBrown, width: 2.8),
                               elevation: 0,
                             ),
-                            child: const Padding(
-                              padding: EdgeInsets.all(13),
+                            child: Padding(
+                              padding: const EdgeInsets.all(13),
                               child: Text(
                                 "J'ai gros doute...",
                                 style: textStyle,

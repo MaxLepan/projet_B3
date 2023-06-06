@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 const white = Color(0xFFFEFAF4);
 const beige = Color(0xFFFEFAF4);
@@ -16,7 +17,15 @@ const lightOrange = Color(0xFFfbecdc);
 
 const beige_03 = Color(0xFFEFE5D6);
 
-const horizontalPadding = EdgeInsets.only(left: 16, right: 16);
+const horizontalPadding = EdgeInsets.only(left: 28, right: 28);
+const smallHorizontalPadding = EdgeInsets.only(left: 19, right: 19);
 
-const titleStyle =  TextStyle(color: black, fontSize: 21, fontWeight: FontWeight.bold);
-const textStyle =  TextStyle(color: black, fontSize: 17);
+var titleStyle = GoogleFonts.rubik(color: black, fontSize: 26, fontWeight: FontWeight.w500);
+var titleItalicStyle = GoogleFonts.rubik(color: black, fontSize: 26, fontWeight: FontWeight.w500, fontStyle: FontStyle.italic);
+var smallTitle = GoogleFonts.rubik(color: black, fontSize: 17, fontWeight: FontWeight.w500);
+
+
+var textStyle = GoogleFonts.nunito(color: black, fontSize: 17);
+var textItalicStyle = GoogleFonts.nunito(color: black, fontSize: 17, fontStyle: FontStyle.italic);
+var textBoldStyle = GoogleFonts.nunito(color: black, fontSize: 17, fontWeight: FontWeight.bold);
+var textMediumStyle = GoogleFonts.nunito(color: black, fontSize: 17, fontWeight: FontWeight.w500);

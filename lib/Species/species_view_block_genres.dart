@@ -13,11 +13,12 @@ class SpeciesViewBlockGenres extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: highlighted == false ? white : darkBeige,
-      padding: const EdgeInsets.all(16),
+      margin: EdgeInsets.only(top: 35, bottom: 35),
+      padding: horizontalPadding,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          const Text("Genres", style: titleStyle,),
+          Text("Genres", style: titleStyle,),
             for(var gender in content!.entries)
               Padding(
                 padding: const EdgeInsets.only(top: 20),
@@ -31,6 +32,7 @@ class SpeciesViewBlockGenres extends StatelessWidget {
                           Container(
                             height: 170,
                             decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(Radius.circular(5)),
                               image: DecorationImage(
                                 image: NetworkImage(gender.value["image_url"]),
                                 fit: BoxFit.cover,
@@ -43,16 +45,16 @@ class SpeciesViewBlockGenres extends StatelessWidget {
                           height: 50,
                           decoration: BoxDecoration(
                               color: mainColor,
-                              borderRadius: BorderRadius.circular(3.0)
+                              borderRadius: const BorderRadius.only(topLeft: Radius.circular(5.0), bottomRight: Radius.circular(5.0)),
                           ),
                           child : Icon(gender.key == "female" ? CustomIcons.feminin : CustomIcons.masculin, color: black, size: 50,),
 
                         ),
                       ],
                     ),
-                  Padding(padding: const EdgeInsets.only(top: 15),
+                  Padding(padding: const EdgeInsets.only(top: 10, bottom: 15),
                     child:
-                      Text(gender.value["caption"], style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 17),),
+                      Text(gender.value["caption"], style: textItalicStyle,),
                   ),
                 ],
               ),

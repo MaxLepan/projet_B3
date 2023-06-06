@@ -23,6 +23,7 @@ dependencies:
   graph_collection: ^2.1.0
   graphs: ^2.3.0
   slugify: ^2.0.0
+  google_fonts: ^4.0.4
 
 dev_dependencies:
   flutter_test:

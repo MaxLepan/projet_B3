@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:projet_b3/Themes/colors.dart';
 
 
@@ -15,51 +16,56 @@ class SpeciesViewBlockFunFact extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(left: 16, right: 16, bottom: 30, top: 30),
-      color: highlighted == false ? white : darkBeige,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(3.0),
-          color: secondaryColor,
-        ),
-        child: Padding(
+    return
+      Container(
+        color: highlighted == false ? white : darkBeige,
+        child: Container(
           padding: horizontalPadding,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              if(funFact!["title"] != "")
-                Container(
-                  margin: const EdgeInsets.only(top: 16, bottom: 6),
-                  child: Transform.rotate(
-                    angle: -3.86 * (pi / 180),
-                    child: Text(funFact!["title"], style: const TextStyle(color: black, fontSize: 21, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),),
-                  ),
+          margin: const EdgeInsets.only(bottom: 30, top: 30),
+          child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(3.0),
+                color: secondaryColor,
+              ),
+              child: Container(
+                padding: smallHorizontalPadding,
+                margin: EdgeInsets.only(bottom: 25),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    if(funFact!["title"] != "")
+                      Container(
+                        margin: const EdgeInsets.only(top: 30, bottom: 30),
+                        child: Transform.rotate(
+                          angle: -5.86 * (pi / 180),
+                          child: Text(funFact!["title"], style: GoogleFonts.rubik(color: black, fontSize: 26, fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),),
+                        ),
+                      ),
+                    if(funFact!["subtitle"] != null)
+                      Container(
+                        padding: const EdgeInsets.only(bottom: 6),
+                        child: Text(funFact!["subtitle"], style: textBoldStyle,),
+                      ),
+                    if(funFact!["text"] != null)
+                      Container(
+                        padding: const EdgeInsets.only(top: 6, bottom: 6),
+                        child: Text(funFact!["text"], style: textStyle,),
+                      ),
+                    if(funFact!["image_url"] != null)
+                      Container(
+                        padding: const EdgeInsets.only(top: 6, bottom: 6),
+                        child: Image.network(
+                          funFact!["image_url"],
+                          fit: BoxFit.contain,
+                          width: 299,
+                          height: 100,
+                        ),
+                      ),
+                  ],
                 ),
-              if(funFact!["subtitle"] != null)
-                Container(
-                  padding: const EdgeInsets.only(top: 6, bottom: 6),
-                  child: Text(funFact!["subtitle"], style: const TextStyle(fontWeight: FontWeight.w500, color: black, fontSize: 17),),
-                ),
-              if(funFact!["text"] != null)
-                Container(
-                  padding: const EdgeInsets.only(top: 6, bottom: 6),
-                  child: Text(funFact!["text"], style: textStyle,),
-                ),
-              if(funFact!["image_url"] != null)
-                Container(
-                  padding: const EdgeInsets.only(top: 6, bottom: 6),
-                  child: Image.network(
-                    funFact!["image_url"],
-                    fit: BoxFit.contain,
-                    width: 299,
-                    height: 100,
-                  ),
-                ),
-            ],
+              )
           ),
-        )
-      ),
-    );
+        ),
+      );
   }
 }

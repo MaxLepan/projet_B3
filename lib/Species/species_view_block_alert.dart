@@ -17,33 +17,34 @@ class SpeciesViewBlocAlert extends StatelessWidget {
       color: highlighted == false ? white : darkBeige,
       child: Container(
           padding: horizontalPadding,
-          margin: const EdgeInsets.only(top: 25, bottom: 25),
-          child: Container(
+          margin: const EdgeInsets.only(top: 35, bottom: 35),
+        child: Container(
+          decoration: BoxDecoration(
             color: white,
-            padding: horizontalPadding,
-            child:
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if(alert?["title"] != null)
-                  Row(
+            borderRadius: BorderRadius.circular(5),
+          ),
+          padding: smallHorizontalPadding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (alert?["title"] != null)
+                Padding(
+                  padding: const EdgeInsets.only(top: 12),
+                  child: Row(
                     children: [
                       const Icon(CustomIcons.cloche_03, color: black, size: 30,),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8, bottom: 6),
-                        child: Text(alert!["title"], style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
-                      ),
+                      Text(alert!["title"], style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
                     ],
                   ),
-
-                if(alert?["description"] != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 6, bottom: 12),
-                    child: Text(alert!["description"], style: textStyle),
-                  ),
-              ],
-            ),
-          )
+                ),
+              if (alert?["description"] != null)
+                Padding(
+                  padding: const EdgeInsets.only(top: 6, bottom: 12),
+                  child: Text(alert!["description"], style: textStyle),
+                ),
+            ],
+          ),
+        ),
       )
     );
   }

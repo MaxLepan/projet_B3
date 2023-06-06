@@ -43,3 +43,5 @@ class CustomIcons {
   static const IconData retour = IconData(0xe813, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData vector = IconData(0xe814, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
+
+
