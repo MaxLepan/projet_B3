@@ -34,13 +34,13 @@ class QuestionsResultView extends StatelessWidget {
               child:
                 Column(
                   children: [
-                    const Text("RÉSULTAT"),
+                    Text("RÉSULTAT", style: textStyle,),
                     Padding(
                         padding: const EdgeInsets.only(right: 16, left: 16, top: 14, bottom: 20),
                       child: Text(
                         'C\'est probablement un(e) ${speciesName.first.data.toString()[0].toUpperCase()}${speciesName.first.data.toString().substring(1).toLowerCase()} !',
                         textAlign: TextAlign.center,
-                        style: const TextStyle(color: black, fontSize: 25, fontWeight: FontWeight.bold),
+                        style: titleStyle,
                       ),
                     ),
                     Padding(
@@ -48,6 +48,7 @@ class QuestionsResultView extends StatelessWidget {
                       child: Container(
                         height: 200,
                         decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
                           image: DecorationImage(
                             image: NetworkImage(species.imageUrl ?? ""),
                             fit: BoxFit.cover,

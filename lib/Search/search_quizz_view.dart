@@ -17,6 +17,7 @@ class SearchQuizzView extends StatelessWidget {
     final List<ElevatedButton> buttonsToDisplay = generateButtons(context, node);
 
     return Scaffold(
+      backgroundColor: white,
       appBar: const CustomAppBar(),
       body: Column(
         children: [
@@ -37,8 +38,8 @@ class SearchQuizzView extends StatelessWidget {
                         final Question? question = snapshot.data?.first;
                         return Column(
                           children: [
-                            Center(
-                              child: const Text("IDENTIFICATION"),
+                            const Center(
+                              child: Text("IDENTIFICATION"),
                             ),
                             Container(
                               padding: const EdgeInsets.only(bottom: 30),
@@ -74,7 +75,7 @@ class SearchQuizzView extends StatelessWidget {
             ),
           ),
           Container(
-            color: Colors.white,
+            color: white,
             padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
             child: Row(
               children: <Widget>[

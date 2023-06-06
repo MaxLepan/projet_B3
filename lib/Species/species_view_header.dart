@@ -57,7 +57,7 @@ class SpeciesViewHeader extends StatelessWidget {
             padding: horizontalPadding,
             child: Text(
               subject.latinName,
-              style: const TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
+              style: textItalicStyle,
             ),
           ),
           Container(
@@ -113,11 +113,20 @@ class SpeciesViewHeader extends StatelessWidget {
                         elevation: 0
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(13),
+                      padding: const EdgeInsets.all(0),
                       child:
-                      Text("Ajouter ma photo sur la carte",
-                        style: textBoldStyle,
-                      ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(right: 10),
+                              child: const Icon(CustomIcons.appareilPhoto, color: black, size: 50,),
+                            ),
+                            Text("Ajouter ma photo sur la carte",
+                              style: textBoldStyle,
+                            ),
+                          ],
+                        )
                     )
                 ),
                 )
