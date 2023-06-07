@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projet_b3/Questions/question_result_choice_view.dart';
 import 'package:projet_b3/Search/graph_tree_v2.dart';
 import 'package:projet_b3/Search/search_quizz_view.dart';
 import 'package:projet_b3/Search/search_view.dart';
@@ -26,11 +27,19 @@ final Map<String, WidgetBuilder> routes = {
         .arguments as Object;
     return  QuestionsResultView(args);
   },
+  '/questions/result/choice': (BuildContext context){
+    final args = ModalRoute
+        .of(context)!
+        .settings
+        .arguments as Species;
+    return  QuestionsResultChoiceView(args);
+  },
   '/sheet': (BuildContext context){
     final args = ModalRoute
         .of(context)!
         .settings
         .arguments as Species;
     return  SpeciesView(args);
-  }
+  },
+
 };

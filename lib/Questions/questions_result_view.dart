@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:projet_b3/Icons/custom_icons.dart';
 import 'package:projet_b3/Species/species_view_model.dart';
 import 'package:projet_b3/Themes/app_bar.dart';
 import 'package:projet_b3/Themes/colors.dart';
@@ -44,7 +45,7 @@ class QuestionsResultView extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 60),
+                      padding: const EdgeInsets.only(top: 40,bottom: 60),
                       child: Container(
                         height: 200,
                         decoration: BoxDecoration(
@@ -63,18 +64,24 @@ class QuestionsResultView extends StatelessWidget {
                           Expanded(child:
                           ElevatedButton(
                               onPressed: () {
-                                Navigator.pushNamed(context, '/sheet', arguments: species);
+                                Navigator.pushNamed(context, '/questions/result/choice', arguments: species);
                               },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: greenBrown,
                                   elevation: 0
                               ),
                               child: Padding(
-                                padding: const EdgeInsets.all(13),
+                                padding: const EdgeInsets.only(top: 10, bottom: 10),
                                 child:
-                                Text("Je veux d'avantages d'infos !",
-                                  style: textStyle,
-                                ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      const Icon(CustomIcons.croix, size:40, color: black,),
+                                      Text("C'est bien lui !",
+                                        style: textBoldStyle,
+                                      ),
+                                    ],
+                                  ),
                               )
                           ),
                           )
@@ -96,10 +103,15 @@ class QuestionsResultView extends StatelessWidget {
                               elevation: 0,
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.all(13),
-                              child: Text(
-                                "J'ai gros doute...",
-                                style: textStyle,
+                              padding: const EdgeInsets.only(top: 10, bottom: 10),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const Icon(CustomIcons.croix, size:40, color: black,),
+                                  Text("J'ai un gros doute...",
+                                    style: textBoldStyle,
+                                  ),
+                                ],
                               ),
                             ) 
                           ),
@@ -108,25 +120,11 @@ class QuestionsResultView extends StatelessWidget {
                     ),
                     const Spacer(),
                     Row(
-                      children: <Widget>[
+                      children: [
                         IconButton(
                           icon: const Icon(Icons.arrow_back),
                           onPressed: () {
                           },
-                        ),
-                        Expanded(
-                          child: Container(),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                          },
-                          child: const Text(
-                            'Ajouter sur la carte',
-                            style: TextStyle(
-                              color: Colors.black,
-                              decoration: TextDecoration.underline,
-                            ),
-                          ),
                         ),
                       ],
                     ),
