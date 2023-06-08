@@ -7,6 +7,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart' as latLng;
 import 'package:projet_b3/Map/map_model.dart';
+import 'package:projet_b3/Themes/colors.dart';
 
 class MapViewModel {
   late Position currentPosition;
@@ -100,32 +101,53 @@ class MapViewModel {
   }
 
   Marker customMarkerToMarker(CustomMarker customMarker) {
+
+    final Color borderColor;
+
+    if (customMarker.speciesCategory == "Reptile"){
+      borderColor = purple_02;
+    } else if (customMarker.speciesCategory == "Amphibien"){
+      borderColor = mint_02;
+    } else {
+      borderColor = Colors.black;
+    }
+
     return Marker(
-        width: 80.0,
-        height: 80.0,
-        point: latLng.LatLng(
-            customMarker.location.latitude, customMarker.location.longitude),
-        builder: (ctx) => GestureDetector(
-            onTap: () {
-              showDialog(
-                  context: scaffoldKey.currentContext!,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      content:
-                          Column(mainAxisSize: MainAxisSize.min, children: [
-                        Image.network(
-                          customMarker.image,
-                          fit: BoxFit.contain,
-                        ),
-                        Text(customMarker.description),
-                        Text(customMarker.speciesName)
-                      ]),
-                    );
-                  });
-            },
+      width: 80.0,
+      height: 80.0,
+      point: latLng.LatLng(
+          customMarker.location.latitude, customMarker.location.longitude),
+      builder: (ctx) => GestureDetector(
+        onTap: () {
+          showDialog(
+              context: scaffoldKey.currentContext!,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  content: Column(mainAxisSize: MainAxisSize.min, children: [
+                    Image.network(
+                      customMarker.image,
+                      fit: BoxFit.contain,
+                    ),
+                    Text(customMarker.description),
+                    Text(customMarker.speciesName)
+                  ]),
+                );
+              });
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: borderColor, width: 4),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(100),
             child: Image.network(
               customMarker.image,
               fit: BoxFit.cover,
-            )));
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
