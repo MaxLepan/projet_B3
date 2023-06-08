@@ -101,7 +101,7 @@ class SpeciesViewHeader extends StatelessWidget {
           ),
           Container(
             color: darkBeige,
-            padding: const EdgeInsets.only(top: 16, left: 28, right: 28),
+            padding: const EdgeInsets.only(top: 16, left: 28, right: 28, bottom: 16),
             child: Row(
               children: [
                 Expanded(child:
@@ -112,7 +112,7 @@ class SpeciesViewHeader extends StatelessWidget {
                         backgroundColor: greenBrown,
                         elevation: 0
                     ),
-                    child: Padding(
+                    child: Container(
                       padding: const EdgeInsets.all(0),
                       child:
                         Row(

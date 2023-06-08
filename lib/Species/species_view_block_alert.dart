@@ -17,7 +17,7 @@ class SpeciesViewBlocAlert extends StatelessWidget {
       color: highlighted == false ? white : darkBeige,
       child: Container(
           padding: horizontalPadding,
-          margin: const EdgeInsets.only(top: 35, bottom: 35),
+          margin: const EdgeInsets.only(top: 21, bottom: 35),
         child: Container(
           decoration: BoxDecoration(
             color: white,
