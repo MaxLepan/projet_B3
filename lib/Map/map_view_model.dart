@@ -16,10 +16,10 @@ class MapViewModel {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   MapViewModel() {
-    positionAtInit();
+    centerPositionOnUser();
   }
 
-  Future<void> positionAtInit() async {
+  Future<void> centerPositionOnUser() async {
     Geolocator.getCurrentPosition().then((position) {
       mapController.move(
           latLng.LatLng(position.latitude, position.longitude), 15.0);
@@ -72,9 +72,7 @@ class MapViewModel {
           width: 80.0,
           height: 80.0,
           point: latLng.LatLng(
-              customMarker.location.latitude,
-              customMarker.location.longitude
-          ),
+              customMarker.location.latitude, customMarker.location.longitude),
           builder: (ctx) => GestureDetector(
               onTap: () {
                 showDialog(
@@ -82,12 +80,13 @@ class MapViewModel {
                     builder: (BuildContext context) {
                       return AlertDialog(
                         content:
-                        Column(mainAxisSize: MainAxisSize.min, children: [
+                            Column(mainAxisSize: MainAxisSize.min, children: [
                           Image.network(
                             customMarker.image,
                             fit: BoxFit.contain,
                           ),
-                          Text(customMarker.description)
+                          Text(customMarker.description),
+                          Text(customMarker.speciesName)
                         ]),
                       );
                     });
@@ -98,5 +97,35 @@ class MapViewModel {
               ))));
     }
     return markers;
+  }
+
+  Marker customMarkerToMarker(CustomMarker customMarker) {
+    return Marker(
+        width: 80.0,
+        height: 80.0,
+        point: latLng.LatLng(
+            customMarker.location.latitude, customMarker.location.longitude),
+        builder: (ctx) => GestureDetector(
+            onTap: () {
+              showDialog(
+                  context: scaffoldKey.currentContext!,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      content:
+                          Column(mainAxisSize: MainAxisSize.min, children: [
+                        Image.network(
+                          customMarker.image,
+                          fit: BoxFit.contain,
+                        ),
+                        Text(customMarker.description),
+                        Text(customMarker.speciesName)
+                      ]),
+                    );
+                  });
+            },
+            child: Image.network(
+              customMarker.image,
+              fit: BoxFit.cover,
+            )));
   }
 }
