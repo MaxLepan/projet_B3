@@ -33,7 +33,7 @@ class SpeciesViewBlocAlert extends StatelessWidget {
                   child: Row(
                     children: [
                       const Icon(CustomIcons.cloche_03, color: black, size: 30,),
-                      Text(alert!["title"], style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),),
+                      Text(alert!["title"], style: smallTitle,),
                     ],
                   ),
                 ),

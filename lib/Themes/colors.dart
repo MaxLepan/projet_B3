@@ -24,7 +24,6 @@ var titleStyle = GoogleFonts.rubik(color: black, fontSize: 26, fontWeight: FontW
 var titleItalicStyle = GoogleFonts.rubik(color: black, fontSize: 26, fontWeight: FontWeight.w500, fontStyle: FontStyle.italic);
 var smallTitle = GoogleFonts.rubik(color: black, fontSize: 17, fontWeight: FontWeight.w500);
 
-
 var textStyle = GoogleFonts.nunito(color: black, fontSize: 17);
 var textItalicStyle = GoogleFonts.nunito(color: black, fontSize: 17, fontStyle: FontStyle.italic);
 var textBoldStyle = GoogleFonts.nunito(color: black, fontSize: 17, fontWeight: FontWeight.bold);

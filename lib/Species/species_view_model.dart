@@ -89,4 +89,41 @@ class SpeciesViewModel {
     }
     return speciesList;
   }
+
+  Future<Map<String, Map<String, dynamic>>> getUniqueAlertsByDate() async {
+    CollectionReference species = FirebaseFirestore.instance.collection('species');
+    QuerySnapshot querySnapshot = await species.get();
+
+    Map<String, Map<String, dynamic>> uniqueAlerts = {};
+
+    for (var doc in querySnapshot.docs) {
+      Map<String, dynamic>? speciesData = doc.data() as Map<String, dynamic>?;
+
+      if (speciesData != null && speciesData.containsKey('alerts')) {
+        List<dynamic> alertsData = speciesData['alerts'] as List<dynamic>;
+
+        for (var alertData in alertsData) {
+          Map<String, dynamic>? alert = alertData as Map<String, dynamic>?;
+
+          if (alert != null && alert.containsKey('key')) {
+            String alertKey = alert['key'] as String;
+
+            if (!uniqueAlerts.containsKey(alertKey)) {
+              uniqueAlerts[alertKey] = alert;
+            } else {
+              DateTime alertDate = (alert["date"] as Timestamp).toDate();
+              DateTime existingAlertDate = (uniqueAlerts[alertKey]!['date'] as Timestamp).toDate();
+
+              if (alertDate.isBefore(existingAlertDate)) {
+                uniqueAlerts[alertKey] = alert;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return uniqueAlerts;
+  }
+
 }

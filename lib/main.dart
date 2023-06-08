@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:projet_b3/Informations/informations_view.dart';
 import 'package:projet_b3/Search/search_quizz_view.dart';
 import 'package:projet_b3/firebase_options.dart';
 import 'package:projet_b3/routes.dart';
@@ -27,9 +28,9 @@ class MyApp extends StatefulWidget{
 class MyAppState extends State<MyApp> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [
-    HomePage(),
-    MapView(),
-    SearchView(),
+    InformationsView(),
+    const MapView(),
+    const SearchView(),
   ];
 
   void _onItemTapped(int index) {
@@ -52,15 +53,15 @@ class MyAppState extends State<MyApp> {
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              label: 'Accueil',
+              label: '',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.location_pin),
-              label: 'Map',
+              label: '',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.search),
-              label: 'Trouver une bête',
+              label: '',
             )
           ],
           currentIndex: _selectedIndex,
