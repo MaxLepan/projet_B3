@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -124,7 +125,7 @@ class MapViewModel {
               builder: (BuildContext context) {
                 return AlertDialog(
                   content: Column(mainAxisSize: MainAxisSize.min, children: [
-                    Image.network(
+                    ExtendedImage.network(
                       customMarker.image,
                       fit: BoxFit.contain,
                     ),
@@ -141,9 +142,24 @@ class MapViewModel {
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(100),
-            child: Image.network(
+            child: ExtendedImage.network(
               customMarker.image,
               fit: BoxFit.cover,
+              cache: true,
+              loadStateChanged: (ExtendedImageState state) {
+                switch (state.extendedImageLoadState) {
+                  case LoadState.loading:
+                    return Container(
+                      color: Colors.grey,
+                    );
+                  case LoadState.completed:
+                    return null;
+                  case LoadState.failed:
+                    return Container(
+                      color: Colors.redAccent,
+                    );
+                }
+              }
             ),
           ),
         ),
