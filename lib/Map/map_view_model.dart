@@ -8,6 +8,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart' as latLng;
 import 'package:projet_b3/Map/map_model.dart';
+import 'package:projet_b3/Marker/marker_view.dart';
 import 'package:projet_b3/Themes/colors.dart';
 
 class MapViewModel {
@@ -120,20 +121,11 @@ class MapViewModel {
           customMarker.location.latitude, customMarker.location.longitude),
       builder: (ctx) => GestureDetector(
         onTap: () {
-          showDialog(
-              context: scaffoldKey.currentContext!,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  content: Column(mainAxisSize: MainAxisSize.min, children: [
-                    ExtendedImage.network(
-                      customMarker.image,
-                      fit: BoxFit.contain,
-                    ),
-                    Text(customMarker.description),
-                    Text(customMarker.speciesName)
-                  ]),
-                );
-              });
+          Navigator.of(ctx).pushReplacement(
+            MaterialPageRoute(
+              builder: (ctx) => MarkerView(marker: customMarker),
+            ),
+          );
         },
         child: Container(
           decoration: BoxDecoration(

@@ -75,6 +75,7 @@ class _ExpandableButtonState extends State<ExpandableButton> {
                 ],
               ),
             FloatingActionButton(
+              heroTag: null,
               backgroundColor: beige,
               foregroundColor: black,
               elevation: 0,
@@ -126,6 +127,7 @@ class ExpandedButton extends StatelessWidget {
       ],
     );*/
     return FloatingActionButton(
+      heroTag: null,
       onPressed: onPressed,
       backgroundColor: beige,
       elevation: 0,

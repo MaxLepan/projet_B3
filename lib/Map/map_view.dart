@@ -193,6 +193,7 @@ class _MapState extends State<MapPage> {
             child: ExpandableButton(),
           ),
           FloatingActionButton(
+            heroTag: null,
             onPressed: _centerPositionOnUser,
             tooltip: 'Center on user',
             elevation: 0,
@@ -226,7 +227,7 @@ class MapWidget extends StatelessWidget {
 
     return StreamBuilder<List<CustomMarker>>(
         stream: viewModel.getMarkerList(),
-        builder: (context, snapshot) {
+        builder: (ctx, snapshot) {
           if (snapshot.hasData) {
             viewModel.markers = snapshot.data!;
             return FlutterMap(
