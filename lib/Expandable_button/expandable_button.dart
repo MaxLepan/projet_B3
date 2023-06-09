@@ -28,6 +28,7 @@ class _ExpandableButtonState extends State<ExpandableButton> {
           children: [
             if (isExpanded)
               Column(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   ExpandedButton(
                     text: "Amphibiens",
@@ -38,7 +39,8 @@ class _ExpandableButtonState extends State<ExpandableButton> {
                       });
                     },
                     backgroundColor: mint_01,
-                    borderColor: filterState.showAmphibianMarkers ? mint_02 : beige,
+                    borderColor:
+                        filterState.showAmphibianMarkers ? mint_02 : beige,
                   ),
                   const SizedBox(height: 10),
                   ExpandedButton(
@@ -58,7 +60,8 @@ class _ExpandableButtonState extends State<ExpandableButton> {
                       });
                     },
                     backgroundColor: purple_01,
-                    borderColor: filterState.showReptileMarkers ? purple_02 : beige,
+                    borderColor:
+                        filterState.showReptileMarkers ? purple_02 : beige,
                   ),
                   const SizedBox(height: 10),
                   ExpandedButton(
@@ -74,6 +77,7 @@ class _ExpandableButtonState extends State<ExpandableButton> {
             FloatingActionButton(
               backgroundColor: beige,
               foregroundColor: black,
+              elevation: 0,
               child: isExpanded
                   ? const Icon(Icons.arrow_upward)
                   : const Icon(Icons.arrow_downward),
@@ -124,6 +128,7 @@ class ExpandedButton extends StatelessWidget {
     return FloatingActionButton(
       onPressed: onPressed,
       backgroundColor: beige,
+      elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(100),
         side: BorderSide(width: 4, color: borderColor),
