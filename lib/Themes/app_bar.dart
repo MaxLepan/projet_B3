@@ -30,3 +30,26 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 }
+
+
+class CustomLocationAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const CustomLocationAppBar({super.key});
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      titleSpacing: -10,
+      leading: Container(
+        margin: const EdgeInsets.only(top: 0),
+        child: const Icon(CustomIcons.place , size: 36,),
+      ),
+      elevation: 0.0,
+      iconTheme: const IconThemeData(color: Colors.black),
+      backgroundColor: white,
+      title: Text("Parc national des Cévennes", style: textBoldStyle),
+    );
+  }
+}

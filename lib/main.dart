@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:projet_b3/Icons/custom_icons.dart';
 import 'package:projet_b3/Informations/informations_view.dart';
 import 'package:projet_b3/Search/search_quizz_view.dart';
 import 'package:projet_b3/firebase_options.dart';
@@ -8,6 +9,7 @@ import 'package:projet_b3/routes.dart';
 import 'Search/search_view.dart';
 import 'Home/home_view.dart';
 import 'Map/map_view.dart';
+import 'Themes/colors.dart';
 
 
 Future<void> main() async{
@@ -29,8 +31,8 @@ class MyAppState extends State<MyApp> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [
     InformationsView(),
-    const MapView(),
     const SearchView(),
+    const MapView(),
   ];
 
   void _onItemTapped(int index) {
@@ -44,28 +46,30 @@ class MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Home Page',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: const Color(0xFFFEFAF4),
+        primarySwatch: materialGreeBrown,
+        scaffoldBackgroundColor: white,
       ),
       home: Scaffold(
         body: _pages[_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: white,
+          elevation: 10,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: Icon(CustomIcons.information02, size: 50,),
               label: '',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.location_pin),
+              icon: Icon(CustomIcons.recherche02,  size: 50),
               label: '',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.search),
+              icon: Icon(CustomIcons.vector,  size: 30),
               label: '',
-            )
+            ),
           ],
           currentIndex: _selectedIndex,
-          selectedItemColor: Colors.blue,
+          selectedItemColor: black,
           onTap: _onItemTapped,
         ),
       ), routes: routes,

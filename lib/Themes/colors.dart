@@ -7,6 +7,19 @@ const beige = Color(0xFFFEFAF4);
 const darkBeige = Color(0xFFF8F1E4);
 const black = Color(0xFF242a2b);
 const greenBrown = Color(0xFFd2c65e);
+const MaterialColor materialGreeBrown = MaterialColor(0xFFE57373, {
+  50: Color(0xfffff9d7),
+  100: Color(0xfff1e8af),
+  200: Color(0xffe8df9c),
+  300: Color(0xffded387),
+  400: Color(0xffd3c76f),
+  500: Color(0xFFd2c65e),
+  600: Color(0xffd2c443),
+  700: Color(0xffc4b42c),
+  800: Color(0xffc9b91d),
+  900: Color(0xffdcca10),
+});
+
 
 const green = Color(0xFFA4C89A);
 const blue = Color(0xFFB6ABD4);

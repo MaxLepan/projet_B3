@@ -40,7 +40,7 @@ class _InformationsViewState extends State<InformationsView> {
 
     return Scaffold(
       backgroundColor: white,
-      appBar: const CustomAppBar(),
+      appBar: const CustomLocationAppBar(),
       body: ListView.builder(
         itemCount: uniqueAlerts.length,
         itemBuilder: (context, index) {
@@ -144,7 +144,7 @@ class _InformationsViewState extends State<InformationsView> {
               child: Column(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(bottom: 5),
+                    margin: const EdgeInsets.only(bottom: 5),
                     child:Row(
                         children:[
                           const Icon(CustomIcons.cloche_03),
