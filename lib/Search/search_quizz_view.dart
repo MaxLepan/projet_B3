@@ -144,8 +144,9 @@ List<ElevatedButton> generateButtons(BuildContext context, Node? node){
             }
           },
           style: ElevatedButton.styleFrom(
-            foregroundColor: black,
+            foregroundColor: beige_04,
             backgroundColor: white,
+            shadowColor: Colors.transparent,
             side: const BorderSide(color: greenBrown, width: 2.8),
             elevation: 0,
             minimumSize: const Size(200, 50),
@@ -169,10 +170,10 @@ List<ElevatedButton> generateButtons(BuildContext context, Node? node){
                 ),
                 const SizedBox(width: 10),
                 Flexible(child:
-                Text(
-                  "${button.data.toString()[0].toUpperCase()}${button.data.toString().substring(1).toLowerCase()}",
-                  style: textStyle,
-                ),
+                  Text(
+                    "${button.data.toString()[0].toUpperCase()}${button.data.toString().substring(1).toLowerCase()}",
+                    style: textStyle,
+                  ),
                 )
               ],
             ),

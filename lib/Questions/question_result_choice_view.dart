@@ -52,13 +52,15 @@ class QuestionsResultChoiceView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Expanded(child:
-                      ElevatedButton(
+                        ElevatedButton(
                           onPressed: () {
                             Navigator.pushNamed(context, '/sheet', arguments: subject);
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: greenBrown,
-                              elevation: 0
+                            foregroundColor: beige_04,
+                            shadowColor: Colors.transparent,
+                            backgroundColor: greenBrown,
+                            elevation: 0
                           ),
                           child: Padding(
                             padding: const EdgeInsets.only(top: 25, bottom: 25),
@@ -76,7 +78,7 @@ class QuestionsResultChoiceView extends StatelessWidget {
                               ],
                             ),
                           )
-                      ),
+                        ),
                       )
                     ],
                   ),
@@ -87,10 +89,10 @@ class QuestionsResultChoiceView extends StatelessWidget {
                     Expanded(
                       child: ElevatedButton(
                           onPressed: () {
-
                           },
                           style: ElevatedButton.styleFrom(
-                            foregroundColor: green,
+                            foregroundColor: beige_04,
+                            shadowColor: Colors.transparent,
                             backgroundColor: white,
                             side: const BorderSide(color: greenBrown, width: 2.8),
                             elevation: 0,

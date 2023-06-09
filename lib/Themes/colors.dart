@@ -3,10 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 const white = Color(0xFFFEFAF4);
+
 const beige = Color(0xFFFEFAF4);
 const darkBeige = Color(0xFFF8F1E4);
+const darkerBeige = Color(0xFFf3eadc);
+const beige_03 = Color(0xFFEFE5D6);
+const beige_04 = Color(0xFFE5DAC8);
+
 const black = Color(0xFF242a2b);
-const greenBrown = Color(0xFFd2c65e);
+
+const greenBrown = Color(0xFFD2C65E);
+const greenBrown_02 = Color(0xFFDCD383);
+
+
 const MaterialColor materialGreeBrown = MaterialColor(0xFFE57373, {
   50: Color(0xfffff9d7),
   100: Color(0xfff1e8af),
@@ -28,11 +37,11 @@ const lightGreen = Color(0xFFebf0e3);
 const lightBlue = Color(0xFFf3eeef);
 const lightOrange = Color(0xFFfbecdc);
 
-const beige_03 = Color(0xFFEFE5D6);
 
 const horizontalPadding = EdgeInsets.only(left: 28, right: 28);
 const smallHorizontalPadding = EdgeInsets.only(left: 19, right: 19);
 
+var bigTitleStyle = GoogleFonts.rubik(color: black, fontSize: 30, fontWeight: FontWeight.w500);
 var titleStyle = GoogleFonts.rubik(color: black, fontSize: 26, fontWeight: FontWeight.w500);
 var titleItalicStyle = GoogleFonts.rubik(color: black, fontSize: 26, fontWeight: FontWeight.w500, fontStyle: FontStyle.italic);
 var smallTitle = GoogleFonts.rubik(color: black, fontSize: 17, fontWeight: FontWeight.w500);

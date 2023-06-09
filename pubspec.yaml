@@ -25,6 +25,7 @@ dependencies:
   slugify: ^2.0.0
   google_fonts: ^4.0.4
   app_usage: ^2.1.1
+  flutter_svg_provider: ^1.0.3
 
 
 dev_dependencies:

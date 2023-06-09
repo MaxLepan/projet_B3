@@ -3,6 +3,7 @@ import 'package:projet_b3/Questions/question_result_choice_view.dart';
 import 'package:projet_b3/Search/graph_tree_v2.dart';
 import 'package:projet_b3/Search/search_quizz_view.dart';
 import 'package:projet_b3/Search/search_view.dart';
+import 'package:projet_b3/Search/transition_view.dart';
 import 'Home/home_view.dart';
 import 'Map/map_view.dart';
 import 'Questions/questions_result_view.dart';
@@ -13,6 +14,7 @@ final Map<String, WidgetBuilder> routes = {
   '/home': (BuildContext context) => HomePage(),
   '/map': (BuildContext context) => MapView(),
   '/search': (BuildContext context) => SearchView(),
+  '/transition': (BuildContext context) => TransitionView(),
   '/questions': (BuildContext context) {
     final args = ModalRoute
         .of(context)!

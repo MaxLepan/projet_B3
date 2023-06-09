@@ -60,6 +60,7 @@ class QuestionsResultView extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Expanded(child:
                           ElevatedButton(
@@ -67,21 +68,26 @@ class QuestionsResultView extends StatelessWidget {
                                 Navigator.pushNamed(context, '/questions/result/choice', arguments: species);
                               },
                               style: ElevatedButton.styleFrom(
+                                  foregroundColor: beige_04,
+                                  shadowColor: Colors.transparent,
                                   backgroundColor: greenBrown,
                                   elevation: 0
                               ),
                               child: Padding(
-                                padding: const EdgeInsets.only(top: 10, bottom: 10),
+                                padding: const EdgeInsets.only(top: 25, bottom: 25),
                                 child:
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      const Icon(CustomIcons.croix, size:40, color: black,),
-                                      Text("C'est bien lui !",
-                                        style: textBoldStyle,
-                                      ),
-                                    ],
-                                  ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(right: 20),
+                                      child: const Icon(CustomIcons.croix, size:50, color: black,),
+                                    ),
+                                    Text("C'est bien lui !",
+                                      style: textBoldStyle,
+                                    ),
+                                  ],
+                                ),
                               )
                           ),
                           )
@@ -93,27 +99,37 @@ class QuestionsResultView extends StatelessWidget {
                       children:[
                         Expanded(
                           child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.pushReplacementNamed(context, '/sheet', arguments: species);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              foregroundColor: green,
-                              backgroundColor: white,
-                              side: const BorderSide(color: greenBrown, width: 2.8),
-                              elevation: 0,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 10, bottom: 10),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  const Icon(CustomIcons.croix, size:40, color: black,),
-                                  Text("J'ai un gros doute...",
-                                    style: textBoldStyle,
-                                  ),
-                                ],
+                              onPressed: () {
+                              },
+                              style: ElevatedButton.styleFrom(
+                                foregroundColor: beige_04,
+                                shadowColor: Colors.transparent,
+                                backgroundColor: white,
+                                side: const BorderSide(color: greenBrown, width: 2.8),
+                                elevation: 0,
                               ),
-                            ) 
+                              child: Padding(
+                                  padding: const EdgeInsets.only(top: 25, bottom: 25),
+                                  child: Flexible(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          margin: const EdgeInsets.only(right: 20),
+                                          child: const Icon(CustomIcons.croix, size: 50, color: black),
+                                        ),
+                                        Flexible(
+                                          child: Text(
+                                            "J'ai un gros doute",
+                                            style: textBoldStyle,
+                                            softWrap: true,
+                                          ),
+
+                                        )
+                                      ],
+                                    ),
+                                  )
+                              )
                           ),
                         ),
                       ],
