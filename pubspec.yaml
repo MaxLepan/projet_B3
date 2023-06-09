@@ -27,6 +27,8 @@ dependencies:
   app_usage: ^2.1.1
   flutter_svg_provider: ^1.0.3
 
+  provider: ^6.0.5
+  extended_image: ^7.0.2
 
 dev_dependencies:
   flutter_test:
@@ -38,6 +40,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/images/
+    - assets/images/map/
   uses-material-design: true
   fonts:
     - family: custom_icons

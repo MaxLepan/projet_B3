@@ -6,10 +6,12 @@ import 'package:projet_b3/Informations/informations_view.dart';
 import 'package:projet_b3/Search/search_quizz_view.dart';
 import 'package:projet_b3/firebase_options.dart';
 import 'package:projet_b3/routes.dart';
+import 'package:provider/provider.dart';
 import 'Search/search_view.dart';
 import 'Home/home_view.dart';
 import 'Map/map_view.dart';
 import 'Themes/colors.dart';
+import 'filters_state.dart';
 
 
 Future<void> main() async{
@@ -17,7 +19,13 @@ Future<void> main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+        create: (_) => FilterState(),
+        child: const MyApp()
+    ),
+      //MyApp()
+  );
 }
 
 class MyApp extends StatefulWidget{
