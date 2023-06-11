@@ -123,7 +123,7 @@ class MapViewModel {
         onTap: () {
           Navigator.of(ctx).pushReplacement(
             MaterialPageRoute(
-              builder: (ctx) => MarkerView(marker: customMarker),
+              builder: (ctx) => MarkerView(marker: customMarker, context: ctx),
             ),
           );
         },

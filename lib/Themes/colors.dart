@@ -38,8 +38,6 @@ const lightGreen = Color(0xFFebf0e3);
 const lightBlue = Color(0xFFf3eeef);
 const lightOrange = Color(0xFFfbecdc);
 
-const beige_03 = Color(0xFFEFE5D6);
-
 const mint_01 = Color(0xFFbfdaba);
 const mint_02 = Color(0xFFa4c89a);
 
@@ -52,7 +50,7 @@ const purple_02 = Color(0xFFa398c2);
 const strawberry_01 = Color(0xFFea9d9d);
 const strawberry_02 = Color(0xFFe17e7e);
 
-const horizontalPadding = EdgeInsets.only(left: 16, right: 16);
+//const horizontalPadding = EdgeInsets.only(left: 16, right: 16);
 const horizontalPadding = EdgeInsets.only(left: 28, right: 28);
 const smallHorizontalPadding = EdgeInsets.only(left: 19, right: 19);
 

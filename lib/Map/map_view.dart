@@ -26,7 +26,7 @@ class MapView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Map de fou',
+      title: 'Map',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
