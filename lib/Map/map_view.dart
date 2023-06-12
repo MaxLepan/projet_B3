@@ -250,7 +250,7 @@ class MapWidget extends StatelessWidget {
                               marker.speciesCategory == 'Reptile') ||
                           (filterState.showAmphibianMarkers &&
                               marker.speciesCategory == 'Amphibien'))
-                      .map((marker) => viewModel.customMarkerToMarker(marker))
+                      .map((marker) => viewModel.customMarkerToMarker(marker, context))
                       .toList(),
                 ),
               ],

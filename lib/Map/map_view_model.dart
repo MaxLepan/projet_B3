@@ -102,7 +102,7 @@ class MapViewModel {
     return markers;
   }
 
-  Marker customMarkerToMarker(CustomMarker customMarker) {
+  Marker customMarkerToMarker(CustomMarker customMarker, BuildContext context) {
 
     final Color borderColor;
 
@@ -121,9 +121,10 @@ class MapViewModel {
           customMarker.location.latitude, customMarker.location.longitude),
       builder: (ctx) => GestureDetector(
         onTap: () {
-          Navigator.of(ctx).pushReplacement(
+          Navigator.push(
+            context,
             MaterialPageRoute(
-              builder: (ctx) => MarkerView(marker: customMarker, context: ctx),
+              builder: (context) => MarkerView(marker: customMarker, context: context),
             ),
           );
         },
