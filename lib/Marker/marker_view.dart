@@ -1,13 +1,12 @@
 import 'package:extended_image/extended_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:projet_b3/Species/species_model.dart';
 import 'package:projet_b3/Species/species_view.dart';
 import 'package:projet_b3/Species/species_view_model.dart';
 
 import '../Icons/custom_icons.dart';
 import '../Map/map_model.dart';
-import '../Map/map_view.dart';
 import '../Themes/colors.dart';
 
 class MarkerView extends StatelessWidget {
@@ -56,73 +55,96 @@ class MarkerView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Container(
-                  height: 500,
+                SizedBox(
+                  height: 520,
                   child: ExtendedImage.network(
                     marker.image,
                     fit: BoxFit.cover,
                   ),
                 ),
-                Padding(
-                  padding: smallHorizontalPadding,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Icon(markerIcon),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Column(
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 19,
+                      left: 19,
+                      right: 19,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(
+                                marker.speciesName[0].toUpperCase() +
+                                    marker.speciesName.substring(1),
+                                style: GoogleFonts.rubik(
+                                  color: black,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w600,
+                                )),
+                            Text(
+                              'Découverte d\'un Promeneur',
+                              style: GoogleFonts.rubik(
+                                color: black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                        ElevatedButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                            ),
+                            elevation: MaterialStateProperty.all<double>(0),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                materialGreeBrown.shade500),
+                            foregroundColor:
+                                MaterialStateProperty.all<Color>(black),
+                            padding: MaterialStateProperty.all<EdgeInsets>(
+                                const EdgeInsets.symmetric(vertical: 17)),
+                          ),
+                          onPressed: () {
+                            Navigator.of(this.context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (ctx) => SpeciesView(species),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            'Découvrir l\'espèce',
+                            style: GoogleFonts.rubik(
+                              color: black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          style: ButtonStyle(
+                            foregroundColor:
+                                MaterialStateProperty.all<Color>(black),
+                            padding: MaterialStateProperty.all<EdgeInsets>(
+                                const EdgeInsets.all(0)),
+                          ),
+                          child: Row(
                             children: [
-                              Text(
-                                  marker.speciesName[0].toUpperCase() +
-                                      marker.speciesName.substring(1),
-                                  style: titleStyle),
-                              Text('Découverte d\'un Promeneur',
-                                  style: textBoldStyle,),
+                              const Icon(CustomIcons.retour, size: 35),
+                              Text('Retour', style: textBoldStyle),
                             ],
                           ),
-                          ElevatedButton(
-                            style: ButtonStyle(
-                              elevation: MaterialStateProperty.all<double>(0),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  materialGreeBrown.shade500),
-                              foregroundColor:
-                                  MaterialStateProperty.all<Color>(black),
-                              padding: MaterialStateProperty.all<EdgeInsets>(
-                                  const EdgeInsets.symmetric(vertical: 15)),
-                            ),
-                            onPressed: () {
-                              Navigator.of(this.context).pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (ctx) => SpeciesView(species),
-                                ),
-                              );
-                            },
-                            child:
-                                Text('Découvrir l\'espèce', style: smallTitle),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            style: ButtonStyle(
-                              foregroundColor:
-                                  MaterialStateProperty.all<Color>(black),
-                              padding: MaterialStateProperty.all<EdgeInsets>(
-                                  const EdgeInsets.all(0)),
-                            ),
-                            child: Row(
-                              children: [
-                                const Icon(CustomIcons.retour, size: 30),
-                                Text('Retour', style: textBoldStyle),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
