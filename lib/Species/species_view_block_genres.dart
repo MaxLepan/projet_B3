@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projet_b3/Themes/colors.dart';
 
-import '../Icons/custom_icons.dart';
+import '../Themes/custom_icons.dart';
 
 class SpeciesViewBlockGenres extends StatelessWidget {
   final Map? content;
@@ -47,7 +47,7 @@ class SpeciesViewBlockGenres extends StatelessWidget {
                               color: mainColor,
                               borderRadius: const BorderRadius.only(topLeft: Radius.circular(5.0), bottomRight: Radius.circular(5.0)),
                           ),
-                          child : Icon(gender.key == "female" ? CustomIcons.feminin : CustomIcons.masculin, color: black, size: 50,),
+                          child : Icon(gender.key == "female" ? CustomIcons.woman_01 : CustomIcons.man_01, color: black, size: 35,),
 
                         ),
                       ],

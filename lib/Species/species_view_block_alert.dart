@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:projet_b3/Species/species_model.dart';
 import 'package:projet_b3/Themes/colors.dart';
 
-import '../Icons/custom_icons.dart';
+import '../Themes/custom_icons.dart';
 
 class SpeciesViewBlocAlert extends StatelessWidget {
   final Map? alert;
@@ -32,7 +32,10 @@ class SpeciesViewBlocAlert extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 12),
                   child: Row(
                     children: [
-                      const Icon(CustomIcons.cloche_03, color: black, size: 30,),
+                      Container(
+                        margin: const EdgeInsets.only(right: 10),
+                        child: CustomIcons.bellShadow,
+                      ),
                       Text(alert!["title"], style: smallTitle,),
                     ],
                   ),

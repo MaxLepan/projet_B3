@@ -28,6 +28,7 @@ dependencies:
   flutter_svg_provider: ^1.0.3
 
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -40,7 +41,7 @@ flutter:
     - assets/images/
   uses-material-design: true
   fonts:
-    - family: custom_icons
+    - family: CustomIcons
       fonts:
         - asset: fonts/custom_icons.ttf
 

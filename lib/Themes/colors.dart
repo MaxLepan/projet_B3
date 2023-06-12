@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'custom_icons.dart';
+
 const white = Color(0xFFFEFAF4);
 
 const beige = Color(0xFFFEFAF4);
@@ -50,3 +52,4 @@ var textStyle = GoogleFonts.nunito(color: black, fontSize: 17);
 var textItalicStyle = GoogleFonts.nunito(color: black, fontSize: 17, fontStyle: FontStyle.italic);
 var textBoldStyle = GoogleFonts.nunito(color: black, fontSize: 17, fontWeight: FontWeight.bold);
 var textMediumStyle = GoogleFonts.nunito(color: black, fontSize: 17, fontWeight: FontWeight.w500);
+

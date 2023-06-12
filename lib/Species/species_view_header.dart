@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:projet_b3/Icons/custom_icons.dart';
+import 'package:projet_b3/Themes/custom_icons.dart';
 import 'package:projet_b3/Species/species_model.dart';
 
 import '../Themes/colors.dart';
@@ -45,7 +45,7 @@ class SpeciesViewHeader extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 1),
                     child: Icon(
                       _getIconBySpeciesType(subject.category),
-                      size: 20,
+                      size: 30,
                     ),
                   ),
                 ),
@@ -62,7 +62,7 @@ class SpeciesViewHeader extends StatelessWidget {
           ),
           Container(
             margin: horizontalPadding,
-            padding: const EdgeInsets.only(top: 8, right: 16),
+            padding: const EdgeInsets.only(top: 5, right: 16),
             child: Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
@@ -113,14 +113,14 @@ class SpeciesViewHeader extends StatelessWidget {
                         elevation: 0
                     ),
                     child: Container(
-                      padding: const EdgeInsets.all(0),
+                      padding: const EdgeInsets.all(8),
                       child:
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
                               margin: const EdgeInsets.only(right: 10),
-                              child: const Icon(CustomIcons.appareilPhoto, color: black, size: 50,),
+                              child: const Icon(CustomIcons.photo_plus_01, color: black, size: 30,),
                             ),
                             Text("Ajouter ma photo sur la carte",
                               style: textBoldStyle,
@@ -141,11 +141,11 @@ class SpeciesViewHeader extends StatelessWidget {
   IconData _getIconBySpeciesType(String category) {
     switch (category.toLowerCase()) {
       case 'amphibien':
-        return CustomIcons.frog; // Replace with your desired icon for amphibians
+        return CustomIcons.frog_01; // Replace with your desired icon for amphibians
       case 'reptile':
-        return CustomIcons.snake; // Replace with your desired icon for reptiles
+        return CustomIcons.snake_01; // Replace with your desired icon for reptiles
       default:
-        return CustomIcons.spider; // Replace with a default icon if needed
+        return CustomIcons.spider_01; // Replace with a default icon if needed
     }
   }
 }

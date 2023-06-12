@@ -1,8 +1,12 @@
+import 'dart:collection';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projet_b3/Themes/colors.dart';
-
-import '../Icons/custom_icons.dart';
+import '../Map/map_view.dart';
+import '../Informations/informations_view.dart';
+import '../Search/search_view.dart';
+import 'custom_icons.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key});
@@ -17,9 +21,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: Container(
         margin: const EdgeInsets.only(top: 0),
         child: IconButton(
-          icon: const Icon(CustomIcons.croix , size: 36,),
+          icon: const Icon(CustomIcons.cross_01 , size: 25,),
           onPressed: () {
-            Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+            Navigator.popAndPushNamed(context, '/');
           },
         ),
       ),
@@ -44,7 +48,7 @@ class CustomLocationAppBar extends StatelessWidget implements PreferredSizeWidge
       titleSpacing: -10,
       leading: Container(
         margin: const EdgeInsets.only(top: 0),
-        child: const Icon(CustomIcons.place , size: 36,),
+        child: const Icon(CustomIcons.place_01 , size: 25,),
       ),
       elevation: 0.0,
       iconTheme: const IconThemeData(color: Colors.black),
@@ -53,3 +57,41 @@ class CustomLocationAppBar extends StatelessWidget implements PreferredSizeWidge
     );
   }
 }
+
+
+class MyBottomNavigationBar extends StatelessWidget {
+  final int selectedIndex;
+  final Function(int) onItemTapped;
+
+  const MyBottomNavigationBar({
+    required this.selectedIndex,
+    required this.onItemTapped,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      backgroundColor: Colors.white,
+      elevation: 10,
+      items: <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: CustomIcons.infoShadow,
+          label: '',
+        ),
+        BottomNavigationBarItem(
+          icon: CustomIcons.glassShadow,
+          label: '',
+        ),
+        BottomNavigationBarItem(
+          icon: CustomIcons.mapShadow,
+          label: '',
+        ),
+      ],
+      currentIndex: selectedIndex,
+      selectedItemColor: Colors.black,
+      onTap: onItemTapped,
+    );
+  }
+}
+
+

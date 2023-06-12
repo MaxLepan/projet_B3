@@ -2,7 +2,7 @@ import 'package:app_usage/app_usage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:projet_b3/Icons/custom_icons.dart';
+import 'package:projet_b3/Themes/custom_icons.dart';
 import 'package:projet_b3/Species/species_view_model.dart';
 import 'package:projet_b3/Themes/app_bar.dart';
 import 'package:projet_b3/Themes/colors.dart';
@@ -46,11 +46,13 @@ class _InformationsViewState extends State<InformationsView> {
         itemBuilder: (context, index) {
           String key = uniqueAlerts.keys.elementAt(index);
           Map<String, dynamic> alert = uniqueAlerts[key]!;
-
+          int countNew = 0;
+          int countOld = 0;
           Widget recentTitle;
           Widget oldTitle;
 
           if((alert['date'] as Timestamp).toDate().isAfter(DateTime.now().subtract(const Duration(days: 30)))){
+            countNew++;
             if(!displayRecentNewsTitle){
               recentTitle = const SizedBox.shrink();
             }
@@ -74,7 +76,8 @@ class _InformationsViewState extends State<InformationsView> {
               displayRecentNewsTitle = false;
             }
 
-            return Container(
+            if (countNew > 0){
+              return Container(
                 color: greenBrown,
                 padding: const EdgeInsets.only(left: 28, right: 28, bottom: 20),
                 child: Column(
@@ -85,8 +88,10 @@ class _InformationsViewState extends State<InformationsView> {
                   ],
                 ),
               );
+            }
           }
           else{
+            countOld++;
             if(!displayOldNewsTitle){
               oldTitle = const SizedBox.shrink();
             }
@@ -110,18 +115,20 @@ class _InformationsViewState extends State<InformationsView> {
               displayOldNewsTitle = false;
             }
 
-            return Container(
-              color: white,
-              padding: horizontalPadding,
-              margin: const EdgeInsets.only(bottom: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  oldTitle,
-                  generateAlert(alert, darkBeige)
-                ],
-              )
-            );
+            if(countOld > 0){
+              return Container(
+                  color: white,
+                  padding: horizontalPadding,
+                  margin: const EdgeInsets.only(bottom: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      oldTitle,
+                      generateAlert(alert, darkBeige)
+                    ],
+                  )
+              );
+            }
           }
         },
       ),
@@ -147,12 +154,17 @@ class _InformationsViewState extends State<InformationsView> {
                     margin: const EdgeInsets.only(bottom: 5),
                     child:Row(
                         children:[
-                          const Icon(CustomIcons.cloche_03),
-                          Text(alert['title'], style: smallTitle,),
+                          Container(
+                            margin: const EdgeInsets.only(right: 10),
+                            child: CustomIcons.bellShadow,
+                          ),
+                          if(alert['title'] != null)
+                            Expanded(child: Text("${alert['title']}", style: smallTitle,),)
                         ]
                     ),
                   ),
-                  Text(alert['description'], style: textStyle,),
+                  if(alert['description'] != null)
+                    Text(alert['description'], style: textStyle,),
                 ],
               )
             ),

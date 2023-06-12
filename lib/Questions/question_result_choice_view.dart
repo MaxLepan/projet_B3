@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:projet_b3/Icons/custom_icons.dart';
+import 'package:projet_b3/Themes/custom_icons.dart';
 import 'package:projet_b3/Species/species_view_model.dart';
 import 'package:projet_b3/Themes/app_bar.dart';
 import 'package:projet_b3/Themes/colors.dart';
@@ -36,7 +36,7 @@ class QuestionsResultChoiceView extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 40,bottom: 60),
                   child: Container(
-                    height: 200,
+                    height: 300,
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(Radius.circular(5)),
                       image: DecorationImage(
@@ -47,7 +47,7 @@ class QuestionsResultChoiceView extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
+                  padding: const EdgeInsets.only(bottom: 17),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -63,14 +63,14 @@ class QuestionsResultChoiceView extends StatelessWidget {
                             elevation: 0
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 25, bottom: 25),
+                            padding: const EdgeInsets.only(top: 10, bottom: 10),
                             child:
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  margin: EdgeInsets.only(right: 20),
-                                  child: const Icon(CustomIcons.information02, size:50, color: black,),
+                                  margin: const EdgeInsets.only(right: 20),
+                                  child: const Icon(CustomIcons.info_01, size:30, color: black,),
                                 ),
                                 Text("Je veux davantage d'infos",
                                   style: textBoldStyle,
@@ -98,14 +98,14 @@ class QuestionsResultChoiceView extends StatelessWidget {
                             elevation: 0,
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 25, bottom: 25),
+                            padding: const EdgeInsets.only(top: 10, bottom: 10),
                             child: Flexible(
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Container(
                                     margin: const EdgeInsets.only(right: 20),
-                                    child: const Icon(CustomIcons.cadrePhoto, size: 50, color: black),
+                                    child: const Icon(CustomIcons.image_01, size: 30, color: black),
                                   ),
                                   Flexible(
                                     child: Text(
@@ -126,13 +126,21 @@ class QuestionsResultChoiceView extends StatelessWidget {
                 const Spacer(),
                 Row(
                   children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () {
-                      },
-                    ),
+                    Expanded(
+                      child: IconButton(
+                        icon: Row(
+                          children: [
+                            const Icon(CustomIcons.left_01),
+                            Text("Retour", style: textBoldStyle,)
+                          ],
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    )
                   ],
-                ),
+                )
               ]
           ),
         )

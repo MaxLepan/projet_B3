@@ -4,6 +4,7 @@ import 'package:projet_b3/Themes/app_bar.dart';
 import 'package:projet_b3/Themes/colors.dart';
 import '../Questions/questions_model.dart';
 import '../Questions/questions_view_model.dart';
+import '../Themes/custom_icons.dart';
 import '../firebase_options.dart';
 import '../routes.dart';
 import 'graph_tree_v2.dart';
@@ -86,11 +87,11 @@ class SearchQuizzView extends StatelessWidget {
                     },
                     icon: Row(
                       children: [
-                        const Icon(Icons.arrow_back),
+                        const Icon(CustomIcons.left_01),
                         const SizedBox(width: 8),
                         Text(
                           'Retour',
-                          style: textStyle,
+                          style: textBoldStyle,
                         ),
                       ],
                     ),
@@ -98,7 +99,6 @@ class SearchQuizzView extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    // Action à effectuer lors du clic
                   },
                   child: const Text(
                     'Oups... Elle s’est enfuie.',

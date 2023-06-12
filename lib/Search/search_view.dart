@@ -5,7 +5,7 @@ import 'package:projet_b3/Species/species_model.dart';
 import 'package:projet_b3/Themes/app_bar.dart';
 
 import '../Themes/colors.dart';
-import '../Icons/custom_icons.dart';
+import '../Themes/custom_icons.dart';
 import '../Species/species_view_model.dart';
 
 class SearchView extends StatefulWidget {
@@ -66,6 +66,10 @@ class SearchViewState extends State<SearchView> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(50.0)),
                   ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                    borderSide: BorderSide(color: greenBrown),
+                  )
                 ),
                 onChanged: (text) async {
                   List<Species> speciesList =
@@ -80,7 +84,7 @@ class SearchViewState extends State<SearchView> {
                   });
                 },
               ),
-            ), //Barre de recherche
+            ),
             Visibility(
               visible: !isSearchBarClicked,
               child: Container(

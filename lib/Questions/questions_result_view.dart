@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:projet_b3/Icons/custom_icons.dart';
+import 'package:projet_b3/Themes/custom_icons.dart';
 import 'package:projet_b3/Species/species_view_model.dart';
 import 'package:projet_b3/Themes/app_bar.dart';
 import 'package:projet_b3/Themes/colors.dart';
@@ -47,9 +47,9 @@ class QuestionsResultView extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 40,bottom: 60),
                       child: Container(
-                        height: 200,
+                        height: 300,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                          borderRadius: const BorderRadius.all(Radius.circular(5)),
                           image: DecorationImage(
                             image: NetworkImage(species.imageUrl ?? ""),
                             fit: BoxFit.cover,
@@ -58,7 +58,7 @@ class QuestionsResultView extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(bottom: 17),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -74,14 +74,14 @@ class QuestionsResultView extends StatelessWidget {
                                   elevation: 0
                               ),
                               child: Padding(
-                                padding: const EdgeInsets.only(top: 25, bottom: 25),
+                                padding: const EdgeInsets.only(top: 10, bottom: 10),
                                 child:
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Container(
                                       margin: const EdgeInsets.only(right: 20),
-                                      child: const Icon(CustomIcons.croix, size:50, color: black,),
+                                      child: const Icon(CustomIcons.check_01, size:30, color: black,),
                                     ),
                                     Text("C'est bien lui !",
                                       style: textBoldStyle,
@@ -109,14 +109,14 @@ class QuestionsResultView extends StatelessWidget {
                                 elevation: 0,
                               ),
                               child: Padding(
-                                  padding: const EdgeInsets.only(top: 25, bottom: 25),
+                                  padding: const EdgeInsets.only(top: 10, bottom: 10),
                                   child: Flexible(
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         Container(
                                           margin: const EdgeInsets.only(right: 20),
-                                          child: const Icon(CustomIcons.croix, size: 50, color: black),
+                                          child: const Icon(CustomIcons.cross_01, size: 30, color: black),
                                         ),
                                         Flexible(
                                           child: Text(
@@ -137,13 +137,21 @@ class QuestionsResultView extends StatelessWidget {
                     const Spacer(),
                     Row(
                       children: [
-                        IconButton(
-                          icon: const Icon(Icons.arrow_back),
-                          onPressed: () {
-                          },
-                        ),
+                        Expanded(
+                          child: IconButton(
+                            icon: Row(
+                              children: [
+                                const Icon(CustomIcons.left_01),
+                                Text("Retour", style: textBoldStyle,)
+                              ],
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        )
                       ],
-                    ),
+                    )
                   ]
                 ),
               )

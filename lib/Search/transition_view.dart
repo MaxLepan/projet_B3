@@ -4,7 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
-import 'package:projet_b3/Icons/custom_icons.dart';
+import 'package:projet_b3/Themes/custom_icons.dart';
 import 'package:projet_b3/Themes/colors.dart';
 
 import '../firebase_options.dart';
@@ -52,7 +52,7 @@ class _TransitionViewState extends State<TransitionView> {
                   borderRadius: BorderRadius.circular(50),
                   color: greenBrown_02,
                 ),
-                child: const Icon(CustomIcons.recherche02, size: 70),
+                child: CustomIcons.glassShadowColor,
               ),
             ),
           ],
