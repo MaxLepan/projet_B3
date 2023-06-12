@@ -14,7 +14,8 @@ class MarkerView extends StatelessWidget {
   final CustomMarker marker;
   final BuildContext context;
 
-  const MarkerView({Key? key, required this.marker, required this.context}) : super(key: key);
+  const MarkerView({Key? key, required this.marker, required this.context})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -62,32 +63,67 @@ class MarkerView extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                Icon(markerIcon),
-                Text(marker.speciesName, style: textStyle),
-                Text('La découverte de ${marker.userId}', style: textStyle),
-                ElevatedButton(
-                  onPressed: () {
-                    /*Navigator.pushReplacementNamed(context, '/sheet',
-                          arguments: species);*/
-                    Navigator.of(this.context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (ctx) => SpeciesView(species),
+                Padding(
+                  padding: smallHorizontalPadding,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Icon(markerIcon),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Column(
+                            children: [
+                              Text(
+                                  marker.speciesName[0].toUpperCase() +
+                                      marker.speciesName.substring(1),
+                                  style: titleStyle),
+                              Text('Découverte d\'un Promeneur',
+                                  style: textBoldStyle,),
+                            ],
+                          ),
+                          ElevatedButton(
+                            style: ButtonStyle(
+                              elevation: MaterialStateProperty.all<double>(0),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  materialGreeBrown.shade500),
+                              foregroundColor:
+                                  MaterialStateProperty.all<Color>(black),
+                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                  const EdgeInsets.symmetric(vertical: 15)),
+                            ),
+                            onPressed: () {
+                              Navigator.of(this.context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (ctx) => SpeciesView(species),
+                                ),
+                              );
+                            },
+                            child:
+                                Text('Découvrir l\'espèce', style: smallTitle),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            style: ButtonStyle(
+                              foregroundColor:
+                                  MaterialStateProperty.all<Color>(black),
+                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                  const EdgeInsets.all(0)),
+                            ),
+                            child: Row(
+                              children: [
+                                const Icon(CustomIcons.retour, size: 30),
+                                Text('Retour', style: textBoldStyle),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                    );
-                  },
-                  child: const Text('Découvrir l\'espèce'),
-                ),
-                // Make a return button
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    /*Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (ctx) => const MapView(),
-                        ),
-                      );*/
-                  },
-                  child: const Text('Retour'),
+                    ],
+                  ),
                 ),
               ],
             );
