@@ -5,9 +5,9 @@ import 'package:projet_b3/Species/species_model.dart';
 import 'package:projet_b3/Species/species_view.dart';
 import 'package:projet_b3/Species/species_view_model.dart';
 
-import '../Icons/custom_icons.dart';
 import '../Map/map_model.dart';
 import '../Themes/colors.dart';
+import '../Themes/custom_icons.dart';
 
 class MarkerView extends StatelessWidget {
   final CustomMarker marker;
@@ -23,24 +23,24 @@ class MarkerView extends StatelessWidget {
     switch (marker.speciesCategory) {
       case 'Reptile':
         {
-          markerIcon = CustomIcons.snake;
+          markerIcon = CustomIcons.snake_01;
           markerColor = purple_02;
         }
         break;
       case 'Amphibien':
         {
-          markerIcon = CustomIcons.frog;
+          markerIcon = CustomIcons.frog_01;
           markerColor = mint_02;
         }
         break;
       case 'Insecte':
         {
-          markerIcon = CustomIcons.butterfly;
+          markerIcon = CustomIcons.insect_01;
           markerColor = orange_02;
         }
         break;
       default:
-        markerIcon = CustomIcons.spider;
+        markerIcon = CustomIcons.spider_01;
         markerColor = strawberry_02;
     }
 
@@ -169,7 +169,7 @@ class MarkerView extends StatelessWidget {
                           ),
                           child: Row(
                             children: [
-                              const Icon(CustomIcons.retour, size: 35),
+                              const Icon(CustomIcons.left_01, size: 35),
                               Text('Retour', style: textBoldStyle),
                             ],
                           ),

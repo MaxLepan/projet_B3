@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../Icons/custom_icons.dart';
 import '../Themes/colors.dart';
+import '../Themes/custom_icons.dart';
 import '../filters_state.dart';
 
 class ExpandableButton extends StatefulWidget {
+  const ExpandableButton({super.key});
+
   @override
   _ExpandableButtonState createState() => _ExpandableButtonState();
 }
@@ -32,7 +34,7 @@ class _ExpandableButtonState extends State<ExpandableButton> {
                 children: [
                   ExpandedButton(
                     text: "Amphibiens",
-                    icon: CustomIcons.frog,
+                    icon: CustomIcons.frog_01,
                     onPressed: () {
                       setState(() {
                         filterState.toggleAmphibianMarkers();
@@ -45,7 +47,7 @@ class _ExpandableButtonState extends State<ExpandableButton> {
                   const SizedBox(height: 10),
                   ExpandedButton(
                     text: "Insectes",
-                    icon: CustomIcons.butterfly,
+                    icon: CustomIcons.insect_01,
                     onPressed: () {},
                     backgroundColor: orange_01,
                     borderColor: beige,
@@ -53,7 +55,7 @@ class _ExpandableButtonState extends State<ExpandableButton> {
                   const SizedBox(height: 10),
                   ExpandedButton(
                     text: "Reptiles",
-                    icon: CustomIcons.snake,
+                    icon: CustomIcons.snake_01,
                     onPressed: () {
                       setState(() {
                         filterState.toggleReptileMarkers();
@@ -66,7 +68,7 @@ class _ExpandableButtonState extends State<ExpandableButton> {
                   const SizedBox(height: 10),
                   ExpandedButton(
                     text: "Araignées",
-                    icon: CustomIcons.spider,
+                    icon: CustomIcons.spider_01,
                     onPressed: () {},
                     backgroundColor: strawberry_01,
                     borderColor: beige,

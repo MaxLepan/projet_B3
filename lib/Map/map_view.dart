@@ -10,8 +10,8 @@ import 'package:projet_b3/Map/map_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../Expandable_button/expandable_button.dart';
-import '../Icons/custom_icons.dart';
 import '../Themes/colors.dart';
+import '../Themes/custom_icons.dart';
 import '../filters_state.dart';
 
 Future<void> main() async {
@@ -203,7 +203,7 @@ class _MapState extends State<MapPage> {
               side: BorderSide(color: beige_03, width: 2.0),
               borderRadius: BorderRadius.all(Radius.circular(3.0)),
             ),
-            child: const Icon(CustomIcons.recentrer, color: black, size: 50),
+            child: const Icon(CustomIcons.center_01, color: black, size: 50),
           ),
         ],
       ),
