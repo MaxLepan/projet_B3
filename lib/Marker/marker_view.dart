@@ -19,24 +19,29 @@ class MarkerView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     IconData markerIcon;
+    Color markerColor;
     switch (marker.speciesCategory) {
       case 'Reptile':
         {
           markerIcon = CustomIcons.snake;
+          markerColor = purple_02;
         }
         break;
       case 'Amphibien':
         {
           markerIcon = CustomIcons.frog;
+          markerColor = mint_02;
         }
         break;
       case 'Insecte':
         {
           markerIcon = CustomIcons.butterfly;
+          markerColor = orange_02;
         }
         break;
       default:
         markerIcon = CustomIcons.spider;
+        markerColor = strawberry_02;
     }
 
     return Scaffold(
@@ -55,17 +60,43 @@ class MarkerView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(
-                  height: 520,
-                  child: ExtendedImage.network(
-                    marker.image,
-                    fit: BoxFit.cover,
-                  ),
+                Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: 520,
+                      child: ExtendedImage.network(
+                        marker.image,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Positioned(
+                      top: 480,
+                      left: MediaQuery.of(context).size.width - 100,
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: white,
+                          borderRadius: BorderRadius.circular(100),
+                          border: Border.all(
+                            color: markerColor,
+                            width: 4,
+                          )
+                        ),
+                        child: Icon(
+                          markerIcon,
+                          color: black,
+                          size: 50,
+                        )
+                      )
+                    )
+                  ],
                 ),
                 Flexible(
                   child: Padding(
                     padding: const EdgeInsets.only(
-                      top: 19,
+                      top: 35,
                       left: 19,
                       right: 19,
                     ),
