@@ -5,6 +5,8 @@ import '../Themes/custom_icons.dart';
 import '../filters_state.dart';
 
 class ExpandableButton extends StatefulWidget {
+  const ExpandableButton({super.key});
+
   @override
   _ExpandableButtonState createState() => _ExpandableButtonState();
 }

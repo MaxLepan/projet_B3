@@ -4,6 +4,8 @@ import 'package:projet_b3/Questions/question_result_choice_view.dart';
 import 'package:projet_b3/Search/search_quizz_view.dart';
 import 'package:projet_b3/Search/search_view.dart';
 import 'package:projet_b3/Search/transition_view.dart';
+import 'package:projet_b3/Species/species_model.dart';
+import 'Home/home_view.dart';
 import 'Map/map_model.dart';
 import 'Map/map_view.dart';
 import 'Marker/marker_view.dart';
