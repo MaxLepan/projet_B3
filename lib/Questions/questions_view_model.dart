@@ -19,7 +19,7 @@ class QuestionsViewModel {
 
   Future<List<Question>?> getQuestionByKey(String? key) async {
     try {
-      key ??= "habitat";
+      key ??= "species";
       CollectionReference question = FirebaseFirestore.instance.collection('questions');
       QuerySnapshot querySnapshot = await question.where('key', isEqualTo: key).get();
       final data = querySnapshot.docs.map((species) => species.data()).toList();

@@ -7,7 +7,8 @@ import '../Questions/questions_view_model.dart';
 import '../Themes/custom_icons.dart';
 import '../firebase_options.dart';
 import '../routes.dart';
-import 'graph_tree_v2.dart';
+import 'graph_tree.dart';
+//import 'graph_tree_v2.dart';
 
 class SearchQuizzView extends StatelessWidget {
   final Node? node;
@@ -125,11 +126,11 @@ List<ElevatedButton> generateButtons(BuildContext context, Node? node){
   List<ElevatedButton> buttonsToDisplay = [];
 
   if(node == null){
-    buttonsTitles = graph.nodes.entries.first.value.toList();
+    buttonsTitles = graph_tree.nodes.entries.first.value.toList();
   }
 
   else{
-    buttonsTitles = graph.nodes.entries.firstWhere((entry) => entry.key == node).value.toList();
+    buttonsTitles = graph_tree.nodes.entries.firstWhere((entry) => entry.key == node).value.toList();
   }
 
   for(var button in buttonsTitles){

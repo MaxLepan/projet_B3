@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:projet_b3/Search/graph_tree.dart';
 import 'package:projet_b3/Themes/custom_icons.dart';
 import 'package:projet_b3/Species/species_view_model.dart';
 import 'package:projet_b3/Themes/app_bar.dart';
 import 'package:projet_b3/Themes/colors.dart';
-import '../Search/graph_tree_v2.dart';
+//import '../Search/graph_tree_v2.dart';
 import '../Species/species_model.dart';
 
 class QuestionsResultView extends StatelessWidget {
@@ -14,7 +15,7 @@ class QuestionsResultView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    var speciesName = graph.nodes.entries.firstWhere((entry) => entry.key == button ).value;
+    var speciesName = graph_tree.nodes.entries.firstWhere((entry) => entry.key == button ).value;
 
     return FutureBuilder<Species>(
       future: SpeciesViewModel().getSpeciesByName(speciesName.first.data),
