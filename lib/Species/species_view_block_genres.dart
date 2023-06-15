@@ -39,17 +39,44 @@ class SpeciesViewBlockGenres extends StatelessWidget {
                               ),
                             ),
                           ),
-                        Container(
-                          alignment: Alignment.center,
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              color: mainColor,
-                              borderRadius: const BorderRadius.only(topLeft: Radius.circular(5.0), bottomRight: Radius.circular(5.0)),
+                        if(gender.key != "male_female")
+                          Container(
+                            alignment: Alignment.center,
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                                color: mainColor,
+                                borderRadius: const BorderRadius.only(topLeft: Radius.circular(5.0), bottomRight: Radius.circular(5.0)),
+                            ),
+                            child : Icon(gender.key == "female" ? CustomIcons.woman_01 : CustomIcons.man_01, color: black, size: 35,),
                           ),
-                          child : Icon(gender.key == "female" ? CustomIcons.woman_01 : CustomIcons.man_01, color: black, size: 35,),
+                        if(gender.key == "male_female")
+                          Column(
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(bottom: 7),
+                                alignment: Alignment.center,
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: mainColor,
+                                  borderRadius: const BorderRadius.only(topLeft: Radius.circular(5.0), bottomRight: Radius.circular(5.0)),
+                                ),
+                                child : const Icon(CustomIcons.man_01, color: black, size: 35,),
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: mainColor,
+                                  borderRadius: const BorderRadius.only(topRight: Radius.circular(5.0), bottomRight: Radius.circular(5.0)),
+                                ),
+                                child : const Icon(CustomIcons.woman_01, color: black, size: 35,),
 
-                        ),
+                              ),
+                            ],
+                          )
                       ],
                     ),
                   Padding(padding: const EdgeInsets.only(top: 10, bottom: 15),

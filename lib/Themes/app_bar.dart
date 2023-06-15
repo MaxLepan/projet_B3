@@ -23,7 +23,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: IconButton(
           icon: const Icon(CustomIcons.cross_01 , size: 25,),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.popAndPushNamed(context, '/search');
           },
         ),
       ),

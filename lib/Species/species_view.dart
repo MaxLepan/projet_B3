@@ -77,8 +77,10 @@ class SpeciesView extends StatelessWidget {
         }
         break;
       case 6:
-        if (subject.funFacts![1] != null) {
-          return SpeciesViewBlockFunFact(funFact: subject.funFacts![1], mainColor: color[0], secondaryColor: color[1], highlighted: highlighted);
+        if (subject.funFacts!.length > 1) {
+          if(subject.funFacts![1] != null) {
+            return SpeciesViewBlockFunFact(funFact: subject.funFacts![1], mainColor: color[0], secondaryColor: color[1], highlighted: highlighted);
+          }
         }
         break;
       case 7:

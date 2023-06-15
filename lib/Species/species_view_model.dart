@@ -59,7 +59,8 @@ class SpeciesViewModel {
           imageUrl: speciesData['image'],
           reproduction: speciesData['reproduction'],
           alerts: speciesData['alerts'],
-          diet: speciesData['diet']
+          diet: speciesData['diet'],
+          length: speciesData['length']
         );
 
         return speciesObj;

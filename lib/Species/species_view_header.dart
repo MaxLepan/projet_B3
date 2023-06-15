@@ -88,14 +88,15 @@ class SpeciesViewHeader extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
-                  left: 35,
-                  bottom: 21,
-                  child: Text(
-                    "L. 16cm",
-                    style: textItalicStyle
+                if(subject.length != null)
+                  Positioned(
+                    left: 35,
+                    bottom: 21,
+                    child: Text(
+                      subject.length!,
+                      style: textItalicStyle
+                    ),
                   ),
-                ),
               ],
             ),
           ),

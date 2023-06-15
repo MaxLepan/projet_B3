@@ -54,11 +54,17 @@ class SpeciesViewBlockFunFact extends StatelessWidget {
                     if(funFact!["image_url"] != null)
                       Container(
                         padding: const EdgeInsets.only(top: 6, bottom: 6),
-                        child: Image.network(
-                          funFact!["image_url"],
-                          fit: BoxFit.contain,
-                          width: 299,
-                          height: 100,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: Image.network(
+                            funFact!["image_url"],
+                            fit: BoxFit.cover,
+                            height: 150,
+                            width: double.infinity,
+                          ),
                         ),
                       ),
                   ],
