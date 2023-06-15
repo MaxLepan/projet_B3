@@ -27,7 +27,7 @@ class SpeciesView extends StatelessWidget {
         scrollDirection: Axis.vertical,
         itemCount: _getBlockCount(),
         itemBuilder: (context, index) {
-          return _buildBlockAtIndex(index, colors, index%2==0 ? false : true );
+          return _buildBlockAtIndex(index, colors, index%2==0 ? false : true, context );
         },
       )
     );
@@ -47,10 +47,10 @@ class SpeciesView extends StatelessWidget {
     return count;
   }
 
-  Widget _buildBlockAtIndex(int index, List<Color> color, bool highlighted) {
+  Widget _buildBlockAtIndex(int index, List<Color> color, bool highlighted, BuildContext context) {
     switch (index) {
       case 0:
-        return SpeciesViewHeader(subject: subject, mainColor: color[0]);
+        return SpeciesViewHeader(subject: subject, mainColor: color[0], context: context);
       case 1:
         if (subject.alerts != null) {
           return SpeciesViewBlocAlert(alert: subject.alerts!.first, mainColor: color[0], highlighted: highlighted);

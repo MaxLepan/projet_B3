@@ -36,30 +36,6 @@ class MapViewModel {
     });
   }
 
-  Future<List> uploadImage(File file, String description) async {
-    await Firebase.initializeApp();
-    final firebaseStorage = FirebaseStorage.instance;
-
-    var snapshot = await firebaseStorage
-        .ref()
-        .child('images/${DateTime.now().toString()}')
-        .putFile(file);
-    var downloadUrl = await snapshot.ref.getDownloadURL();
-
-    return [downloadUrl, description];
-  }
-
-  void addMarkerToDb(String description, String imageUrl) {
-    getCurrentPosition();
-    fireStoreDataBase.collection('marker').add({
-      'creationDate': DateTime.now(),
-      'description': description,
-      'location': GeoPoint(currentPosition.latitude, currentPosition.longitude),
-      'image': imageUrl,
-      'userId': "thatOneUser"
-    });
-  }
-
   Stream<List<CustomMarker>> getMarkerList() {
     return fireStoreDataBase.collection('marker').snapshots().map((snapshot) {
       return snapshot.docs

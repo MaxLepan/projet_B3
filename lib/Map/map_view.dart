@@ -55,124 +55,42 @@ class _MapState extends State<MapPage> {
     viewModel = MapViewModel();
   }
 
-  Future<void> _addMarker() async {
-    String description = '';
-    File? image;
-
-    await showDialog(
-        context: viewModel.scaffoldKey.currentContext!,
-        builder: (BuildContext context) {
-          return StatefulBuilder(builder: (context, setState) {
-            return AlertDialog(
-                title: const Text('Ajouter un marqeur'),
-                content:
-                    Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                  TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'Entrez une description',
-                    ),
-                    onChanged: (value) {
-                      description = value;
-                    },
-                  ),
-                  Stack(
-                    children: [
-                      GestureDetector(
-                          onTap: () async {
-                            final pickedFile = await picker.pickImage(
-                                source: ImageSource.gallery);
-                            if (pickedFile != null) {
-                              setState(() {
-                                image = File(pickedFile.path);
-                              });
-                            }
-                          },
-                          child: Container(
-                              margin: const EdgeInsets.symmetric(vertical: 20),
-                              height: 100,
-                              width: 100,
-                              child: image != null
-                                  ? Image.file(
-                                      image!,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : const Icon(
-                                      Icons.add_a_photo,
-                                      size: 50,
-                                    ))),
-                    ],
-                  ),
-                ]),
-                actions: <Widget>[
-                  TextButton(
-                    child: const Text('Annuler'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  ElevatedButton(
-                    onPressed: (image != null && description.isNotEmpty)
-                        ? () {
-                            setState(() {
-                              //viewModel.markers.add(newMarker(image, description));
-                              viewModel.uploadImage(image!, description).then(
-                                  (value) => {
-                                        viewModel.addMarkerToDb(
-                                            value[1], value[0])
-                                      });
-                              image = null;
-                              description = '';
-                            });
-                            Navigator.of(context).pop();
-                          }
-                        : null,
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.blue,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      disabledBackgroundColor: Colors.grey,
-                      disabledForegroundColor: Colors.black,
-                    ),
-                    child: const Text('Ajouter'),
-                  ),
-                ]);
-          });
-        });
-  }
-
   void _centerPositionOnUser() {
     viewModel.centerPositionOnUser();
   }
 
   Marker newMarker(File? image, String description) {
     return Marker(
-        width: 80.0,
-        height: 80.0,
-        point: latLng.LatLng(viewModel.currentPosition.latitude,
-            viewModel.currentPosition.longitude),
-        builder: (ctx) => GestureDetector(
-            onTap: () {
-              showDialog(
-                  context: viewModel.scaffoldKey.currentContext!,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      content:
-                          Column(mainAxisSize: MainAxisSize.min, children: [
-                        Image.file(
-                          image!,
-                          fit: BoxFit.contain,
-                        ),
-                        Text(description)
-                      ]),
-                    );
-                  });
+      width: 80.0,
+      height: 80.0,
+      point: latLng.LatLng(viewModel.currentPosition.latitude,
+          viewModel.currentPosition.longitude),
+      builder: (ctx) => GestureDetector(
+        onTap: () {
+          showDialog(
+            context: viewModel.scaffoldKey.currentContext!,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.file(
+                      image!,
+                      fit: BoxFit.contain,
+                    ),
+                    Text(description)
+                  ],
+                ),
+              );
             },
-            child: Image.file(
-              image!,
-              fit: BoxFit.cover,
-            )));
+          );
+        },
+        child: Image.file(
+          image!,
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
   }
 
   @override
@@ -180,11 +98,13 @@ class _MapState extends State<MapPage> {
     return Scaffold(
       key: viewModel.scaffoldKey,
       body: Center(
-          child: Stack(
-        children: <Widget>[
-          MapWidget(allMarkers: viewModel.getMarkerList(), viewModel: viewModel),
-        ],
-      )),
+        child: Stack(
+          children: <Widget>[
+            MapWidget(
+                allMarkers: viewModel.getMarkerList(), viewModel: viewModel),
+          ],
+        ),
+      ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -250,7 +170,8 @@ class MapWidget extends StatelessWidget {
                               marker.speciesCategory == 'Reptile') ||
                           (filterState.showAmphibianMarkers &&
                               marker.speciesCategory == 'Amphibien'))
-                      .map((marker) => viewModel.customMarkerToMarker(marker, context))
+                      .map((marker) =>
+                          viewModel.customMarkerToMarker(marker, context))
                       .toList(),
                 ),
               ],
