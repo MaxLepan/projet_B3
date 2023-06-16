@@ -30,15 +30,13 @@ class MapView extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MapPage(title: 'Map'),
+      home: const MapPage(),
     );
   }
 }
 
 class MapPage extends StatefulWidget {
-  const MapPage({super.key, required this.title});
-
-  final String title;
+  const MapPage({super.key});
 
   @override
   State<MapPage> createState() => _MapState();
@@ -159,7 +157,7 @@ class MapWidget extends StatelessWidget {
               ),
               children: [
                 TileLayer(
-                  urlTemplate: 'https://b.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
+                  urlTemplate: 'https://api.maptiler.com/maps/outdoor-v2/{z}/{x}/{y}.png?key=RW4eCQMolu3ErCAsYJV1',
                   userAgentPackageName: 'com.gardiens.AppB3Projet',
                 ),
                 CurrentLocationLayer(),

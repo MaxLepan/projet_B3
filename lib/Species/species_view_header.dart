@@ -1,26 +1,27 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:projet_b3/Species/species_view_model.dart';
 import 'package:projet_b3/Themes/custom_icons.dart';
 import 'package:projet_b3/Species/species_model.dart';
 
-import '../Marker/marker_view_model.dart';
+import '../Marker/marker_photo_confirmation_view.dart';
 import '../Themes/colors.dart';
 
 class SpeciesViewHeader extends StatelessWidget {
   final Species subject;
   final Color mainColor;
   final picker = ImagePicker();
-  final MarkerViewModel viewModel = MarkerViewModel();
   final BuildContext context;
 
   SpeciesViewHeader(
-      {super.key, required this.subject, required this.mainColor, required this.context});
+      {super.key,
+      required this.subject,
+      required this.mainColor,
+      required this.context});
 
   Future<void> _addMarker() async {
-    File? image;
 
     await showDialog(
       context: context,
@@ -28,72 +29,100 @@ class SpeciesViewHeader extends StatelessWidget {
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
-              title: const Text('Ajouter une photo'),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Stack(
+              title: Text(
+                'Ajouter une photo',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.rubik(
+                  color: black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              content: Stack(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all(const CircleBorder()),
+                      padding: MaterialStateProperty.all(const EdgeInsets.all(20)),
+                      backgroundColor: MaterialStateProperty.all(Colors.blue),
+                    ),
+                    child: const Icon(CustomIcons.cross_01),
+                  ),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      GestureDetector(
-                        onTap: () async {
+                      ElevatedButton.icon(
+                        onPressed: () {},
+                        icon: const Icon(CustomIcons.photo_plus_01, size: 40),
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              materialGreeBrown.shade500),
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(black),
+                          padding:
+                              MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                  const EdgeInsets.symmetric(
+                                      vertical: 20, horizontal: 20)),
+                          elevation: MaterialStateProperty.all<double>(0),
+                        ),
+                        label: Text(
+                          "Depuis ma caméra",
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.rubik(
+                            color: black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      ElevatedButton.icon(
+                        onPressed: () async {
                           final pickedFile = await picker.pickImage(
                               source: ImageSource.gallery);
                           if (pickedFile != null) {
-                            setState(() {
-                              image = File(pickedFile.path);
-                            });
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => MarkerPhotoConfirmationView(
+                                  image: File(pickedFile.path),
+                                  species: subject,
+                                ),
+                              ),
+                            );
                           }
                         },
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(vertical: 20),
-                          height: 100,
-                          width: 100,
-                          child: image != null
-                              ? Image.file(
-                                  image!,
-                                  fit: BoxFit.cover,
-                                )
-                              : const Icon(
-                                  Icons.add_a_photo,
-                                  size: 50,
-                                ),
+                        icon: const Icon(CustomIcons.image_01, size: 40),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(black),
+                          padding:
+                              MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                  const EdgeInsets.symmetric(
+                                      vertical: 20, horizontal: 20)),
+                          side: MaterialStateProperty.all<BorderSide>(
+                              BorderSide(
+                                  color: materialGreeBrown.shade500, width: 2)),
+                          elevation: MaterialStateProperty.all<double>(0),
+                        ),
+                        label: Text(
+                          "Depuis ma galerie",
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.rubik(
+                            color: black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ],
-                  ),
+                  )
                 ],
               ),
-              actions: <Widget>[
-                TextButton(
-                  child: const Text('Annuler'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-                ElevatedButton(
-                  onPressed: (image != null)
-                      ? () {
-                          setState(() {
-                            //viewModel.markers.add(newMarker(image, description));
-                            viewModel.uploadImage(image!).then((value) =>
-                                {viewModel.addMarkerToDb(value, subject)});
-                            image = null;
-                          });
-                          Navigator.of(context).pop();
-                        }
-                      : null,
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.blue,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    disabledBackgroundColor: Colors.grey,
-                    disabledForegroundColor: Colors.black,
-                  ),
-                  child: const Text('Ajouter'),
-                ),
-              ],
             );
           },
         );
