@@ -108,8 +108,8 @@ class _MapState extends State<MapPage> {
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(top: 70.0),
+          const Padding(
+            padding: EdgeInsets.only(top: 70.0),
             child: ExpandableButton(),
           ),
           FloatingActionButton(
