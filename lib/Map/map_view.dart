@@ -159,7 +159,7 @@ class MapWidget extends StatelessWidget {
               ),
               children: [
                 TileLayer(
-                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                  urlTemplate: 'https://b.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
                   userAgentPackageName: 'com.gardiens.AppB3Projet',
                 ),
                 CurrentLocationLayer(),
