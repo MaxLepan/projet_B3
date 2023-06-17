@@ -8,11 +8,13 @@ import 'Map/map_view.dart';
 import 'Questions/questions_result_view.dart';
 import 'Search/graph_tree.dart';
 import 'Species/species_view.dart';
+import 'coming_soon_view.dart';
 
 final Map<String, WidgetBuilder> routes = {
   '/map': (BuildContext context) => MapView(),
   '/search': (BuildContext context) => SearchView(),
   '/transition': (BuildContext context) => TransitionView(),
+  '/comming_soon': (BuildContext context) => ComingSoonView(),
   '/questions': (BuildContext context) {
     final args = ModalRoute
         .of(context)!

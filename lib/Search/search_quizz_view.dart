@@ -8,7 +8,6 @@ import '../Themes/custom_icons.dart';
 import '../firebase_options.dart';
 import '../routes.dart';
 import 'graph_tree.dart';
-//import 'graph_tree_v2.dart';
 
 class SearchQuizzView extends StatelessWidget {
   final Node? node;
@@ -100,14 +99,11 @@ class SearchQuizzView extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
+                    Navigator.popUntil(context, (route) => route.isFirst);
                   },
-                  child: const Text(
+                  child: Text(
                     'Oups... Elle s’est enfuie.',
-                    style: TextStyle(
-                      color: black,
-                      decoration: TextDecoration.underline,
-                      fontSize: 17,
-                    ),
+                    style: textUnderlineStyle,
                   ),
                 ),
               ],

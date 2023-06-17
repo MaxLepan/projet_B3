@@ -64,4 +64,4 @@ var textStyle = GoogleFonts.nunito(color: black, fontSize: 17);
 var textItalicStyle = GoogleFonts.nunito(color: black, fontSize: 17, fontStyle: FontStyle.italic);
 var textBoldStyle = GoogleFonts.nunito(color: black, fontSize: 17, fontWeight: FontWeight.bold);
 var textMediumStyle = GoogleFonts.nunito(color: black, fontSize: 17, fontWeight: FontWeight.w500);
-
+var textUnderlineStyle = GoogleFonts.nunito(color: black, fontSize: 17, decoration: TextDecoration.underline, fontWeight: FontWeight.bold);

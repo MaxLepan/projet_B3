@@ -5,25 +5,16 @@ import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:projet_b3/Themes/custom_icons.dart';
 import 'package:projet_b3/Themes/colors.dart';
 
+import 'Themes/app_bar.dart';
 
-class TransitionView extends StatefulWidget {
-  @override
-  _TransitionViewState createState() => _TransitionViewState();
-}
 
-class _TransitionViewState extends State<TransitionView> {
-
-  @override
-  void initState() {
-    super.initState();
-    Timer(const Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, '/questions');
-    });
-  }
+class ComingSoonView extends StatelessWidget {
+  const ComingSoonView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const CustomAppBar(),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -35,10 +26,11 @@ class _TransitionViewState extends State<TransitionView> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("IDENTIFICATION", style: textBoldStyle),
+            Text("BIENTOT", style: textBoldStyle),
             Container(
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              child: Text("C'est parti !", style: bigTitleStyle),
+              alignment: Alignment.center,
+              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+              child: Text("Cette fonctionalité n'est pas encore disponible ;)", style: bigTitleStyle, textAlign: TextAlign.center,),
             ),
             Center(
               child: Container(
@@ -48,7 +40,7 @@ class _TransitionViewState extends State<TransitionView> {
                   borderRadius: BorderRadius.circular(50),
                   color: greenBrown_02,
                 ),
-                child: CustomIcons.glassShadowColor,
+                child: CustomIcons.infoShadow,
               ),
             ),
           ],

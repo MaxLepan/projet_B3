@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:projet_b3/Species/species_view_block_reproduction.dart';
 import 'package:projet_b3/Themes/custom_icons.dart';
 import 'package:projet_b3/Species/species_model.dart';
 import 'package:projet_b3/Species/species_model_block_three_pics.dart';
@@ -63,7 +64,7 @@ class SpeciesView extends StatelessWidget {
         break;
       case 3:
         if (subject.reproduction != null) {
-          return SpeciesViewBlockThreePics(content: subject.reproduction!, mainColor: color[0], title: "Reproduction", highlighted: highlighted);
+          return SpeciesViewBlockReproduction(content: subject.reproduction!, mainColor: color[0], title: "Reproduction", highlighted: highlighted);
         }
         break;
       case 4:

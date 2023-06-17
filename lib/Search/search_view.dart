@@ -35,18 +35,15 @@ class SearchViewState extends State<SearchView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Column(children: const [
+            Column(children: [
               Padding(
-                padding: EdgeInsets.only(top: 20, bottom: 20),
+                padding: const EdgeInsets.only(top: 20, bottom: 20),
                 child: Text(
                   "Observe autour de toi !",
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: titleStyle,
                 ),
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(bottom: 20),
                 child: Text(
                   "Tu verras les petites-bêtes d’un\nnouvel œil.",
@@ -100,7 +97,7 @@ class SearchViewState extends State<SearchView> {
                     QuestionCard(
                         question: "Quelles espèces observer dans le coin ?",
                         imagePath: 'assets/images/search_tree.png',
-                        route: ""),
+                        route: "/comming_soon"),
                   ],
                 ),
               ),
@@ -134,8 +131,7 @@ class SearchViewState extends State<SearchView> {
 
                   return GestureDetector(
                     onTap: () {
-                      Navigator.pushReplacementNamed(context, '/sheet',
-                          arguments: species);
+                      Navigator.pushReplacementNamed(context, '/sheet', arguments: species);
                     },
                     child: Container(
                       decoration: BoxDecoration(

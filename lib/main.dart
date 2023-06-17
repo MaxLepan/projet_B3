@@ -21,7 +21,6 @@ Future<void> main() async{
         create: (_) => FilterState(),
         child: const MyApp()
     ),
-      //MyApp()
   );
 }
 
@@ -33,7 +32,7 @@ class MyApp extends StatefulWidget{
 }
 
 class MyAppState extends State<MyApp> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
   final List<Widget> _pages = [
     InformationsView(),
     const SearchView(),

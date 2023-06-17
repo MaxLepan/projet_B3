@@ -88,7 +88,14 @@ class SpeciesViewModel {
         protectionStatus: speciesDataMap['protection_status'],
         habitats: List<String>.from(speciesDataMap["habitats"]),
         lastView: speciesDataMap['last_view'],
+        funFacts: speciesDataMap['fun_facts'],
         imageUrl: speciesDataMap['image'],
+        humanImpacts: speciesDataMap['human_impacts'],
+        genders: speciesDataMap['genders'],
+        reproduction: speciesDataMap['reproduction'],
+        alerts: speciesDataMap['alerts'],
+        diet: speciesDataMap['diet'],
+        length: speciesDataMap['length']
       );
 
       speciesList.add(speciesObj);
