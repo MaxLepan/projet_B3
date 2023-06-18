@@ -156,13 +156,13 @@ List<ElevatedButton> generateButtons(BuildContext context, Node? node){
                 Container(
                   width: 50,
                   height: 50,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.white,
-                    image: DecorationImage(
-                        image: NetworkImage(button.image ?? "https://firebasestorage.googleapis.com/v0/b/appb3projet.appspot.com/o/images%2Fquizz%2F1200px-Question_mark_alternate.svg.png?alt=media&token=8bbe77c0-167d-4d95-84ad-49eead9c1af8"),
-                        fit: BoxFit.cover
-                    ),
+                    color: greenBrown,
+                    //image: DecorationImage(
+                        //image: NetworkImage(button.image ?? "https://firebasestorage.googleapis.com/v0/b/appb3projet.appspot.com/o/images%2Fquizz%2F1200px-Question_mark_alternate.svg.png?alt=media&token=8bbe77c0-167d-4d95-84ad-49eead9c1af8"),
+                      //  fit: BoxFit.cover
+                    //),
                   ),
                 ),
                 const SizedBox(width: 10),
