@@ -11,7 +11,7 @@ class SpeciesViewBlockHumanImpact extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 35, bottom: 35),
+      margin: const EdgeInsets.only(top: 35, bottom: 35),
       padding: horizontalPadding,
       color: highlighted == false ? white : darkBeige,
       child: Column(
