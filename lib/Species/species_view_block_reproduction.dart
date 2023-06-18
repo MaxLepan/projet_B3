@@ -77,14 +77,10 @@ class SpeciesViewBlockReproduction extends StatelessWidget {
             ),
             if(content!["big_image"] != null)
               Container(
-                margin: const EdgeInsets.only(top:15, bottom: 40),
-                height: 150,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(5)),
-                  image: DecorationImage(
-                    image: NetworkImage(content!["big_image"]),
-                    fit: BoxFit.cover,
-                  ),
+                padding: const EdgeInsets.only(top: 15, bottom: 40),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: imageWithPlaceholder(content!["big_image"], 150),
                 ),
               ),
           ],

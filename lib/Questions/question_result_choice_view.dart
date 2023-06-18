@@ -33,17 +33,11 @@ class QuestionsResultChoiceView extends StatelessWidget {
                     style: titleStyle,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 40,bottom: 60),
-                  child: Container(
-                    height: 300,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(5)),
-                      image: DecorationImage(
-                        image: NetworkImage(subject.imageUrl ?? ""),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                Container(
+                  padding: const EdgeInsets.only(top: 40, bottom: 60),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: imageWithPlaceholder(subject.imageUrl!, 300),
                   ),
                 ),
                 Padding(

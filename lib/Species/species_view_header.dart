@@ -200,15 +200,7 @@ class SpeciesViewHeader extends StatelessWidget {
             padding: const EdgeInsets.only(top: 24),
             child: Stack(
               children: [
-                Container(
-                  height: 250,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(subject.imageUrl ?? ""),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
+                imageWithPlaceholder(subject.imageUrl!, 270),
                 if(subject.length != null)
                   Positioned(
                     left: 35,

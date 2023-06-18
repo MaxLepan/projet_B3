@@ -59,11 +59,10 @@ class SpeciesViewBlockFunFact extends StatelessWidget {
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(5),
-                          child: Image.network(
-                            funFact!["image_url"],
-                            fit: BoxFit.cover,
-                            height: 150,
-                            width: double.infinity,
+                          child:
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(5),
+                            child: imageWithPlaceholder(funFact!["image_url"], 150),
                           ),
                         ),
                       ),

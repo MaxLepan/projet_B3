@@ -29,15 +29,9 @@ class SpeciesViewBlockGenres extends StatelessWidget {
                       alignment: Alignment.topLeft,
                       children: <Widget>[
                         if(content != null)
-                          Container(
-                            height: 170,
-                            decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.all(Radius.circular(5)),
-                              image: DecorationImage(
-                                image: NetworkImage(gender.value["image_url"]),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(5),
+                            child: imageWithPlaceholder(gender.value["image_url"], 170),
                           ),
                         if(gender.key != "male_female")
                           Container(

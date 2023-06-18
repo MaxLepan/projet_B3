@@ -1,8 +1,7 @@
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'custom_icons.dart';
 
 const white = Color(0xFFFEFAF4);
 
@@ -65,3 +64,28 @@ var textItalicStyle = GoogleFonts.nunito(color: black, fontSize: 17, fontStyle: 
 var textBoldStyle = GoogleFonts.nunito(color: black, fontSize: 17, fontWeight: FontWeight.bold);
 var textMediumStyle = GoogleFonts.nunito(color: black, fontSize: 17, fontWeight: FontWeight.w500);
 var textUnderlineStyle = GoogleFonts.nunito(color: black, fontSize: 17, decoration: TextDecoration.underline, fontWeight: FontWeight.bold);
+
+Widget imageWithPlaceholder(String imagepath, double height){
+  return ExtendedImage.network(
+    imagepath,
+    height: height,
+    width: double.infinity,
+    fit: BoxFit.cover,
+    borderRadius: const BorderRadius.all(Radius.circular(5)),
+    cache: true,
+    loadStateChanged: (ExtendedImageState state) {
+      switch (state.extendedImageLoadState) {
+        case LoadState.loading:
+          return Container(
+            color: Colors.grey,
+          );
+        case LoadState.completed:
+          return null;
+        case LoadState.failed:
+          return Container(
+            color: greenBrown,
+          );
+      }
+    },
+  );
+}
