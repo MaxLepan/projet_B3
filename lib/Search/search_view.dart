@@ -131,7 +131,7 @@ class SearchViewState extends State<SearchView> {
 
                   return GestureDetector(
                     onTap: () {
-                      Navigator.pushReplacementNamed(context, '/sheet', arguments: species);
+                      Navigator.pushNamed(context, '/sheet', arguments: species);
                     },
                     child: Container(
                       decoration: BoxDecoration(
