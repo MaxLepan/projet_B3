@@ -121,7 +121,7 @@ class _MapState extends State<MapPage> {
               side: BorderSide(color: beige_03, width: 2.0),
               borderRadius: BorderRadius.all(Radius.circular(3.0)),
             ),
-            child: const Icon(CustomIcons.center_01, color: black, size: 50),
+            child: const Icon(CustomIcons.center_01, color: black, size: 35),
           ),
         ],
       ),

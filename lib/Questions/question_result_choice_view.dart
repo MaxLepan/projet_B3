@@ -38,8 +38,10 @@ class QuestionsResultChoiceView extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(5),
                     child: const Image(
+                      height: 300,
                       image: AssetImage('assets/images/search_choice.png'),
-                      fit: BoxFit.fitHeight,),
+                      fit: BoxFit.cover,
+                      ),
                   ),
                 ),
                 Padding(
@@ -68,7 +70,7 @@ class QuestionsResultChoiceView extends StatelessWidget {
                                   margin: const EdgeInsets.only(right: 20),
                                   child: const Icon(CustomIcons.info_01, size:30, color: black,),
                                 ),
-                                Text("Je veux davantage d'infos",
+                                Text("Obtenir d'avantages d'infos",
                                   style: textBoldStyle,
                                 ),
                               ],
@@ -105,7 +107,7 @@ class QuestionsResultChoiceView extends StatelessWidget {
                                   ),
                                   Flexible(
                                     child: Text(
-                                      "Je veux ajouter ma photo sur la carte",
+                                      "Ajouter ma photo sur la carte",
                                       style: textBoldStyle,
                                       softWrap: true,
                                     ),
