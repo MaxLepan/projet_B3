@@ -37,7 +37,9 @@ class QuestionsResultChoiceView extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 40, bottom: 60),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(5),
-                    child: imageWithPlaceholder(subject.imageUrl!, 300),
+                    child: const Image(
+                      image: AssetImage('assets/images/search_choice.png'),
+                      fit: BoxFit.fitHeight,),
                   ),
                 ),
                 Padding(
