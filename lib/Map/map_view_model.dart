@@ -63,6 +63,7 @@ class MapViewModel {
         },
         child: Container(
           decoration: BoxDecoration(
+            color: white,
             shape: BoxShape.circle,
             border: Border.all(color: borderColor, width: 4),
           ),
