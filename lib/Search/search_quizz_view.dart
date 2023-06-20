@@ -19,7 +19,7 @@ class SearchQuizzView extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: white,
-      appBar: const CustomAppBar(),
+      appBar: const CustomAppBarCloseReturn(),
       body: Column(
         children: [
           Expanded(
@@ -78,35 +78,14 @@ class SearchQuizzView extends StatelessWidget {
           Container(
             color: white,
             padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Row(
-                      children: [
-                        const Icon(CustomIcons.left_01),
-                        const SizedBox(width: 8),
-                        Text(
-                          'Retour',
-                          style: textBoldStyle,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.popUntil(context, (route) => route.isFirst);
-                  },
-                  child: Text(
-                    'Oups... Elle s’est enfuie.',
-                    style: textUnderlineStyle,
-                  ),
-                ),
-              ],
+            child: TextButton(
+              onPressed: () {
+                Navigator.popUntil(context, (route) => route.isFirst);
+              },
+              child: Text(
+                'Oups... Elle s’est enfuie.',
+                style: textUnderlineStyle,
+              ),
             ),
           ),
         ],

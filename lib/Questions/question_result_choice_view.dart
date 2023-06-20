@@ -17,7 +17,7 @@ class QuestionsResultChoiceView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: white,
-        appBar: const CustomAppBar(),
+        appBar: const CustomAppBarCloseReturn(),
         body: Container(
           padding: horizontalPadding,
           margin: const EdgeInsets.only(top: 30),
@@ -121,24 +121,6 @@ class QuestionsResultChoiceView extends StatelessWidget {
                     ),
                   ],
                 ),
-                const Spacer(),
-                Row(
-                  children: [
-                    Expanded(
-                      child: IconButton(
-                        icon: Row(
-                          children: [
-                            const Icon(CustomIcons.left_01),
-                            Text("Retour", style: textBoldStyle,)
-                          ],
-                        ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                    )
-                  ],
-                )
               ]
           ),
         )

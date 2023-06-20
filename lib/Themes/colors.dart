@@ -33,11 +33,17 @@ const MaterialColor materialGreeBrown = MaterialColor(0xFFE57373, {
 
 
 const green = Color(0xFFA4C89A);
-const blue = Color(0xFFB6ABD4);
-const orange = Color(0xFFEBA15A);
 const lightGreen = Color(0xFFebf0e3);
+
+const blue = Color(0xFFB6ABD4);
 const lightBlue = Color(0xFFf3eeef);
+
+const orange = Color(0xFFEBA15A);
 const lightOrange = Color(0xFFfbecdc);
+
+const red = Color(0xFFEA9D9D);
+const lightRed = Color(0xFFFAE7E2);
+
 
 const mint_01 = Color(0xFFbfdaba);
 const mint_02 = Color(0xFFa4c89a);

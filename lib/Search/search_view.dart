@@ -28,7 +28,6 @@ class SearchViewState extends State<SearchView> {
 
   @override
   Widget build(BuildContext context) {
-    print("species list : ${speciesViewModel.speciesList.toString()}");
     return Scaffold(
       appBar: const CustomLocationAppBar(),
       body: SingleChildScrollView(

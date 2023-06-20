@@ -15,6 +15,7 @@ class Species {
   final List<dynamic>? alerts;
   final Map? diet;
   final String? length;
+  final List<String>? precautions;
 
 
   Species({
@@ -31,7 +32,8 @@ class Species {
     this.reproduction,
     this.alerts,
     this.diet,
-    this.length
+    this.length,
+    this.precautions
   });
 
   @override

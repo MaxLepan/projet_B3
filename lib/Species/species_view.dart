@@ -20,85 +20,73 @@ class SpeciesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Color> colors = _getColor(subject);
+    var count = 0;
 
     return Scaffold(
       appBar: const CustomAppBar(),
       backgroundColor: white,
-      body: ListView.builder(
+      body: ListView(
         scrollDirection: Axis.vertical,
-        itemCount: _getBlockCount(),
-        itemBuilder: (context, index) {
-          return _buildBlockAtIndex(index, colors, index%2==0 ? false : true, context );
-        },
+        children: [
+          for(var block in blockBuilder(colors, context))
+            block
+        ],
       )
     );
   }
 
-  int _getBlockCount() {
-    int count = 1;
 
-    if (subject.alerts != null) count++;
-    if (subject.genders != null) count++;
-    if (subject.reproduction != null) count++;
-    if (subject.funFacts != null) count += subject.funFacts!.length;
-    if (subject.diet != null) count++;
-    if (subject.habitats != null) count++;
-    if (subject.humanImpacts != null) count++;
+  List<Widget> blockBuilder(List<Color> colors, context){
+    List<Widget> blocks = [];
+    var count = 0;
+    blocks.add(SpeciesViewHeader(subject: subject, mainColor: colors[0], secondaryColor: colors[1], context: context));
 
-    return count;
-  }
-
-  Widget _buildBlockAtIndex(int index, List<Color> color, bool highlighted, BuildContext context) {
-    switch (index) {
-      case 0:
-        return SpeciesViewHeader(subject: subject, mainColor: color[0], context: context);
-      case 1:
-        if (subject.alerts != null) {
-          return SpeciesViewBlocAlert(alert: subject.alerts!.first, mainColor: color[0], highlighted: highlighted);
-        }
-        break;
-      case 2:
-        if (subject.genders != null) {
-          return SpeciesViewBlockGenres(content: subject.genders!, mainColor: color[0], highlighted: highlighted);
-        }
-        break;
-      case 3:
-        if (subject.reproduction != null) {
-          return SpeciesViewBlockReproduction(content: subject.reproduction!, mainColor: color[0], title: "Reproduction", highlighted: highlighted);
-        }
-        break;
-      case 4:
-        if (subject.funFacts![0] != null) {
-          return SpeciesViewBlockFunFact(funFact: subject.funFacts![0], mainColor: color[0], secondaryColor: color[1], highlighted: highlighted);
-        }
-        break;
-      case 5:
-        if (subject.diet != null) {
-          return SpeciesViewBlockThreePics(content: subject.diet!, mainColor: color[0], title: "Régime alimentaire", highlighted: highlighted);
-        }
-        break;
-      case 6:
-        if (subject.funFacts!.length > 1) {
-          if(subject.funFacts![1] != null) {
-            return SpeciesViewBlockFunFact(funFact: subject.funFacts![1], mainColor: color[0], secondaryColor: color[1], highlighted: highlighted);
-          }
-        }
-        break;
-      case 7:
-        if (subject.habitats != null) {
-          return SpeciesViewBlockHabitats(subject: subject, mainColor: color[0], highlighted: highlighted);
-        }
-        break;
-      case 8:
-        if (subject.humanImpacts != null) {
-          return SpeciesViewBlockHumanImpact(humanImpact: subject.humanImpacts![0], mainColor: color[0], highlighted: highlighted);
-        }
-        break;
-      default:
-        break;
+    if (subject.alerts != null){
+      count ++;
+      blocks.add(SpeciesViewBlocAlert(alert: subject.alerts!.first, mainColor: colors[0], highlighted: count%2 == 0 ? false : true));
     }
-    return const SizedBox();
+
+    if (subject.genders != null){
+      count ++;
+      blocks.add(SpeciesViewBlockGenres(content: subject.genders!, mainColor: colors[0], highlighted: count%2 == 0 ? false : true));
+    }
+
+    if (subject.reproduction != null){
+      count ++;
+      blocks.add(SpeciesViewBlockReproduction(content: subject.reproduction!, mainColor: colors[0], highlighted: count%2 == 0 ? false : true));
+    }
+
+    if (subject.funFacts![0] != null) {
+      count ++;
+      blocks.add(SpeciesViewBlockFunFact(funFact: subject.funFacts![0], mainColor: colors[0], secondaryColor: colors[1], highlighted: count % 2 == 0 ? false : true));
+
+    }
+
+    if (subject.diet != null){
+      count ++;
+      blocks.add(SpeciesViewBlockThreePics(content: subject.diet!, mainColor: colors[0], highlighted: count%2 == 0 ? false : true, title: "Régime alimentaire"));
+    }
+
+    if (subject.funFacts!.length > 1) {
+      if (subject.funFacts![1] != null) {
+        count ++;
+        blocks.add(SpeciesViewBlockFunFact(funFact: subject.funFacts![1], mainColor: colors[0], secondaryColor: colors[1], highlighted: count % 2 == 0 ? false : true));
+      }
+    }
+
+    if (subject.habitats != null){
+      count ++;
+      blocks.add(SpeciesViewBlockHabitats(subject: subject, mainColor: colors[0], highlighted: count%2 == 0 ? false : true));
+    }
+
+    if (subject.humanImpacts != null){
+      count ++;
+      blocks.add(SpeciesViewBlockHumanImpact(humanImpact: subject.humanImpacts![0], mainColor: colors[0], highlighted: count%2 == 0 ? false : true));
+    }
+
+    return blocks;
   }
+
 
   List<Color> _getColor(Species species) {
     switch (species.category.toLowerCase()) {
@@ -106,6 +94,10 @@ class SpeciesView extends StatelessWidget {
         return [green, lightGreen];
       case 'reptile':
         return [blue, lightBlue];
+      case 'araignée':
+        return [red, lightRed];
+      case 'prédateur':
+        return [red, lightRed];
       default:
         return [orange, lightOrange];
     }

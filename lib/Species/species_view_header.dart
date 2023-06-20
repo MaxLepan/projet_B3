@@ -13,6 +13,7 @@ import '../Themes/colors.dart';
 class SpeciesViewHeader extends StatelessWidget {
   final Species subject;
   final Color mainColor;
+  final Color secondaryColor;
   final picker = ImagePicker();
   final BuildContext context;
 
@@ -20,6 +21,7 @@ class SpeciesViewHeader extends StatelessWidget {
       {super.key,
       required this.subject,
       required this.mainColor,
+      required this.secondaryColor,
       required this.context});
 
   @override
@@ -74,22 +76,40 @@ class SpeciesViewHeader extends StatelessWidget {
           ),
           Container(
             margin: horizontalPadding,
-            padding: const EdgeInsets.only(top: 5, right: 16),
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: mainColor,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Text(
-                subject.protectionStatus ?? "",
-                style: const TextStyle(
-                    color: black, fontWeight: FontWeight.w500, fontSize: 17),
-              ),
-            ),
+            padding: const EdgeInsets.only(bottom: 20),
+            child: Row(
+              children: [
+                if(subject.precautions != null)
+                  for(var precaution in subject.precautions!)
+                    Container(
+                      margin: const EdgeInsets.only(right: 8),
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: greenBrown,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                          precaution,
+                          style: textBoldStyle
+                      ),
+                    ),
+
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: mainColor,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Text(
+                      subject.protectionStatus ?? "",
+                      style: textBoldStyle
+                  ),
+                ),
+              ],
+            )
           ),
           Container(
-            padding: const EdgeInsets.only(top: 24),
+            color: secondaryColor,
             child: Stack(
               children: [
                 imageWithPlaceholder(subject.imageUrl!, 270),
@@ -149,11 +169,13 @@ class SpeciesViewHeader extends StatelessWidget {
   IconData _getIconBySpeciesType(String category) {
     switch (category.toLowerCase()) {
       case 'amphibien':
-        return CustomIcons.frog_01; // Replace with your desired icon for amphibians
+        return CustomIcons.frog_01;
       case 'reptile':
-        return CustomIcons.snake_01; // Replace with your desired icon for reptiles
+        return CustomIcons.snake_01;
+      case 'araignée':
+        return CustomIcons.spider_01;
       default:
-        return CustomIcons.spider_01; // Replace with a default icon if needed
+        return CustomIcons.insect_01;
     }
   }
 }

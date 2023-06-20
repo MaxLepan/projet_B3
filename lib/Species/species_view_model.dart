@@ -27,21 +27,30 @@ class SpeciesViewModel {
     try {
       name = name.toLowerCase();
       CollectionReference species = FirebaseFirestore.instance.collection('species');
-      QuerySnapshot querySnapshot = await species.where(
-        'name',
-        isGreaterThanOrEqualTo: name,
-      ).where(
-          'name',
-          isLessThan: '${name}z'
-      ).get();
-      return convertToSpeciesList(querySnapshot);
+      QuerySnapshot querySnapshot;
 
+      if (name == 'el predator') {
+        querySnapshot = await species.where('name', isEqualTo: 'alban perli').get();
+      }
+      else if (name == 'beau gosse') {
+        querySnapshot = await species.where('name', isEqualTo: 'beau gosse').get();
+      }
+      else {
+        querySnapshot = await species
+            .where('name', isGreaterThanOrEqualTo: name)
+            .where('name', isLessThan: '${name}z')
+            .where('name', whereNotIn: ['alban perli', 'beau gosse'])
+            .get();
+      }
+
+      return convertToSpeciesList(querySnapshot);
     } catch (error, stackTrace) {
       print('Error retrieving species starting by: $error');
       print(stackTrace);
       return [];
     }
   }
+
 
   Future<Species> getSpeciesByName(String name) async {
       CollectionReference species = FirebaseFirestore.instance.collection('species');
@@ -65,7 +74,8 @@ class SpeciesViewModel {
           reproduction: speciesData['reproduction'],
           alerts: speciesData['alerts'],
           diet: speciesData['diet'],
-          length: speciesData['length']
+          length: speciesData['length'],
+          precautions: speciesData['precautions'] != null ? List<String>.from(speciesData['precautions']) : null
         );
 
         return speciesObj;
@@ -95,7 +105,8 @@ class SpeciesViewModel {
         reproduction: speciesDataMap['reproduction'],
         alerts: speciesDataMap['alerts'],
         diet: speciesDataMap['diet'],
-        length: speciesDataMap['length']
+        length: speciesDataMap['length'],
+        precautions: speciesDataMap['precautions'] != null ? List<String>.from(speciesDataMap['precautions']) : null
       );
 
       speciesList.add(speciesObj);
@@ -103,7 +114,7 @@ class SpeciesViewModel {
     return speciesList;
   }
 
-  Future<Map<String, Map<String, dynamic>>> getUniqueAlertsByDate() async {
+  Future<List<Map<String, dynamic>>> getUniqueAlertsByDate() async {
     CollectionReference species = FirebaseFirestore.instance.collection('species');
     QuerySnapshot querySnapshot = await species.get();
 
@@ -119,7 +130,7 @@ class SpeciesViewModel {
           Map<String, dynamic>? alert = alertData as Map<String, dynamic>?;
 
           if (alert != null && alert.containsKey('key')) {
-            String alertKey = alert['key'] as String;
+            String alertKey = alert['key'];
 
             if (!uniqueAlerts.containsKey(alertKey)) {
               uniqueAlerts[alertKey] = alert;
@@ -136,7 +147,15 @@ class SpeciesViewModel {
       }
     }
 
-    return uniqueAlerts;
+    List<Map<String, dynamic>> sortedAlerts = uniqueAlerts.values.toList();
+
+    sortedAlerts.sort((a, b) {
+      DateTime aDate = (a["date"] as Timestamp).toDate();
+      DateTime bDate = (b["date"] as Timestamp).toDate();
+      return bDate.compareTo(aDate);
+    });
+
+    return sortedAlerts;
   }
 
 }

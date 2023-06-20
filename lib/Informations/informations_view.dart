@@ -13,7 +13,7 @@ class InformationsView extends StatefulWidget {
 }
 
 class _InformationsViewState extends State<InformationsView> {
-  Map<String, Map<String, dynamic>> uniqueAlerts = {};
+  List<Map<String, dynamic>> uniqueAlerts = [];
 
   @override
   void initState() {
@@ -23,7 +23,7 @@ class _InformationsViewState extends State<InformationsView> {
 
   Future<void> fetchUniqueAlerts() async {
     try {
-      Map<String, Map<String, dynamic>> fetchedAlerts = await SpeciesViewModel().getUniqueAlertsByDate();
+      List<Map<String, dynamic>> fetchedAlerts = await SpeciesViewModel().getUniqueAlertsByDate();
       setState(() {
         uniqueAlerts = fetchedAlerts;
       });
@@ -44,8 +44,7 @@ class _InformationsViewState extends State<InformationsView> {
       body: ListView.builder(
         itemCount: uniqueAlerts.length,
         itemBuilder: (context, index) {
-          String key = uniqueAlerts.keys.elementAt(index);
-          Map<String, dynamic> alert = uniqueAlerts[key]!;
+          Map<String, dynamic> alert = uniqueAlerts[index];
           int countNew = 0;
           int countOld = 0;
           Widget recentTitle;

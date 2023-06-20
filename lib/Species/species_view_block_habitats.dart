@@ -23,7 +23,7 @@ class SpeciesViewBlockHabitats extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    "Habitats",
+                    "Habitat",
                     style: titleStyle,
                   ),
                   const SizedBox(height: 20),

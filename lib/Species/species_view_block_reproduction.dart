@@ -4,12 +4,11 @@ import 'package:projet_b3/Themes/colors.dart';
 class SpeciesViewBlockReproduction extends StatelessWidget {
   final Map? content;
   final Color mainColor;
-  final String title;
   final bool highlighted;
 
 
   const SpeciesViewBlockReproduction(
-      {super.key, required this.content, required this.mainColor, required this.title, required this.highlighted});
+      {super.key, required this.content, required this.mainColor, required this.highlighted});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class SpeciesViewBlockReproduction extends StatelessWidget {
           children: [
             Container(
               margin: const EdgeInsets.only(top: 35, bottom: 16),
-              child: Text(title, style: titleStyle,),
+              child: Text("Reproduction", style: titleStyle,),
             ),
             if(content!["tag"] != null)
               Container(

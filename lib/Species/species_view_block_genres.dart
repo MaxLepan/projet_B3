@@ -18,7 +18,7 @@ class SpeciesViewBlockGenres extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Text("Genres", style: titleStyle,),
+          Text("Genre", style: titleStyle,),
             for(var gender in content!.entries)
               Padding(
                 padding: const EdgeInsets.only(top: 20),

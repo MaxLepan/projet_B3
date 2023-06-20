@@ -14,12 +14,6 @@ import '../Themes/colors.dart';
 import '../Themes/custom_icons.dart';
 import '../filters_state.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(const MapView());
-}
-
 class MapView extends StatelessWidget {
   const MapView({super.key});
 
@@ -151,8 +145,8 @@ class MapWidget extends StatelessWidget {
             return FlutterMap(
               mapController: viewModel.mapController,
               options: MapOptions(
-                center: latLng.LatLng(0, 0),
-                zoom: 13.0,
+                center: latLng.LatLng(45.9077, 6.1020),
+                zoom: 15.0,
                 interactiveFlags: InteractiveFlag.all & ~InteractiveFlag.rotate,
               ),
               children: [

@@ -35,6 +35,47 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 }
 
+class CustomAppBarCloseReturn extends StatelessWidget implements PreferredSizeWidget {
+  const CustomAppBarCloseReturn({super.key});
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      titleSpacing: -10,
+      leading: Container(
+        margin: const EdgeInsets.only(top: 0),
+        child: IconButton(
+          icon: const Icon(CustomIcons.left_01, size: 25,),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+      actions: [
+        Row(
+          children: [
+            Text('Fermer', style: textBoldStyle),
+            IconButton(
+              icon: const Icon(CustomIcons.cross_01),
+              onPressed: () {
+                Navigator.popUntil(context, (route) => route.isFirst);
+              },
+            ),
+
+          ],
+        ),
+      ],
+      elevation: 0.0,
+      iconTheme: const IconThemeData(color: black),
+      backgroundColor: white,
+      title: Text("Retour", style: textBoldStyle),
+    );
+  }
+}
+
 
 class CustomLocationAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomLocationAppBar({super.key});
