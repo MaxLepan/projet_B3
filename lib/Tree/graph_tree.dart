@@ -1,26 +1,5 @@
-class Graph {
-  final Map<Node, List<Node>> nodes;
-
-  Graph(this.nodes);
-}
-
-class Node {
-  final int id;
-  final String data;
-  final String? questionKey;
-  final String? image;
-
-  Node(this.id, this.data, this.questionKey, this.image);
-
-  @override
-  bool operator ==(Object other) => other is Node && other.id == id;
-
-  @override
-  int get hashCode => id.hashCode;
-
-  @override
-  String toString() => '<$id -> $data>';
-}
+import 'package:projet_b3/Tree/node.dart';
+import 'package:projet_b3/Tree/tree.dart';
 
 final node_species = Node(1, 'species', 'species', null);
 final node_species_reptil = Node(2, 'écailleuse et sèche', 'eyelid', null);
@@ -78,7 +57,7 @@ final leaf_grenouille_lessona = Node(44, "grenouille de lessona", null, null);
 final leaf_rainette_meridionale = Node(45, "rainette méridionale", null, null);
 
 
-final graph_tree = Graph({
+final graph_tree = Tree({
   node_species: [node_species_reptil, node_species_amphi],
 
   //Reptile

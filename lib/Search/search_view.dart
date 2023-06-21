@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:projet_b3/Search/search_view_block_question_card.dart';
 import 'package:projet_b3/Species/species_model.dart';
 import 'package:projet_b3/Themes/app_bar.dart';
+import 'package:projet_b3/Tree/graph_tree.dart';
+import 'package:projet_b3/Tree/graph_tree_habitats.dart';
 
 import '../Themes/colors.dart';
-import '../Themes/custom_icons.dart';
 import '../Species/species_view_model.dart';
+import 'package:projet_b3/Tree/graph_tree.dart';
+import 'package:projet_b3/Tree/graph_tree_habitats.dart';
 
 class SearchView extends StatefulWidget {
   const SearchView({Key? key}) : super(key: key);
@@ -86,17 +89,23 @@ class SearchViewState extends State<SearchView> {
               child: Container(
                 padding: horizontalPadding,
                 child: Column(
-                  children: const [
+                  children: [
                     QuestionCard(
                       question: "Quelle est cette petite bête ?",
                       imagePath: "assets/images/search_view.png",
                       route: "/transition",
+                      tree: graph_tree,
+                      quizType: "species",
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     QuestionCard(
-                        question: "Quelles espèces observer dans le coin ?",
-                        imagePath: 'assets/images/search_tree.png',
-                        route: "/comming_soon"),
+                      question: "Quelles espèces observer dans le coin ?",
+                      imagePath: 'assets/images/search_tree.png',
+                      route: "/questions",
+                      tree : graph_tree_habitats,
+                      quizType: "environment"
+                    ),
+
                   ],
                 ),
               ),

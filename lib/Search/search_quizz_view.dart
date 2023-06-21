@@ -4,18 +4,23 @@ import 'package:projet_b3/Themes/app_bar.dart';
 import 'package:projet_b3/Themes/colors.dart';
 import '../Questions/questions_model.dart';
 import '../Questions/questions_view_model.dart';
-import '../Themes/custom_icons.dart';
+import '../Tree/node.dart';
+import '../Tree/tree.dart';
 import '../firebase_options.dart';
 import '../routes.dart';
-import 'graph_tree.dart';
+import '../Tree/graph_tree.dart';
 
 class SearchQuizzView extends StatelessWidget {
   final Node? node;
-  const SearchQuizzView(this.node, {Key? key}) : super(key: key);
+  final Tree tree;
+  final String? quizType;
+
+  const SearchQuizzView(this.node, this.tree, {super.key, this.quizType});
 
   @override
   Widget build(BuildContext context) {
-    final List<ElevatedButton> buttonsToDisplay = generateButtons(context, node);
+
+    final List<ElevatedButton> buttonsToDisplay = generateButtons(context, node, tree, quizType);
 
     return Scaffold(
       backgroundColor: white,
@@ -29,7 +34,7 @@ class SearchQuizzView extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 40),
                   color: white,
                   child: FutureBuilder<List<Question>?>(
-                    future: QuestionsViewModel().getQuestionByKey(node?.questionKey),
+                    future: QuestionsViewModel().getQuestionByKey(node?.questionKey, quizType),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
@@ -43,7 +48,8 @@ class SearchQuizzView extends StatelessWidget {
                               child: Text("IDENTIFICATION"),
                             ),
                             Container(
-                              padding: const EdgeInsets.only(bottom: 30),
+                              margin: const EdgeInsets.symmetric(horizontal: 58),
+                              padding: const EdgeInsets.only(bottom: 30, top: 20),
                               child: Text(
                                 question?.question ?? 'Erreur lors du chargement de la question',
                                 style: const TextStyle(
@@ -95,17 +101,17 @@ class SearchQuizzView extends StatelessWidget {
 }
 
 
-List<ElevatedButton> generateButtons(BuildContext context, Node? node){
+List<ElevatedButton> generateButtons(BuildContext context, Node? node, Tree tree, String? quizType){
 
   List buttonsTitles = [];
   List<ElevatedButton> buttonsToDisplay = [];
 
   if(node == null){
-    buttonsTitles = graph_tree.nodes.entries.first.value.toList();
+    buttonsTitles = tree.nodes.entries.first.value.toList();
   }
 
   else{
-    buttonsTitles = graph_tree.nodes.entries.firstWhere((entry) => entry.key == node).value.toList();
+    buttonsTitles = tree.nodes.entries.firstWhere((entry) => entry.key == node).value.toList();
   }
 
   for(var button in buttonsTitles){
@@ -113,10 +119,15 @@ List<ElevatedButton> generateButtons(BuildContext context, Node? node){
         ElevatedButton(
           onPressed: () {
             if(button.questionKey != null){
-              Navigator.pushNamed(context, '/questions', arguments: button);
+              Navigator.pushNamed(context, '/questions', arguments: { 'node': button, 'tree': tree, 'quizType': quizType},);
             }
             else{
-              Navigator.pushNamed(context, '/questions/result', arguments: button);
+              if(quizType == "species") {
+                Navigator.pushNamed(context, '/questions/species_result', arguments: button);
+              }else{
+                var species_found = tree.nodes.entries.firstWhere((entry) => entry.key == button);
+                Navigator.pushNamed(context, '/questions/environment_result', arguments: species_found.value);
+              }
             }
           },
           style: ElevatedButton.styleFrom(
@@ -158,17 +169,5 @@ List<ElevatedButton> generateButtons(BuildContext context, Node? node){
     );
   }
   return buttonsToDisplay;
-}
-
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
-  runApp(MaterialApp(
-    home: const SearchQuizzView(null),
-    routes: routes,
-  ));
 }
 

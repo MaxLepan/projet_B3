@@ -2,13 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projet_b3/Themes/colors.dart';
 
+import '../Tree/node.dart';
+import '../Tree/tree.dart';
+
 class QuestionCard extends StatelessWidget {
   final String question;
   final String imagePath;
   final String route;
+  final Tree tree;
+  final String quizType;
 
   const QuestionCard(
-      {super.key, required this.question, required this.imagePath, required this.route});
+      {super.key, required this.question, required this.imagePath, required this.route, required this.tree, required this.quizType});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +35,15 @@ class QuestionCard extends StatelessWidget {
           shadowColor: Colors.transparent,
         ),
         onPressed: () {
-          Navigator.pushNamed(context, route);
+          Navigator.pushNamed(
+            context,
+            '/questions',
+            arguments: {
+              'node': null,
+              'tree': tree,
+              'quizType': quizType
+            },
+          );
         },
         child: Row(
           children: [

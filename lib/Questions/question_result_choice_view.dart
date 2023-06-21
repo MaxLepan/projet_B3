@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projet_b3/Themes/custom_icons.dart';
-import 'package:projet_b3/Species/species_view_model.dart';
 import 'package:projet_b3/Themes/app_bar.dart';
 import 'package:projet_b3/Themes/colors.dart';
-import '../Search/graph_tree_v2.dart';
 import '../Species/species_model.dart';
 
 class QuestionsResultChoiceView extends StatelessWidget {

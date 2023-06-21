@@ -23,6 +23,33 @@ class SpeciesViewModel {
     }
   }
 
+  Future<List<Species>> getSpeciesFromList(List<String> speciesNames) async {
+    final speciesCollection = FirebaseFirestore.instance.collection('species');
+    var slicedSpeciesNames = [];
+    List<Species> speciesList = [];
+
+    if(speciesNames.length >= 10){
+      for(int i = 0; i < speciesNames.length; i +=10){
+        int endIndex = i + 10;
+        slicedSpeciesNames.add(speciesNames.sublist(i, endIndex.clamp(0, speciesNames.length)));
+      }
+
+      for (var slicedNames in slicedSpeciesNames) {
+        var querySnapshot =
+        await speciesCollection.where('name', whereIn: slicedNames).get();
+        List<Species> speciesListSlice = await convertToSpeciesList(querySnapshot);
+        speciesList.addAll(speciesListSlice);
+      }
+
+      return speciesList;
+
+    }else{
+      final querySnapshot = await speciesCollection.where('name', whereIn: speciesNames).get();
+      final speciesList = convertToSpeciesList(querySnapshot);
+      return speciesList;
+    }
+  }
+
   Future<List<Species>> getSpeciesStartingBy(String name) async {
     try {
       name = name.toLowerCase();
