@@ -151,12 +151,16 @@ class SpeciesViewHeader extends StatelessWidget {
                                   size: 30,
                                 ),
                               ),
-                              Text(
-                                "Ajouter ma photo sur la carte",
-                                style: textBoldStyle,
-                              ),
+                              Flexible(
+                                child: Text(
+                                  "Ajouter ma photo sur la carte",
+                                  style: textBoldStyle,
+                                ),
+                              )
                             ],
-                          ))),
+                          )
+                      )
+                  ),
                 )
               ],
             ),

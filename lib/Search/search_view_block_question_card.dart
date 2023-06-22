@@ -47,18 +47,25 @@ class QuestionCard extends StatelessWidget {
         },
         child: Row(
           children: [
-            SizedBox(
-              width: 180,
-              height: size,
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: greenBrown,
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(5), bottomLeft: Radius.circular(5)),
-                ),
-                child: ClipRRect(
-                  child: Image(
-                    image: AssetImage(imagePath),
-                    fit: BoxFit.fitHeight,
+            Expanded(
+              child: FractionallySizedBox(
+                widthFactor: 1,
+                child: SizedBox(
+                  height: size,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: greenBrown,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(5),
+                        bottomLeft: Radius.circular(5),
+                      ),
+                    ),
+                    child: ClipRRect(
+                      child: Image(
+                        image: AssetImage(imagePath),
+                        fit: BoxFit.fitHeight,
+                      ),
+                    ),
                   ),
                 ),
               ),

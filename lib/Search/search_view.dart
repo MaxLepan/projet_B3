@@ -156,7 +156,7 @@ class SearchViewState extends State<SearchView> {
                         children: [
                           ExtendedImage.network(
                             species.imageUrl!,
-                            height: 120,
+                            height: 110,
                             width: double.infinity,
                             fit: BoxFit.cover,
                             cache: true,
@@ -177,10 +177,12 @@ class SearchViewState extends State<SearchView> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 3),
-                            child: Text(
+                            child:
+                            Text(
                               "${species.name[0].toUpperCase()}${species.name.substring(1).toLowerCase()}",
                               style: smallTitle,
                               textAlign: TextAlign.left,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],

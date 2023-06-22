@@ -2,26 +2,21 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:projet_b3/Themes/app_bar.dart';
 import 'package:projet_b3/Themes/colors.dart';
+import 'package:projet_b3/Tree/node_view_model.dart';
 import '../Questions/questions_model.dart';
 import '../Questions/questions_view_model.dart';
 import '../Tree/node.dart';
 import '../Tree/tree.dart';
-import '../firebase_options.dart';
-import '../routes.dart';
-import '../Tree/graph_tree.dart';
 
 class SearchQuizzView extends StatelessWidget {
   final Node? node;
   final Tree tree;
   final String? quizType;
 
-  const SearchQuizzView(this.node, this.tree, {super.key, this.quizType});
+  const SearchQuizzView(this.node, this.tree, {Key? key, this.quizType}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
-    final List<ElevatedButton> buttonsToDisplay = generateButtons(context, node, tree, quizType);
-
     return Scaffold(
       backgroundColor: white,
       appBar: const CustomAppBarCloseReturn(),
@@ -34,7 +29,13 @@ class SearchQuizzView extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 40),
                   color: white,
                   child: FutureBuilder<List<Question>?>(
-                    future: QuestionsViewModel().getQuestionByKey(node?.questionKey, quizType),
+                    future: NodeViewModel().getNode((node?.id != null ? node!.id : null), quizType).then((nodeData) {
+                      var questionKey;
+                      if(nodeData!=null) {
+                        questionKey = nodeData["question_key"];
+                      }
+                      return QuestionsViewModel().getQuestionByKey(questionKey, quizType).then((value) => value ?? []);
+                    }),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
@@ -61,15 +62,28 @@ class SearchQuizzView extends StatelessWidget {
                               ),
                             ),
                             Center(
-                              child: ListView.builder(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: buttonsToDisplay.length,
-                                itemBuilder: (context, index) => Container(
-                                  padding: horizontalPadding,
-                                  margin: const EdgeInsets.only(top: 20),
-                                  child: buttonsToDisplay[index],
-                                ),
+                              child: FutureBuilder<List<ElevatedButton>>(
+                                future: generateButtons(context, node, tree, quizType),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState == ConnectionState.waiting) {
+                                    return const CircularProgressIndicator();
+                                  } else if (snapshot.hasError) {
+                                    return const Text('Erreur de chargement des boutons');
+                                  } else {
+                                    return ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      itemCount: snapshot.data?.length ?? 0,
+                                      itemBuilder: (context, index) {
+                                        return Container(
+                                          padding: horizontalPadding,
+                                          margin: const EdgeInsets.only(top: 20),
+                                          child: snapshot.data?[index],
+                                        );
+                                      },
+                                    );
+                                  }
+                                },
                               ),
                             ),
                           ],
@@ -81,93 +95,85 @@ class SearchQuizzView extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            color: white,
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-            child: TextButton(
-              onPressed: () {
-                Navigator.popUntil(context, (route) => route.isFirst);
-              },
-              child: Text(
-                'Oups... Elle s’est enfuie.',
-                style: textUnderlineStyle,
+          if(quizType != "environment")
+            Container(
+              color: white,
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.popUntil(context, (route) => route.isFirst);
+                },
+                child: Text(
+                  'Oups... Elle s’est enfuie.',
+                  style: textUnderlineStyle,
+                ),
               ),
             ),
-          ),
         ],
       ),
     );
   }
 }
 
-
-List<ElevatedButton> generateButtons(BuildContext context, Node? node, Tree tree, String? quizType){
-
+Future<List<ElevatedButton>> generateButtons(BuildContext context, Node? node, Tree tree, String? quizType) async {
   List buttonsTitles = [];
   List<ElevatedButton> buttonsToDisplay = [];
 
-  if(node == null){
+  if (node == null) {
     buttonsTitles = tree.nodes.entries.first.value.toList();
-  }
-
-  else{
+  } else {
     buttonsTitles = tree.nodes.entries.firstWhere((entry) => entry.key == node).value.toList();
   }
 
-  for(var button in buttonsTitles){
+  for (var button in buttonsTitles) {
+    var buttonToDisplay = await NodeViewModel().getNode(button.id, quizType);
     buttonsToDisplay.add(
-        ElevatedButton(
-          onPressed: () {
-            if(button.questionKey != null){
-              Navigator.pushNamed(context, '/questions', arguments: { 'node': button, 'tree': tree, 'quizType': quizType},);
+      ElevatedButton(
+        onPressed: () {
+          if (buttonToDisplay!["question_key"] != null) {
+            Navigator.pushNamed(context, '/questions', arguments: {'node': button, 'tree': tree, 'quizType': quizType});
+          } else {
+            if (quizType == "species") {
+              Navigator.pushNamed(context, '/questions/species_result', arguments: button);
+            } else {
+              var species_found = tree.nodes.entries.firstWhere((entry) => entry.key == button);
+              Navigator.pushNamed(context, '/questions/environment_result', arguments: species_found.value);
             }
-            else{
-              if(quizType == "species") {
-                Navigator.pushNamed(context, '/questions/species_result', arguments: button);
-              }else{
-                var species_found = tree.nodes.entries.firstWhere((entry) => entry.key == button);
-                Navigator.pushNamed(context, '/questions/environment_result', arguments: species_found.value);
-              }
-            }
-          },
-          style: ElevatedButton.styleFrom(
-            foregroundColor: beige_04,
-            backgroundColor: white,
-            shadowColor: Colors.transparent,
-            side: const BorderSide(color: greenBrown, width: 2.8),
-            elevation: 0,
-            minimumSize: const Size(200, 50),
-          ),
-          child: Container(
-            padding: const EdgeInsets.all(14),
-            child:
-            Row(
-              children: [
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: greenBrown,
-                    //image: DecorationImage(
-                        //image: NetworkImage(button.image ?? "https://firebasestorage.googleapis.com/v0/b/appb3projet.appspot.com/o/images%2Fquizz%2F1200px-Question_mark_alternate.svg.png?alt=media&token=8bbe77c0-167d-4d95-84ad-49eead9c1af8"),
-                      //  fit: BoxFit.cover
-                    //),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Flexible(child:
-                  Text(
-                    "${button.data.toString()[0].toUpperCase()}${button.data.toString().substring(1).toLowerCase()}",
-                    style: textStyle,
-                  ),
-                )
-              ],
-            ),
-          )
+          }
+        },
+        style: ElevatedButton.styleFrom(
+          foregroundColor: beige_04,
+          backgroundColor: white,
+          shadowColor: Colors.transparent,
+          side: const BorderSide(color: greenBrown, width: 2.8),
+          elevation: 0,
+          minimumSize: const Size(200, 50),
         ),
+        child: Container(
+          padding: const EdgeInsets.all(14),
+          child: Row(
+            children: [
+              Container(
+                width: 60,
+                height: 60,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: white,
+                ),
+                child: Image.network(buttonToDisplay!["image_url"]),
+              ),
+              const SizedBox(width: 10),
+              Flexible(
+                child: Text(
+                  "${buttonToDisplay["data"][0].toUpperCase()}${buttonToDisplay["data"].substring(1).toLowerCase()}",
+                  style: textStyle,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
   return buttonsToDisplay;
 }
-
