@@ -72,18 +72,18 @@ class CustomIcons {
   static Stack mapShadow = Stack(
     alignment: Alignment.center,
     children: const [
-      Icon(CustomIcons.map_01, size: 30, color: Color(0xFFF4EADC)),
-      Icon(CustomIcons.map_02, size: 30, color: Color(0xFFF8F1E4),),
-      Icon(CustomIcons.map_03, size: 30,),
+      Icon(CustomIcons.map_01, size: 37, color: Color(0xFFF4EADC)),
+      Icon(CustomIcons.map_02, size: 37, color: Color(0xFFF8F1E4),),
+      Icon(CustomIcons.map_03, size: 37,),
     ],
   );
 
   static Stack glassShadow = Stack(
     alignment: Alignment.center,
     children: const [
-      Icon(CustomIcons.m_glass_03, size: 30, color: Color(0xFFF4EADC),),
-      Icon(CustomIcons.m_glass_02, size: 30, color: Color(0xFFF8F1E4),),
-      Icon(CustomIcons.m_glass_01, size: 30),
+      Icon(CustomIcons.m_glass_03, size: 37, color: Color(0xFFF4EADC),),
+      Icon(CustomIcons.m_glass_02, size: 37, color: Color(0xFFF8F1E4),),
+      Icon(CustomIcons.m_glass_01, size: 37),
     ],
   );
 
@@ -99,9 +99,9 @@ class CustomIcons {
   static Stack infoShadow = Stack(
     alignment: Alignment.center,
     children: const [
-      Icon(CustomIcons.info_03, size: 30, color: Color(0xFFF4EADC),),
-      Icon(CustomIcons.info_02, size: 30, color: Color(0xFFF8F1E4),),
-      Icon(CustomIcons.info_01, size: 30),
+      Icon(CustomIcons.info_03, size: 37, color: Color(0xFFF4EADC),),
+      Icon(CustomIcons.info_02, size: 37, color: Color(0xFFF8F1E4),),
+      Icon(CustomIcons.info_01, size: 37),
     ],
   );
 
@@ -111,6 +111,15 @@ class CustomIcons {
       Icon(CustomIcons.bell_03, size: 17, color: Color(0xFFF4EADC)),
       Icon(CustomIcons.bell_02, size: 17, color: Color(0xFFF8F1E4),),
       Icon(CustomIcons.bell_01, size: 17,),
+    ],
+  );
+
+  static Stack userShadow = Stack(
+    alignment: Alignment.center,
+    children: const [
+      Icon(CustomIcons.profil_03, size: 37, color: Color(0xFFF4EADC)),
+      Icon(CustomIcons.profil_02, size: 37, color: Color(0xFFF8F1E4),),
+      Icon(CustomIcons.profil_01, size: 37,),
     ],
   );
 

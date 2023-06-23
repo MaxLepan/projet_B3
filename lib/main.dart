@@ -8,35 +8,56 @@ import 'Search/search_view.dart';
 import 'Map/map_view.dart';
 import 'Themes/app_bar.dart';
 import 'Themes/colors.dart';
+import 'coming_soon_view.dart';
 import 'filters_state.dart';
 
 
-Future<void> main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(
     ChangeNotifierProvider(
-        create: (_) => FilterState(),
-        child: const MyApp()
+      create: (_) => FilterState(),
+      child: MyApp(),
     ),
   );
 }
 
-class MyApp extends StatefulWidget{
-  const MyApp({super.key});
-
+class MyApp extends StatelessWidget {
   @override
-  MyAppState createState()=> MyAppState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: materialGreeBrown,
+        scaffoldBackgroundColor: white,
+      ),
+      home: MediaQuery(
+        data: const MediaQueryData(),
+        child: Scaffold(
+          body: MyTabView(),
+        ),
+      ),
+      routes: routes,
+      initialRoute: '/',
+    );
+  }
 }
 
-class MyAppState extends State<MyApp> {
+class MyTabView extends StatefulWidget {
+  @override
+  _MyTabViewState createState() => _MyTabViewState();
+}
+
+class _MyTabViewState extends State<MyTabView> {
   int _selectedIndex = 1;
   final List<Widget> _pages = [
-    InformationsView(),
     const SearchView(),
     const MapView(),
+    InformationsView(),
+    const ComingSoonView(),
   ];
 
   void _onItemTapped(int index) {
@@ -47,20 +68,20 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: materialGreeBrown,
-        scaffoldBackgroundColor: white,
-      ),
-      home: Scaffold(
-        body: _pages[_selectedIndex],
+    return DefaultTabController(
+      length: _pages.length,
+      initialIndex: _selectedIndex,
+      child: Scaffold(
+        body: TabBarView(
+          children: _pages,
+        ),
         bottomNavigationBar: MyBottomNavigationBar(
           selectedIndex: _selectedIndex,
           onItemTapped: _onItemTapped,
         ),
-      ), routes: routes,
-         initialRoute: '/'
+      ),
     );
   }
 }
+
+

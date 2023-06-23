@@ -14,7 +14,6 @@ class ComingSoonView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(

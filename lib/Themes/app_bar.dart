@@ -105,34 +105,49 @@ class MyBottomNavigationBar extends StatelessWidget {
   final Function(int) onItemTapped;
 
   const MyBottomNavigationBar({
+    Key? key,
     required this.selectedIndex,
     required this.onItemTapped,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      backgroundColor: Colors.white,
-      elevation: 10,
-      items: <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: CustomIcons.infoShadow,
-          label: '',
-        ),
-        BottomNavigationBarItem(
-          icon: CustomIcons.glassShadow,
-          label: '',
-        ),
-        BottomNavigationBarItem(
-          icon: CustomIcons.mapShadow,
-          label: '',
-        ),
-      ],
-      currentIndex: selectedIndex,
-      selectedItemColor: Colors.black,
-      onTap: onItemTapped,
+    return SizedBox(
+      height: 80,
+      child: Stack(
+        children: [
+          Container(
+            padding: const EdgeInsets.only(top: 10),
+            decoration: const BoxDecoration(
+              border: Border(
+                top: BorderSide(color: darkerBeige, width: 3),
+              ),
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.only(top: 10),
+            child: TabBar(
+              indicatorColor: black,
+              indicatorWeight: 3,
+              indicator: const UnderlineTabIndicator(
+                insets: EdgeInsets.fromLTRB(15.0, 0.0, 20.0, 56.0),
+                borderSide:
+                BorderSide(color: black, width: 3),
+              ),
+              labelColor: black,
+              unselectedLabelColor: black.withOpacity(0.5),
+              onTap: onItemTapped,
+              tabs: [
+                Tab(icon: CustomIcons.glassShadow),
+                Tab(icon: CustomIcons.mapShadow),
+                Tab(icon: CustomIcons.infoShadow),
+                Tab(icon: CustomIcons.userShadow),
+              ],
+              controller: DefaultTabController.of(context),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
-
-

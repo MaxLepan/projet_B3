@@ -13,10 +13,10 @@ const beige_03 = Color(0xFFEFE5D6);
 const beige_04 = Color(0xFFE5DAC8);
 
 const black = Color(0xFF242a2b);
+const black_01 = Color(0xFFaeb5ab);
 
 const greenBrown = Color(0xFFD2C65E);
 const greenBrown_02 = Color(0xFFDCD383);
-
 
 const MaterialColor materialGreeBrown = MaterialColor(0xFFE57373, {
   50: Color(0xfffff9d7),
