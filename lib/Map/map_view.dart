@@ -151,7 +151,8 @@ class MapWidget extends StatelessWidget {
               ),
               children: [
                 TileLayer(
-                  urlTemplate: 'https://api.maptiler.com/maps/outdoor-v2/{z}/{x}/{y}.png?key=RW4eCQMolu3ErCAsYJV1',
+                  urlTemplate:
+                      'https://api.maptiler.com/maps/outdoor-v2/{z}/{x}/{y}.png?key=RW4eCQMolu3ErCAsYJV1',
                   userAgentPackageName: 'com.gardiens.AppB3Projet',
                 ),
                 CurrentLocationLayer(),
@@ -161,7 +162,11 @@ class MapWidget extends StatelessWidget {
                           (filterState.showReptileMarkers &&
                               marker.speciesCategory == 'Reptile') ||
                           (filterState.showAmphibianMarkers &&
-                              marker.speciesCategory == 'Amphibien'))
+                              marker.speciesCategory == 'Amphibien') ||
+                          (filterState.showInsectMarkers &&
+                              marker.speciesCategory == 'Insecte') ||
+                          (filterState.showArachnidMarkers &&
+                              marker.speciesCategory == 'Arachnide'))
                       .map((marker) =>
                           viewModel.customMarkerToMarker(marker, context))
                       .toList(),
