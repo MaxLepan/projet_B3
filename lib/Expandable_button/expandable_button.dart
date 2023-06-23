@@ -39,19 +39,19 @@ class _ExpandableButtonState extends State<ExpandableButton> {
                         filterState.toggleAmphibianMarkers();
                       });
                     },
-                    backgroundColor: mint_01,
+                    backgroundColor: filterState.showAmphibianMarkers ? mint_01 : beige,
                     borderColor:
-                        filterState.showAmphibianMarkers ? mint_02 : beige,
+                        filterState.showAmphibianMarkers ? mint_02 : beige_04,
                   ),
-                  const SizedBox(height: 10),
                   ExpandedButton(
                     text: "Insectes",
                     icon: CustomIcons.insect_01,
-                    onPressed: () {},
-                    backgroundColor: orange_01,
-                    borderColor: beige,
+                    onPressed: () {
+                      filterState.toggleInsectMarkers();
+                    },
+                    backgroundColor: filterState.showInsectMarkers ? orange_01 : beige,
+                    borderColor: filterState.showInsectMarkers ? orange_02 : beige_04,
                   ),
-                  const SizedBox(height: 10),
                   ExpandedButton(
                     text: "Reptiles",
                     icon: CustomIcons.snake_01,
@@ -60,20 +60,64 @@ class _ExpandableButtonState extends State<ExpandableButton> {
                         filterState.toggleReptileMarkers();
                       });
                     },
-                    backgroundColor: purple_01,
+                    backgroundColor: filterState.showReptileMarkers ? purple_01 : beige,
                     borderColor:
-                        filterState.showReptileMarkers ? purple_02 : beige,
+                        filterState.showReptileMarkers ? purple_02 : beige_04,
                   ),
-                  const SizedBox(height: 10),
                   ExpandedButton(
                     text: "Araignées",
                     icon: CustomIcons.spider_01,
-                    onPressed: () {},
-                    backgroundColor: strawberry_01,
-                    borderColor: beige,
+                    onPressed: () {
+                      filterState.toggleArachnidMarkers();
+                    },
+                    backgroundColor: filterState.showArachnidMarkers ? strawberry_01 : beige,
+                    borderColor: filterState.showArachnidMarkers ? strawberry_02 : beige_04,
                   ),
-                  const SizedBox(height: 10),
                 ],
+              ),
+            if (filterState.showAmphibianMarkers && !isExpanded)
+              ExpandedButton(
+                text: "Amphibiens",
+                icon: CustomIcons.frog_01,
+                onPressed: () {
+                  setState(() {
+                    filterState.toggleAmphibianMarkers();
+                  });
+                },
+                backgroundColor: mint_01,
+                borderColor: mint_02,
+              ),
+            if (filterState.showInsectMarkers && !isExpanded)
+              ExpandedButton(
+                text: "Insectes",
+                icon: CustomIcons.insect_01,
+                onPressed: () {
+                  filterState.toggleInsectMarkers();
+                },
+                backgroundColor: orange_01,
+                borderColor: orange_02,
+              ),
+            if (filterState.showReptileMarkers && !isExpanded)
+              ExpandedButton(
+                text: "Reptiles",
+                icon: CustomIcons.snake_01,
+                onPressed: () {
+                  setState(() {
+                    filterState.toggleReptileMarkers();
+                  });
+                },
+                backgroundColor: purple_01,
+                borderColor: purple_02,
+              ),
+            if (filterState.showArachnidMarkers && !isExpanded)
+              ExpandedButton(
+                text: "Araignées",
+                icon: CustomIcons.spider_01,
+                onPressed: () {
+                  filterState.toggleArachnidMarkers();
+                },
+                backgroundColor: strawberry_01,
+                borderColor: strawberry_02,
               ),
             FloatingActionButton(
               heroTag: null,
@@ -112,31 +156,20 @@ class ExpandedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*return Row(
-      children: [
-        Text(text, style: textStyle),
-        const SizedBox(width: 10),
-        FloatingActionButton(
-          onPressed: onPressed,
-          backgroundColor: backgroundColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(100),
-            side: BorderSide(width: 4, color: borderColor),
-          ),
-          child: Icon(icon, color: black),
-        )
-      ],
-    );*/
-    return FloatingActionButton(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+        child: FloatingActionButton(
       heroTag: null,
       onPressed: onPressed,
-      backgroundColor: beige,
+      backgroundColor: backgroundColor,
       elevation: 0,
+      focusElevation: 0,
+      highlightElevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(100),
         side: BorderSide(width: 4, color: borderColor),
       ),
-      child: Icon(icon, color: black),
-    );
+      child: Icon(icon, color: black, size: 40,),
+    ));
   }
 }
