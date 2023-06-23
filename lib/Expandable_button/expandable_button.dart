@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../Themes/colors.dart';
@@ -39,7 +40,8 @@ class _ExpandableButtonState extends State<ExpandableButton> {
                         filterState.toggleAmphibianMarkers();
                       });
                     },
-                    backgroundColor: filterState.showAmphibianMarkers ? mint_01 : beige,
+                    backgroundColor:
+                        filterState.showAmphibianMarkers ? mint_01 : beige,
                     borderColor:
                         filterState.showAmphibianMarkers ? mint_02 : beige_04,
                   ),
@@ -49,8 +51,10 @@ class _ExpandableButtonState extends State<ExpandableButton> {
                     onPressed: () {
                       filterState.toggleInsectMarkers();
                     },
-                    backgroundColor: filterState.showInsectMarkers ? orange_01 : beige,
-                    borderColor: filterState.showInsectMarkers ? orange_02 : beige_04,
+                    backgroundColor:
+                        filterState.showInsectMarkers ? orange_01 : beige,
+                    borderColor:
+                        filterState.showInsectMarkers ? orange_02 : beige_04,
                   ),
                   ExpandedButton(
                     text: "Reptiles",
@@ -60,7 +64,8 @@ class _ExpandableButtonState extends State<ExpandableButton> {
                         filterState.toggleReptileMarkers();
                       });
                     },
-                    backgroundColor: filterState.showReptileMarkers ? purple_01 : beige,
+                    backgroundColor:
+                        filterState.showReptileMarkers ? purple_01 : beige,
                     borderColor:
                         filterState.showReptileMarkers ? purple_02 : beige_04,
                   ),
@@ -70,8 +75,11 @@ class _ExpandableButtonState extends State<ExpandableButton> {
                     onPressed: () {
                       filterState.toggleArachnidMarkers();
                     },
-                    backgroundColor: filterState.showArachnidMarkers ? strawberry_01 : beige,
-                    borderColor: filterState.showArachnidMarkers ? strawberry_02 : beige_04,
+                    backgroundColor:
+                        filterState.showArachnidMarkers ? strawberry_01 : beige,
+                    borderColor: filterState.showArachnidMarkers
+                        ? strawberry_02
+                        : beige_04,
                   ),
                 ],
               ),
@@ -125,8 +133,14 @@ class _ExpandableButtonState extends State<ExpandableButton> {
               foregroundColor: black,
               elevation: 0,
               child: isExpanded
-                  ? const Icon(Icons.arrow_upward)
-                  : const Icon(Icons.arrow_downward),
+                  ? Transform.rotate(
+                      angle: 90 * math.pi / 180,
+                      child: const Icon(CustomIcons.left_01, size: 30),
+                    )
+                  : Transform.rotate(
+                      angle: 90 * math.pi / 180,
+                      child: const Icon(CustomIcons.right_01, size: 30),
+                    ),
               onPressed: () {
                 setState(() {
                   isExpanded = !isExpanded;
@@ -157,19 +171,23 @@ class ExpandedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.only(bottom: 10),
         child: FloatingActionButton(
-      heroTag: null,
-      onPressed: onPressed,
-      backgroundColor: backgroundColor,
-      elevation: 0,
-      focusElevation: 0,
-      highlightElevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(100),
-        side: BorderSide(width: 4, color: borderColor),
-      ),
-      child: Icon(icon, color: black, size: 40,),
-    ));
+          heroTag: null,
+          onPressed: onPressed,
+          backgroundColor: backgroundColor,
+          elevation: 0,
+          focusElevation: 0,
+          highlightElevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(100),
+            side: BorderSide(width: 4, color: borderColor),
+          ),
+          child: Icon(
+            icon,
+            color: black,
+            size: 40,
+          ),
+        ));
   }
 }
