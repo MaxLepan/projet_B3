@@ -11,8 +11,7 @@ class SpeciesViewBlockHumanImpact extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 35, bottom: 35),
-      padding: horizontalPadding,
+      padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 35),
       color: highlighted == false ? white : darkBeige,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

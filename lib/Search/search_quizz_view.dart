@@ -26,7 +26,7 @@ class SearchQuizzView extends StatelessWidget {
             child: ListView(
               children: [
                 Container(
-                  padding: const EdgeInsets.only(top: 40),
+                  padding: const EdgeInsets.only(top: 20, bottom: 40),
                   color: white,
                   child: FutureBuilder<List<Question>?>(
                     future: NodeViewModel().getNode((node?.id != null ? node!.id : null), quizType).then((nodeData) {
@@ -98,7 +98,7 @@ class SearchQuizzView extends StatelessWidget {
           if(quizType != "environment")
             Container(
               color: white,
-              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+              padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 16),
               child: TextButton(
                 onPressed: () {
                   Navigator.popUntil(context, (route) => route.isFirst);

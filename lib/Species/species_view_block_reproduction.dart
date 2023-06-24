@@ -14,12 +14,13 @@ class SpeciesViewBlockReproduction extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         color: highlighted == false ? white : darkBeige,
-        padding: horizontalPadding,
+        padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 28),
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: const EdgeInsets.only(top: 35, bottom: 16),
+              margin: const EdgeInsets.only(bottom: 16),
               child: Text("Reproduction", style: titleStyle,),
             ),
             if(content!["tag"] != null)
@@ -39,7 +40,7 @@ class SpeciesViewBlockReproduction extends StatelessWidget {
                 ),
               ),
             Padding(
-              padding: const EdgeInsets.only(top: 5, bottom: 15),
+              padding: const EdgeInsets.only(top: 5),
               child: IntrinsicHeight(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -76,7 +77,7 @@ class SpeciesViewBlockReproduction extends StatelessWidget {
             ),
             if(content!["big_image"] != null)
               Container(
-                padding: const EdgeInsets.only(top: 15, bottom: 40),
+                padding: const EdgeInsets.only(top: 30),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5),
                   child: imageWithPlaceholder(content!["big_image"], 150),

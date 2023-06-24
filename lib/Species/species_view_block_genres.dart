@@ -13,8 +13,7 @@ class SpeciesViewBlockGenres extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: highlighted == false ? white : darkBeige,
-      margin: const EdgeInsets.only(top: 35, bottom: 35),
-      padding: horizontalPadding,
+      padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 35),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[

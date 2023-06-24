@@ -1,4 +1,4 @@
-import 'package:app_usage/app_usage.dart';
+import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -37,100 +37,103 @@ class _InformationsViewState extends State<InformationsView> {
   Widget build(BuildContext context) {
     bool displayRecentNewsTitle = true;
     bool displayOldNewsTitle = true;
+    final double statusBarHeight = MediaQueryData.fromWindow(window).padding.top;
+    return Container(
+      margin: EdgeInsets.only(top: statusBarHeight),
+      child: Scaffold(
+        backgroundColor: white,
+        appBar: const CustomLocationAppBar(),
+        body: ListView.builder(
+          itemCount: uniqueAlerts.length,
+          itemBuilder: (context, index) {
+            Map<String, dynamic> alert = uniqueAlerts[index];
+            int countNew = 0;
+            int countOld = 0;
+            Widget recentTitle;
+            Widget oldTitle;
 
-    return Scaffold(
-      backgroundColor: white,
-      appBar: const CustomLocationAppBar(),
-      body: ListView.builder(
-        itemCount: uniqueAlerts.length,
-        itemBuilder: (context, index) {
-          Map<String, dynamic> alert = uniqueAlerts[index];
-          int countNew = 0;
-          int countOld = 0;
-          Widget recentTitle;
-          Widget oldTitle;
-
-          if((alert['date'] as Timestamp).toDate().isAfter(DateTime.now().subtract(const Duration(days: 30)))){
-            countNew++;
-            if(!displayRecentNewsTitle){
-              recentTitle = const SizedBox.shrink();
-            }
-            else{
-              recentTitle = Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.only(top: 15, bottom: 15),
-                    child:Text("Il y a du nouveau !   ",
-                    style: textItalicStyle,
-                    )
-                  ),
-                  Expanded(child:
-                    Container(
-                      color: black,
-                      height: 1.5,
-                    ),
-                  )
-                ],
-              );
-              displayRecentNewsTitle = false;
-            }
-
-            if (countNew > 0){
-              return Container(
-                color: greenBrown,
-                padding: const EdgeInsets.only(left: 28, right: 28, bottom: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+            if((alert['date'] as Timestamp).toDate().isAfter(DateTime.now().subtract(const Duration(days: 30)))){
+              countNew++;
+              if(!displayRecentNewsTitle){
+                recentTitle = const SizedBox.shrink();
+              }
+              else{
+                recentTitle = Row(
                   children: [
-                    recentTitle,
-                    generateAlert(alert, white)
-                  ],
-                ),
-              );
-            }
-          }
-          else{
-            countOld++;
-            if(!displayOldNewsTitle){
-              oldTitle = const SizedBox.shrink();
-            }
-            else{
-              oldTitle = Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.only(top: 15, bottom: 15),
-                    child:Text("Précédemment   ",
-                      style: textItalicStyle,
-                    )
-                  ),
-                  Expanded(child:
+                    Container(
+                        padding: const EdgeInsets.only(top: 25, bottom: 25),
+                        child:Text("Il y a du nouveau !   ",
+                          style: textItalicStyle,
+                        )
+                    ),
+                    Expanded(child:
                     Container(
                       color: black,
                       height: 1.5,
                     ),
-                  )
-                ],
-              );
-              displayOldNewsTitle = false;
-            }
+                    )
+                  ],
+                );
+                displayRecentNewsTitle = false;
+              }
 
-            if(countOld > 0){
-              return Container(
-                  color: white,
-                  padding: horizontalPadding,
-                  margin: const EdgeInsets.only(bottom: 20),
+              if (countNew > 0){
+                return Container(
+                  color: greenBrown,
+                  padding: const EdgeInsets.only(left: 28, right: 28, bottom: 25),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      oldTitle,
-                      generateAlert(alert, darkBeige)
+                      recentTitle,
+                      generateAlert(alert, white)
                     ],
-                  )
-              );
+                  ),
+                );
+              }
             }
-          }
-        },
-      ),
+            else{
+              countOld++;
+              if(!displayOldNewsTitle){
+                oldTitle = const SizedBox.shrink();
+              }
+              else{
+                oldTitle = Row(
+                  children: [
+                    Container(
+                        padding: const EdgeInsets.only(top: 25, bottom: 25),
+                        child:Text("Précédemment   ",
+                          style: textItalicStyle,
+                        )
+                    ),
+                    Expanded(child:
+                    Container(
+                      color: black,
+                      height: 1.5,
+                    ),
+                    )
+                  ],
+                );
+                displayOldNewsTitle = false;
+              }
+
+              if(countOld > 0){
+                return Container(
+                    color: white,
+                    padding: horizontalPadding,
+                    margin: const EdgeInsets.only(bottom: 25),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        oldTitle,
+                        generateAlert(alert, darkBeige)
+                      ],
+                    )
+                );
+              }
+            }
+          },
+        ),
+      )
     );
   }
 

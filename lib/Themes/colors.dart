@@ -9,11 +9,13 @@ const beige = Color(0xFFFEFAF4);
 const beigeTransparent = Color(0x99FEFAF4);
 const darkBeige = Color(0xFFF8F1E4);
 const darkerBeige = Color(0xFFf3eadc);
+const beige_01 = Color(0xFFFFFCF8);
 const beige_03 = Color(0xFFEFE5D6);
 const beige_04 = Color(0xFFE5DAC8);
 
 const black = Color(0xFF242a2b);
 const black_01 = Color(0xFFaeb5ab);
+const black_04 = Color(0xFF6B726A);
 
 const greenBrown = Color(0xFFD2C65E);
 const greenBrown_02 = Color(0xFFDCD383);

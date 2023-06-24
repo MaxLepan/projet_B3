@@ -15,12 +15,12 @@ class SpeciesViewBlockThreePics extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: highlighted == false ? white : darkBeige,
-      padding: horizontalPadding,
+      padding: EdgeInsets.symmetric(horizontal: 28, vertical: 35),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: const EdgeInsets.only(top: 35, bottom: 16),
+            margin: const EdgeInsets.only(bottom: 16),
             child: Text(title, style: titleStyle,),
           ),
           if(content!["tag"] != null)
@@ -40,7 +40,7 @@ class SpeciesViewBlockThreePics extends StatelessWidget {
               ),
             ),
           Padding(
-            padding: const EdgeInsets.only(top: 5, bottom: 15),
+            padding: const EdgeInsets.only(top: 5,),
             child: IntrinsicHeight(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -80,7 +80,7 @@ class SpeciesViewBlockThreePics extends StatelessWidget {
 
           if(content!["big_image"] != null)
             Container(
-              margin: const EdgeInsets.only(top:15, bottom: 40),
+              margin: const EdgeInsets.only(top:30),
               height: 150,
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(5)),

@@ -26,6 +26,8 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -34,8 +36,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: materialGreeBrown,
         scaffoldBackgroundColor: white,
       ),
-      home: MediaQuery(
-        data: const MediaQueryData(),
+      home: const MediaQuery(
+        data: MediaQueryData(),
         child: Scaffold(
           body: MyTabView(),
         ),
@@ -47,12 +49,14 @@ class MyApp extends StatelessWidget {
 }
 
 class MyTabView extends StatefulWidget {
+  const MyTabView({super.key});
+
   @override
   _MyTabViewState createState() => _MyTabViewState();
 }
 
 class _MyTabViewState extends State<MyTabView> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
   final List<Widget> _pages = [
     const SearchView(),
     const MapView(),

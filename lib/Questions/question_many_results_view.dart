@@ -92,34 +92,16 @@ class QuestionManyResultsView extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                ExtendedImage.network(
-                                  species.imageUrl!,
-                                  height: 120,
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
-                                  cache: true,
-                                  loadStateChanged: (ExtendedImageState state) {
-                                    switch (state.extendedImageLoadState) {
-                                      case LoadState.loading:
-                                        return Container(
-                                          color: Colors.grey,
-                                        );
-                                      case LoadState.completed:
-                                        return null;
-                                      case LoadState.failed:
-                                        return Container(
-                                          color: Colors.redAccent,
-                                        );
-                                    }
-                                  },
-                                ),
+                              ClipRRect(
+                                borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
+                                child: imageWithPlaceholder(species.imageUrl!, 120),
+                              ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 3),
+                                  padding: const EdgeInsets.only(left: 3, bottom: 5),
                                   child: Text(
                                     "${species.name[0].toUpperCase()}${species.name.substring(1).toLowerCase()}",
                                     style: smallTitle,
-                                    textAlign: TextAlign.left,
-                                    overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left,
                                   ),
                                 ),
                               ],

@@ -55,18 +55,21 @@ class CustomAppBarCloseReturn extends StatelessWidget implements PreferredSizeWi
         ),
       ),
       actions: [
-        Row(
-          children: [
-            Text('Fermer', style: textBoldStyle),
-            IconButton(
-              icon: const Icon(CustomIcons.cross_01),
-              onPressed: () {
-                Navigator.popUntil(context, (route) => route.isFirst);
-              },
-            ),
+        Padding(
+          padding: EdgeInsets.only(right: 18,),
+          child: Row(
+            children: [
+              TextButton.icon(
+                onPressed: () {
+                  Navigator.popUntil(context, (route) => route.isFirst);
+                },
+                label:  Text('Fermer', style: textBoldStyle),
+                icon: const Icon(CustomIcons.cross_01, color: black,),
+              ),
+            ],
+          ),
+        )
 
-          ],
-        ),
       ],
       elevation: 0.0,
       iconTheme: const IconThemeData(color: black),
@@ -92,8 +95,8 @@ class CustomLocationAppBar extends StatelessWidget implements PreferredSizeWidge
         child: const Icon(CustomIcons.place_01 , size: 25,),
       ),
       elevation: 0.0,
-      iconTheme: const IconThemeData(color: Colors.black),
-      backgroundColor: white,
+      iconTheme: const IconThemeData(color: black),
+      backgroundColor: darkBeige,
       title: Text("Parc national des Cévennes", style: textBoldStyle),
     );
   }
@@ -117,7 +120,6 @@ class MyBottomNavigationBar extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            padding: const EdgeInsets.only(top: 10),
             decoration: const BoxDecoration(
               border: Border(
                 top: BorderSide(color: darkerBeige, width: 3),
@@ -125,12 +127,12 @@ class MyBottomNavigationBar extends StatelessWidget {
             ),
           ),
           Container(
-            padding: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 18),
             child: TabBar(
               indicatorColor: black,
               indicatorWeight: 3,
               indicator: const UnderlineTabIndicator(
-                insets: EdgeInsets.fromLTRB(15.0, 0.0, 20.0, 56.0),
+                insets: EdgeInsets.fromLTRB(20.0, 0.0, 25, 64.0),
                 borderSide:
                 BorderSide(color: black, width: 3),
               ),
