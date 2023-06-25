@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:projet_b3/Themes/custom_icons.dart';
 import 'package:projet_b3/Themes/app_bar.dart';
 import 'package:projet_b3/Themes/colors.dart';
+import '../Marker/marker_add_modal.dart';
 import '../Species/species_model.dart';
 
 class QuestionsResultChoiceView extends StatelessWidget {
@@ -92,6 +93,7 @@ class QuestionsResultChoiceView extends StatelessWidget {
                                 Expanded(
                                   child: ElevatedButton(
                                       onPressed: () {
+                                        MarkerAddModal(context: context, subject: subject).addMarker();
                                       },
                                       style: ElevatedButton.styleFrom(
                                         foregroundColor: beige_04,
@@ -116,7 +118,6 @@ class QuestionsResultChoiceView extends StatelessWidget {
                                                     style: textBoldStyle,
                                                     softWrap: true,
                                                   ),
-
                                                 )
                                               ],
                                             ),

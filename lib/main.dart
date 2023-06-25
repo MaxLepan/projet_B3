@@ -61,7 +61,7 @@ class _MyTabViewState extends State<MyTabView> {
     const SearchView(),
     const MapView(),
     InformationsView(),
-    const ComingSoonView(),
+    const ComingSoonView(showCloseButton: false,),
   ];
 
   void _onItemTapped(int index) {

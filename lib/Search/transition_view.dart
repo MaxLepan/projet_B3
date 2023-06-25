@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:projet_b3/Themes/custom_icons.dart';
 import 'package:projet_b3/Themes/colors.dart';
+import 'package:projet_b3/Tree/graph_tree.dart';
 
 
 class TransitionView extends StatefulWidget {
+  const TransitionView({super.key});
+
   @override
   _TransitionViewState createState() => _TransitionViewState();
 }
@@ -17,7 +20,7 @@ class _TransitionViewState extends State<TransitionView> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, '/questions');
+      Navigator.pushReplacementNamed(context, '/questions', arguments: {'node': null, 'tree': graph_tree, 'quizType': "species"},);
     });
   }
 

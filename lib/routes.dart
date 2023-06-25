@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:projet_b3/Questions/question_result_choice_view.dart';
 import 'package:projet_b3/Search/search_quizz_view.dart';
@@ -16,7 +18,13 @@ final Map<String, WidgetBuilder> routes = {
   '/map': (BuildContext context) => MapView(),
   '/search': (BuildContext context) => SearchView(),
   '/transition': (BuildContext context) => TransitionView(),
-  '/comming_soon': (BuildContext context) => ComingSoonView(),
+  '/comming_soon': (BuildContext context) {
+    final showCloseButton = ModalRoute
+      .of(context)!
+      .settings
+      .arguments as bool;
+    return ComingSoonView(showCloseButton: showCloseButton,);
+  } ,
   '/questions': (BuildContext context) {
     final arguments = ModalRoute
         .of(context)!

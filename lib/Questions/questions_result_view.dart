@@ -116,8 +116,7 @@ class QuestionsResultView extends StatelessWidget {
                                     Expanded(
                                       child: ElevatedButton(
                                           onPressed: () {
-                                            Navigator.popUntil(
-                                                context, (route) => route.isFirst);
+                                            Navigator.pushReplacementNamed(context, '/questions', arguments: {'node': null, 'tree': graph_tree, 'quizType': "species"},);
                                           },
                                           style: ElevatedButton.styleFrom(
                                             foregroundColor: beige_04,

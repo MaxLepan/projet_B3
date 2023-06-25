@@ -26,6 +26,17 @@ class QuestionManyResultsView extends StatelessWidget {
               ),
             ),
           );
+
+        } else if (!snapshot.hasData){
+          return Scaffold(
+              appBar: const CustomAppBarCloseReturn(),
+              body: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 60),
+                child: Text(
+                  'Aucune espèce de petites bêtes n\'est visible autour de toi à cette'
+                      ' période de l\'année.', style: titleStyle, textAlign: TextAlign.center,),
+              )
+          );
         } else if (snapshot.hasError) {
           return const Text(
             'Une erreur s\'est produite lors du chargement des données.',
@@ -37,7 +48,7 @@ class QuestionManyResultsView extends StatelessWidget {
             appBar: const CustomAppBarCloseReturn(),
             body: SingleChildScrollView(
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 30),
+                padding: const EdgeInsets.symmetric(vertical: 30),
                 child: Column(
                   children: [
                     Text("RÉSULTAT", style: textStyle),

@@ -47,37 +47,44 @@ class CustomAppBarCloseReturn extends StatelessWidget implements PreferredSizeWi
       titleSpacing: -10,
       leading: Container(
         margin: const EdgeInsets.only(top: 0),
-        child: IconButton(
-          icon: const Icon(CustomIcons.left_01, size: 25,),
+        child: TextButton.icon(
           onPressed: () {
             Navigator.pop(context);
           },
+          icon: const Icon(CustomIcons.left_01, size: 25, color: black,),
+          label: Text('Retour', style: textBoldStyle),
+          style: TextButton.styleFrom(
+            foregroundColor: beige_04
+          ),
         ),
       ),
+      leadingWidth: 120,
       actions: [
         Padding(
-          padding: EdgeInsets.only(right: 18,),
+          padding: const EdgeInsets.only(right: 18,),
           child: Row(
             children: [
               TextButton.icon(
                 onPressed: () {
                   Navigator.popUntil(context, (route) => route.isFirst);
                 },
-                label:  Text('Fermer', style: textBoldStyle),
+                label: Text('Fermer', style: textBoldStyle),
                 icon: const Icon(CustomIcons.cross_01, color: black,),
+                style: TextButton.styleFrom(
+                  foregroundColor: beige_04
+                )
               ),
             ],
           ),
         )
-
       ],
       elevation: 0.0,
       iconTheme: const IconThemeData(color: black),
       backgroundColor: white,
-      title: Text("Retour", style: textBoldStyle),
     );
   }
 }
+
 
 
 class CustomLocationAppBar extends StatelessWidget implements PreferredSizeWidget {

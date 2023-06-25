@@ -9,11 +9,14 @@ import 'Themes/app_bar.dart';
 
 
 class ComingSoonView extends StatelessWidget {
-  const ComingSoonView({super.key});
+  final bool showCloseButton;
+  const ComingSoonView({super.key, required this.showCloseButton});
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: showCloseButton ? const CustomAppBar() : null,
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(

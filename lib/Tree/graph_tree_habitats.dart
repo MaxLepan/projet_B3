@@ -60,7 +60,7 @@ final graph_tree_habitats = Tree({
   node_environment_forester_hibernate: [leaf_grenouille_rousse, leaf_grenouille_lessona, leaf_crapaud_epineux],
   node_environment_forester_not_hibernate: [leaf_vipere_peliade, leaf_vipere_aspic, leaf_salamandre_tachetee, leaf_grenouille_rousse, leaf_grenouille_lessona, leaf_crapaud_epineux],
 
-  node_environment_sandy_hibernate: [leaf_crapaud_calamite],
+  node_environment_sandy_hibernate: [],
   node_environment_sandy_not_hibernate: [leaf_crapaud_calamite],
 
   node_environment_aquatic_hibernate: [leaf_pelodyte_ponctuee, leaf_triton_ponctue, leaf_triton_palme, leaf_triton_crete, leaf_rainette_meridionale, leaf_grenouille_rieuse],

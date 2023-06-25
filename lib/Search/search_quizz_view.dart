@@ -101,7 +101,7 @@ class SearchQuizzView extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 16),
               child: TextButton(
                 onPressed: () {
-                  Navigator.popUntil(context, (route) => route.isFirst);
+                  Navigator.pushNamed(context, '/comming_soon', arguments: true );
                 },
                 child: Text(
                   'Oups... Elle s’est enfuie.',

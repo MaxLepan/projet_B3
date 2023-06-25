@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projet_b3/Themes/colors.dart';
 
-import '../Tree/node.dart';
 import '../Tree/tree.dart';
 
 class QuestionCard extends StatelessWidget {
@@ -35,15 +34,20 @@ class QuestionCard extends StatelessWidget {
           shadowColor: Colors.transparent,
         ),
         onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/questions',
-            arguments: {
-              'node': null,
-              'tree': tree,
-              'quizType': quizType
-            },
-          );
+          if(route == "/transition") {
+            Navigator.pushNamed( context, route,);
+          }
+          else{
+            Navigator.pushNamed(
+              context,
+              route,
+              arguments: {
+                'node': null,
+                'tree': tree,
+                'quizType': quizType
+              },
+            );
+          }
         },
         child: Row(
           children: [
