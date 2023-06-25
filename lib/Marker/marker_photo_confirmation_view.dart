@@ -33,7 +33,7 @@ class MarkerPhotoConfirmationView extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               child: Image.file(
                 image,
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
                 height: 350,
                 width: double.infinity,
               ),
