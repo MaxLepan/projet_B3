@@ -57,6 +57,7 @@ class QuestionCard extends StatelessWidget {
                 child: SizedBox(
                   height: size,
                   child: Container(
+                    padding: EdgeInsets.all(10),
                     decoration: const BoxDecoration(
                       color: greenBrown,
                       borderRadius: BorderRadius.only(
@@ -67,7 +68,7 @@ class QuestionCard extends StatelessWidget {
                     child: ClipRRect(
                       child: Image(
                         image: AssetImage(imagePath),
-                        fit: BoxFit.fitHeight,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),

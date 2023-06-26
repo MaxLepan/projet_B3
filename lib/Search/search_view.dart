@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:projet_b3/Search/search_view_block_question_card.dart';
 import 'package:projet_b3/Species/species_model.dart';
 import 'package:projet_b3/Themes/app_bar.dart';
-import 'package:projet_b3/Themes/custom_icons.dart';
+import 'package:projet_b3/Themes/unseen_icons.dart';
 import 'package:projet_b3/Tree/graph_tree.dart';
 import 'package:projet_b3/Tree/graph_tree_habitats.dart';
 
@@ -81,6 +81,7 @@ class SearchViewState extends State<SearchView> {
                     await speciesViewModel.getSpeciesStartingBy(text);
                     setState(() {
                       this.speciesList = speciesList;
+
                     });
                   },
                   onTap: () {
@@ -91,7 +92,7 @@ class SearchViewState extends State<SearchView> {
                 ),
               ),
               Visibility(
-                visible: !isSearchBarClicked,
+                visible: speciesList.isEmpty,
                 child: Container(
                   padding: horizontalPadding,
                   child: Column(
@@ -181,7 +182,7 @@ class SearchViewState extends State<SearchView> {
                               },
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 3, bottom: 5),
+                              padding: const EdgeInsets.only(left: 10, right: 10, bottom: 5),
                               child: Text(
                                 "${species.name[0].toUpperCase()}${species.name.substring(1).toLowerCase()}",
                                 style: smallTitle,

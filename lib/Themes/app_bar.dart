@@ -3,10 +3,7 @@ import 'dart:collection';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projet_b3/Themes/colors.dart';
-import '../Map/map_view.dart';
-import '../Informations/informations_view.dart';
-import '../Search/search_view.dart';
-import 'custom_icons.dart';
+import 'unseen_icons.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key});
@@ -147,10 +144,10 @@ class MyBottomNavigationBar extends StatelessWidget {
               unselectedLabelColor: black.withOpacity(0.5),
               onTap: onItemTapped,
               tabs: [
-                Tab(icon: CustomIcons.glassShadow),
-                Tab(icon: CustomIcons.mapShadow),
-                Tab(icon: CustomIcons.infoShadow),
-                Tab(icon: CustomIcons.userShadow),
+                Tab(icon: CustomIcons.glassShadow(selected: selectedIndex == 0)),
+                Tab(icon: CustomIcons.mapShadow(selected: selectedIndex == 1)),
+                Tab(icon: CustomIcons.infoShadow(selected: selectedIndex == 2)),
+                Tab(icon: CustomIcons.userShadow(selected: selectedIndex == 3)),
               ],
               controller: DefaultTabController.of(context),
             ),

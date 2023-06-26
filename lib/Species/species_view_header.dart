@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:projet_b3/Marker/marker_add_modal.dart';
 import 'package:projet_b3/Species/species_model.dart';
-import 'package:projet_b3/Themes/custom_icons.dart';
+import 'package:projet_b3/Themes/unseen_icons.dart';
 
 import '../Marker/marker_photo_confirmation_view.dart';
 import '../Themes/colors.dart';
@@ -35,45 +35,53 @@ class SpeciesViewHeader extends StatelessWidget {
             margin: const EdgeInsets.only(top: 16),
             padding: horizontalPadding,
             child: Row(
-              children: <Widget>[
-                Text(
-                  "${subject.name[0].toUpperCase()}${subject.name.substring(1).toLowerCase()}",
-                  style: const TextStyle(
-                      color: black, fontSize: 24, fontWeight: FontWeight.bold),
-                  softWrap: false,
-                  overflow: TextOverflow.ellipsis,
+                children: <Widget>[
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "${subject.name[0].toUpperCase()}${subject.name.substring(1).toLowerCase()}",
+                      style: titleStyle,
+                      softWrap: false,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 5, bottom: 16),
+                      child: Text(
+                        subject.latinName,
+                        style: textBoldItalicStyle,
+                      ),
+                    ),
+                  ],
                 ),
+
                 const Spacer(),
-                Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: darkBeige,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: mainColor,
-                      width: 2.0,
+                Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: darkBeige,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: mainColor,
+                        width: 3.0,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 1),
+                      child: Icon(
+                        _getIconBySpeciesType(subject.category),
+                        size: 45,
+                      ),
                     ),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 1),
-                    child: Icon(
-                      _getIconBySpeciesType(subject.category),
-                      size: 30,
-                    ),
-                  ),
-                ),
+                )
               ],
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(bottom: 16),
-            padding: horizontalPadding,
-            child: Text(
-              subject.latinName,
-              style: textItalicStyle,
-            ),
-          ),
+
           Container(
             margin: horizontalPadding,
             padding: const EdgeInsets.only(bottom: 20),
@@ -112,7 +120,7 @@ class SpeciesViewHeader extends StatelessWidget {
             color: secondaryColor,
             child: Stack(
               children: [
-                imageWithPlaceholder(subject.imageUrl!, 270),
+                imageWithPlaceholder(subject.imageUrl!, 340),
                 if(subject.length != null)
                   Positioned(
                     left: 35,

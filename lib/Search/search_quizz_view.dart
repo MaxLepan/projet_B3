@@ -150,7 +150,7 @@ Future<List<ElevatedButton>> generateButtons(BuildContext context, Node? node, T
           minimumSize: const Size(200, 50),
         ),
         child: Container(
-          padding: const EdgeInsets.all(14),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 24),
           child: Row(
             children: [
               Container(

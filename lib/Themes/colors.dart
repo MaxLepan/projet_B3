@@ -10,6 +10,7 @@ const beigeTransparent = Color(0x99FEFAF4);
 const darkBeige = Color(0xFFF8F1E4);
 const darkerBeige = Color(0xFFf3eadc);
 const beige_01 = Color(0xFFFFFCF8);
+const beige_02 = Color(0xF8F1E4);
 const beige_03 = Color(0xFFEFE5D6);
 const beige_04 = Color(0xFFE5DAC8);
 
@@ -69,9 +70,13 @@ var smallTitle = GoogleFonts.rubik(color: black, fontSize: 17, fontWeight: FontW
 
 var textStyle = GoogleFonts.nunito(color: black, fontSize: 17);
 var textItalicStyle = GoogleFonts.nunito(color: black, fontSize: 17, fontStyle: FontStyle.italic);
+var textBoldItalicStyle = GoogleFonts.nunito(color: black, fontSize: 17, fontWeight: FontWeight.w400 ,fontStyle: FontStyle.italic);
 var textBoldStyle = GoogleFonts.nunito(color: black, fontSize: 17, fontWeight: FontWeight.bold);
 var textMediumStyle = GoogleFonts.nunito(color: black, fontSize: 17, fontWeight: FontWeight.w500);
 var textUnderlineStyle = GoogleFonts.nunito(color: black, fontSize: 17, decoration: TextDecoration.underline, fontWeight: FontWeight.bold);
+
+const double appBarIconeSize = 45;
+
 
 Widget imageWithPlaceholder(String imagepath, double height){
   return ExtendedImage.network(

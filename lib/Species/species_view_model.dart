@@ -55,22 +55,25 @@ class SpeciesViewModel {
       name = name.toLowerCase();
       CollectionReference species = FirebaseFirestore.instance.collection('species');
       QuerySnapshot querySnapshot;
+      if(name.isNotEmpty){
+        if (name == 'el predator') {
+          querySnapshot = await species.where('name', isEqualTo: 'alban perli').get();
+        }
+        else if (name == 'beau gosse') {
+          querySnapshot = await species.where('name', isEqualTo: 'beau gosse').get();
+        }
+        else {
+          querySnapshot = await species
+              .where('name', isGreaterThanOrEqualTo: name)
+              .where('name', isLessThan: '${name}z')
+              .where('name', whereNotIn: ['alban perli', 'beau gosse'])
+              .get();
+        }
+        return convertToSpeciesList(querySnapshot);
+      }
 
-      if (name == 'el predator') {
-        querySnapshot = await species.where('name', isEqualTo: 'alban perli').get();
-      }
-      else if (name == 'beau gosse') {
-        querySnapshot = await species.where('name', isEqualTo: 'beau gosse').get();
-      }
-      else {
-        querySnapshot = await species
-            .where('name', isGreaterThanOrEqualTo: name)
-            .where('name', isLessThan: '${name}z')
-            .where('name', whereNotIn: ['alban perli', 'beau gosse'])
-            .get();
-      }
+      return [];
 
-      return convertToSpeciesList(querySnapshot);
     } catch (error, stackTrace) {
       print('Error retrieving species starting by: $error');
       print(stackTrace);

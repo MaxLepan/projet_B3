@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import '../Species/species_model.dart';
 import '../Themes/app_bar.dart';
 import '../Themes/colors.dart';
-import '../Themes/custom_icons.dart';
+import '../Themes/unseen_icons.dart';
 import 'marker_view_model.dart';
 
 class MarkerPhotoConfirmationView extends StatelessWidget {

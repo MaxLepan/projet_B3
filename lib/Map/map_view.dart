@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 
 import '../Expandable_button/expandable_button.dart';
 import '../Themes/colors.dart';
-import '../Themes/custom_icons.dart';
+import '../Themes/unseen_icons.dart';
 import '../filters_state.dart';
 
 class MapView extends StatelessWidget {

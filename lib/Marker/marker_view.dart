@@ -8,7 +8,7 @@ import 'package:projet_b3/Themes/app_bar.dart';
 
 import '../Map/map_model.dart';
 import '../Themes/colors.dart';
-import '../Themes/custom_icons.dart';
+import '../Themes/unseen_icons.dart';
 
 class MarkerView extends StatelessWidget {
   final CustomMarker marker;

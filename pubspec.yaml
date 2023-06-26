@@ -45,9 +45,9 @@ flutter:
     - assets/images/map/
   uses-material-design: true
   fonts:
-    - family: CustomIcons
+    - family: UnseenIcons
       fonts:
-        - asset: fonts/custom_icons.ttf
+        - asset: fonts/unseen_icons.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
