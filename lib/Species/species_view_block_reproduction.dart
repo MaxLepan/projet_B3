@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projet_b3/Themes/colors.dart';
+import 'package:projet_b3/Themes/components.dart';
 
 class SpeciesViewBlockReproduction extends StatelessWidget {
   final Map? content;
@@ -26,18 +27,8 @@ class SpeciesViewBlockReproduction extends StatelessWidget {
             if(content!["tag"] != null)
               Container(
                 padding: const EdgeInsets.only(top: 10),
-                child: Container(
-                  margin: const EdgeInsets.only(bottom: 16),
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: mainColor,
-                    borderRadius: BorderRadius.circular(3.0),
-                  ),
-                  child: Text(
-                    content!["tag"],
-                    style: smallTitle,
-                  ),
-                ),
+                margin: const EdgeInsets.only(bottom: 5),
+                child: bubbleText(mainColor, content!["tag"])
               ),
             Padding(
               padding: const EdgeInsets.only(top: 5),

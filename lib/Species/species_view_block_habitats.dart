@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:projet_b3/Species/species_model.dart';
 import 'package:projet_b3/Themes/colors.dart';
 
+import '../Themes/components.dart';
+
 class SpeciesViewBlockHabitats extends StatelessWidget {
   final Species subject;
   final Color mainColor;
@@ -30,18 +32,7 @@ class SpeciesViewBlockHabitats extends StatelessWidget {
                   Wrap(
                     children: [
                       for (var item in subject.habitats!)
-                        Container(
-                          margin: const EdgeInsets.only(right: 14, bottom: 14),
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: mainColor,
-                            borderRadius: BorderRadius.circular(3.0),
-                          ),
-                          child: Text(
-                            item,
-                            style: smallTitle,
-                          ),
-                        ),
+                        bubbleText(mainColor, item),
                     ],
                   ),
                 ],

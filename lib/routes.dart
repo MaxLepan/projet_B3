@@ -7,6 +7,7 @@ import 'package:projet_b3/Search/search_view.dart';
 import 'package:projet_b3/Search/transition_view.dart';
 import 'package:projet_b3/Species/species_model.dart';
 import 'Map/map_view.dart';
+import 'Parc/parc_view.dart';
 import 'Questions/question_many_results_view.dart';
 import 'Questions/questions_result_view.dart';
 import 'Species/species_view.dart';
@@ -18,6 +19,7 @@ final Map<String, WidgetBuilder> routes = {
   '/map': (BuildContext context) => MapView(),
   '/search': (BuildContext context) => SearchView(),
   '/transition': (BuildContext context) => TransitionView(),
+  '/parc': (BuildContext context) => ParcView(),
   '/comming_soon': (BuildContext context) {
     final showCloseButton = ModalRoute
       .of(context)!

@@ -74,7 +74,7 @@ class QuestionsResultChoiceView extends StatelessWidget {
                                           children: [
                                             Container(
                                               margin: const EdgeInsets.only(right: 20),
-                                              child: const Icon(CustomIcons.info_01, size:30, color: black,),
+                                              child: const Icon(CustomIcons.alert_01, size:30, color: black,),
                                             ),
                                             Text("Obtenir d'avantages d'infos",
                                               style: textBoldStyle,

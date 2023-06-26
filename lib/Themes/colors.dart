@@ -21,6 +21,8 @@ const black_04 = Color(0xFF6B726A);
 const greenBrown = Color(0xFFD2C65E);
 const greenBrown_02 = Color(0xFFDCD383);
 
+const sapin_01 = Color(0xFFA4C7BA);
+
 const MaterialColor materialGreeBrown = MaterialColor(0xFFE57373, {
   50: Color(0xfffff9d7),
   100: Color(0xfff1e8af),
@@ -59,6 +61,7 @@ const purple_02 = Color(0xFFa398c2);
 
 const strawberry_01 = Color(0xFFea9d9d);
 const strawberry_02 = Color(0xFFe17e7e);
+const strawberry_03 = Color(0xFFD95A5A);
 
 const horizontalPadding = EdgeInsets.only(left: 28, right: 28);
 const smallHorizontalPadding = EdgeInsets.only(left: 19, right: 19);

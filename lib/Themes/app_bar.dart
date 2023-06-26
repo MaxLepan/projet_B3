@@ -93,15 +93,24 @@ class CustomLocationAppBar extends StatelessWidget implements PreferredSizeWidge
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      titleSpacing: -10,
+      titleSpacing: 0,
       leading: Container(
         margin: const EdgeInsets.only(top: 0),
-        child: const Icon(CustomIcons.place_01 , size: 25,),
+        child: TextButton.icon(
+          onPressed: () {
+            Navigator.pushNamed(context, '/parc');
+          },
+          icon: const Icon(CustomIcons.place_01, size: 25, color: black,),
+          label: Text('Parc national des Cevénnes', style: textBoldStyle),
+          style: TextButton.styleFrom(
+              foregroundColor: beige_04
+          ),
+        ),
       ),
+      leadingWidth: 280,
       elevation: 0.0,
       iconTheme: const IconThemeData(color: black),
       backgroundColor: darkBeige,
-      title: Text("Parc national des Cévennes", style: textBoldStyle),
     );
   }
 }

@@ -7,6 +7,8 @@ import 'package:projet_b3/Species/species_view_model.dart';
 import 'package:projet_b3/Themes/app_bar.dart';
 import 'package:projet_b3/Themes/colors.dart';
 
+import '../Themes/components.dart';
+
 class InformationsView extends StatefulWidget {
   @override
   _InformationsViewState createState() => _InformationsViewState();
@@ -85,7 +87,7 @@ class _InformationsViewState extends State<InformationsView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       recentTitle,
-                      generateAlert(alert, white)
+                      iconBlock(alert["title"], alert["description"], white, CustomIcons.bellShadow )
                     ],
                   ),
                 );
@@ -125,7 +127,7 @@ class _InformationsViewState extends State<InformationsView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         oldTitle,
-                        generateAlert(alert, darkBeige)
+                        iconBlock(alert["title"], alert["description"], darkBeige, CustomIcons.bellShadow)
                       ],
                     )
                 );
@@ -138,40 +140,5 @@ class _InformationsViewState extends State<InformationsView> {
   }
 
 
-  Widget generateAlert(Map<String, dynamic> alert, Color cardBgColor){
-    return
-      Container(
-        padding: const EdgeInsets.only(left: 16, right: 16),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5.0),
-            color: cardBgColor
-        ),
-        child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 26, horizontal: 16),
-              child: Column(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 5),
-                    child:Row(
-                        children:[
-                          Container(
-                            margin: const EdgeInsets.only(right: 10),
-                            child: CustomIcons.bellShadow,
-                          ),
-                          if(alert['title'] != null)
-                            Expanded(child: Text("${alert['title']}", style: smallTitle,),)
-                        ]
-                    ),
-                  ),
-                  if(alert['description'] != null)
-                    Text(alert['description'], style: textStyle,),
-                ],
-              )
-            ),
-          ],
-        ),
-    );
-  }
+
 }

@@ -101,7 +101,6 @@ class SpeciesViewHeader extends StatelessWidget {
                           style: textBoldStyle
                       ),
                     ),
-
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(

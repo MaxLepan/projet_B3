@@ -66,7 +66,6 @@ class SpeciesViewBlockGenres extends StatelessWidget {
                                   borderRadius: const BorderRadius.only(topRight: Radius.circular(5.0), bottomRight: Radius.circular(5.0)),
                                 ),
                                 child : const Icon(CustomIcons.woman_01, color: black, size: 35,),
-
                               ),
                             ],
                           )
