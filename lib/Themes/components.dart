@@ -45,13 +45,11 @@ Widget iconBlock(String title, String description, Color cardBgColor, Widget ico
                           margin: const EdgeInsets.only(right: 10),
                           child: icon,
                         ),
-                        if(title != null)
-                          Expanded(child: Text(title, style: smallTitle,),)
+                        Expanded(child: Text(title, style: smallTitle,),)
                       ]
                   ),
                 ),
-                if(description != null)
-                  Text(description, style: textStyle,),
+                Text(description, style: textStyle,),
               ],
             )
           ),
@@ -60,7 +58,7 @@ Widget iconBlock(String title, String description, Color cardBgColor, Widget ico
     );
 }
 
-Widget blockLegend(Color color, String boldText, String regularText, Color lineColor){
+Widget blockLegend(Color color, String boldText, String regularText, Color lineColor) {
   return Container(
     margin: const EdgeInsets.only(bottom: 10),
     decoration: const BoxDecoration(
@@ -87,14 +85,18 @@ Widget blockLegend(Color color, String boldText, String regularText, Color lineC
             ),
           ),
         ),
-        Container(
-          padding: const EdgeInsets.only(left: 8, bottom: 8, top: 8),
-          child: Text(boldText, style: textBoldStyle),
+        Flexible(
+          child: Container(
+            padding: const EdgeInsets.only(left: 8, bottom: 8, top: 8),
+            child: Text(boldText, style: textBoldStyle),
+          ),
         ),
-        Container(
-          padding: const EdgeInsets.only(right: 8, top: 8, bottom: 8),
-          child: Text(regularText, style: textStyle),
-        )
+        Flexible(
+          child: Container(
+            padding: const EdgeInsets.only(right: 0, top: 8, bottom: 8),
+            child: Text(regularText, style: textStyle),
+          ),
+        ),
       ],
     ),
   );
