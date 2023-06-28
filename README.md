@@ -1,6 +1,6 @@
 # Unseen - L'app qui te fera voir les petites bêtes d'un nouvel œil
 
-![](https://hackmd.io/_uploads/H1kVn3Kun.png)
+![](./assets/images/readme_images/banniere.png)
 
 Unseen est une application iOS et Android conçue pour les randonneurs et adeptes de la marche, se promenant en pleine nature. Elle permet d'avoir des informations sur les petites bêtes invisibles peuplant les parcs nationaux français. Ce projet a été réalisé dans le cadre d'un projet de fin d'année de troisième année de bachelor.
 
@@ -14,18 +14,18 @@ Unseen est une application iOS et Android conçue pour les randonneurs et adepte
 
 ## Technologies utilisées
 
-![Flutter logo](https://hackmd.io/_uploads/r10vmat_2.png)
+![Flutter logo](./assets/images/readme_images/flutter_logo.png)
 
 Flutter : framework fait par Google et utilisant le langage Dart, permettant de développer des applications iOS et Android sans faire deux applications séparées.
 > Nous avons utilisé une architecture MVVM (Model-View-ViewModel) pour notre application.
 
-![Firebase logo](https://hackmd.io/_uploads/ByQ8EptOh.png)
+![Firebase logo](./assets/images/readme_images/firebase_logo.png)
 
 Firebase : base de données NoSQL nous permettant de stocker les informations sur les espèces, l'arbre de décision des recherches, les points sur la carte ainsi que la plupart des images de l'application et celles uploadées par les utilisateurs pour les points sur la carte
 
-| ![](https://hackmd.io/_uploads/rkUvERKdn.png) |
-|:---------------------------------------------:|
-|              *Schéma technique*               |
+| ![Schema technique](./assets/images/readme_images/schema_technique.png) |
+|:-----------------------------------------------------------------------:|
+|                           *Schéma technique*                            |
 
 ## Installation et lancement
 
