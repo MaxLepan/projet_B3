@@ -92,23 +92,24 @@ class SearchQuizzView extends StatelessWidget {
                     },
                   ),
                 ),
+                if(quizType != "environment")
+                  Container(
+                    color: white,
+                    padding: const EdgeInsets.symmetric(vertical: 75, horizontal: 16),
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/comming_soon', arguments: true );
+                      },
+                      child: Text(
+                        'Oups... Elle s’est enfuie.',
+                        style: textUnderlineStyle,
+                      ),
+                    ),
+                  ),
               ],
             ),
           ),
-          if(quizType != "environment")
-            Container(
-              color: white,
-              padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 16),
-              child: TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/comming_soon', arguments: true );
-                },
-                child: Text(
-                  'Oups... Elle s’est enfuie.',
-                  style: textUnderlineStyle,
-                ),
-              ),
-            ),
+
         ],
       ),
     );

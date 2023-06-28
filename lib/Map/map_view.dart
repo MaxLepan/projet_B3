@@ -19,9 +19,13 @@ class MapView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MapPage(),
+      theme: ThemeData(
+        primarySwatch: materialGreeBrown,
+        scaffoldBackgroundColor: white,
+      ),
+      home: const MapPage(),
     );
   }
 }
