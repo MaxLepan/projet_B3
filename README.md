@@ -51,4 +51,4 @@ Après avoir branché un appareil physique ou lancé un appareil virtuel, faites
 
 Retrouvez notre site de présentation [ici](https://unseen-app.netlify.app/).
 
-Projet réalisé par Marine, Romain, Max, Chloé A. et Chloé F.
+Projet réalisé par [Marine](https://instagram.com/mari.mous.art/), [Romain](https://github.com/RomainLENTZ), [Max](https://github.com/MaxLepan), [Chloé A.](https://www.linkedin.com/in/chlo%C3%A9-ait-si-ahmed/) et [Chloé F](https://www.linkedin.com/in/chlo%C3%A9-feutry-03a559204/).
