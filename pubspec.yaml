@@ -13,15 +13,20 @@ dependencies:
   flutter:
     sdk: flutter
   firebase_core: ^2.10.0
-  flutter_tflite: ^1.0.1
   image_picker: ^0.8.7+4
   cupertino_icons: ^1.0.2
   flutter_map: ^3.1.0
   geolocator: ^9.0.2
   cloud_firestore: ^4.5.3
-  graph_collection: ^2.1.0
-  graphs: ^2.3.0
+  firebase_storage: ^11.1.1
   slugify: ^2.0.0
+  google_fonts: ^4.0.4
+  app_usage: ^2.1.1
+  flutter_svg_provider: ^1.0.3
+  provider: ^6.0.5
+  extended_image: ^7.0.2
+  custom_line_indicator_bottom_navbar: ^0.0.8
+
 
 dev_dependencies:
   flutter_test:
@@ -31,9 +36,14 @@ dev_dependencies:
 
 
 flutter:
-  uses-material-design: true
   assets:
-     - assets/
+    - assets/images/
+    - assets/images/map/
+  uses-material-design: true
+  fonts:
+    - family: UnseenIcons
+      fonts:
+        - asset: fonts/unseen_icons.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

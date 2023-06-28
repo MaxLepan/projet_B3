@@ -2,27 +2,38 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Species {
   final String name;
-  final String description;
+  final String latinName;
   final String category;
   final String? protectionStatus;
-  final String? habitat;
-  final String? humanImpact;
+  final List<String>? habitats;
+  final List<dynamic>? humanImpacts;
   final Timestamp? lastView;
-  final String? observable;
-  final String? funFact;
+  final List<dynamic>? funFacts;
   final String? imageUrl;
+  final Map? genders;
+  final Map? reproduction;
+  final List<dynamic>? alerts;
+  final Map? diet;
+  final String? length;
+  final List<String>? precautions;
+
 
   Species({
     required this.name,
-    required this.description,
+    required this.latinName,
     required this.category,
-    this.habitat,
+    this.habitats,
     this.protectionStatus,
     this.lastView,
-    this.humanImpact,
-    this.funFact,
+    this.humanImpacts,
+    this.funFacts,
     this.imageUrl,
-    this.observable,
+    this.genders,
+    this.reproduction,
+    this.alerts,
+    this.diet,
+    this.length,
+    this.precautions
   });
 
   @override

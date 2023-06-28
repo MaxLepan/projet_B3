@@ -1,10 +1,21 @@
+import 'dart:ui';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:projet_b3/Search/search_view_block_question_card.dart';
+import 'package:projet_b3/Species/species_model.dart';
+import 'package:projet_b3/Themes/app_bar.dart';
+import 'package:projet_b3/Themes/unseen_icons.dart';
+import 'package:projet_b3/Tree/graph_tree.dart';
+import 'package:projet_b3/Tree/graph_tree_habitats.dart';
 
+import '../Themes/colors.dart';
 import '../Species/species_view_model.dart';
+import 'package:projet_b3/Tree/graph_tree.dart';
+import 'package:projet_b3/Tree/graph_tree_habitats.dart';
 
-
-class SearchView extends StatefulWidget{
+class SearchView extends StatefulWidget {
   const SearchView({Key? key}) : super(key: key);
 
   @override
@@ -13,66 +24,186 @@ class SearchView extends StatefulWidget{
 
 class SearchViewState extends State<SearchView> {
   final SpeciesViewModel speciesViewModel = SpeciesViewModel();
+  List<Species> speciesList = [];
+  bool isSearchBarClicked = false;
 
-  final List<String> speciesImages = [
-    "https://cdn.vox-cdn.com/thumbor/Lqw4lEEh11oLoXJdJv34A-5NI4s=/0x0:4928x3280/1200x0/filters:focal(0x0:4928x3280):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/23286183/GettyImages_1238172363.jpg",
-    "https://images.ctfassets.net/cnu0m8re1exe/jIodPqeb9lDZW6WaerUCq/a07e6130fe401e714ed8521a818be880/shutterstock_2120543582.jpg",
-    "https://cdn.britannica.com/22/152822-050-FF5E5F25/Ladybug.jpg",
-    "https://cff2.earth.com/uploads/2022/05/06093825/Flying-insects2-960x640.png",
-    "https://cdn.theatlantic.com/thumbor/B9Zqh1ap5jlJ3wFUS9LZ-Ha6etA=/0x880:4450x3383/1600x900/media/img/mt/2019/02/GettyImages_692182998/original.jpg",
-    "https://www.agproud.com/ext/resources/2022/09/12/55907-stokes-bugs.jpg?t=1663279700&width=1080",
-    "https://modernfarmer.com/wp-content/uploads/2015/06/PrayingMantis-1200x704.jpg"
-  ];
 
   @override
   void initState() {
     super.initState();
-    speciesViewModel.getSpecies();
   }
 
   @override
   Widget build(BuildContext context) {
-    print(speciesViewModel.getSpecies());
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Rechercher une bête"),
-      ),
-      body:Container(
-        child: Column(
-          children:[
-            const Padding(
-              padding: EdgeInsets.only(left: 20, right: 20),
-              child:
-              TextField(
-                decoration: InputDecoration(
-                  hintText: "Trouver une bête",
-                  suffixIcon: IconButton(onPressed: null, icon: Icon(Icons.search))
+    final double statusBarHeight = MediaQueryData.fromWindow(window).padding.top;
+
+    return Container(
+      margin: EdgeInsets.only(top: statusBarHeight),
+      child: Scaffold(
+        appBar: const CustomLocationAppBar(),
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 50, bottom: 15),
+                  child: Text(
+                    "Bienvenue !",
+                    style: titleStyle,
+                  ),
+                ),
+                Text(
+                  "Tu verras les petites-bêtes d’un\nnouvel œil.",
+                  style: smallTitle,
+                  textAlign: TextAlign.center,
+                ),
+              ]),
+              Padding(
+                padding: const EdgeInsets.only(left: 28, right: 28, bottom: 30, top: 30),
+                child: TextField(
+                  decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(vertical: 0),
+                      hintText: "Triton, vipère, crapaud...",
+                      hintStyle: GoogleFonts.rubik(color: black_04, fontSize: 15),
+                      prefixIcon:
+                      const IconButton(onPressed: null, icon: Icon(CustomIcons.m_glass_01, color: black_04,)),
+                      enabledBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                        borderSide: BorderSide(color: beige_03, width: 2.5),
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                        borderSide: BorderSide(color: greenBrown, width: 2.5),
+                      )),
+                  onChanged: (text) async {
+                    List<Species> speciesList =
+                    await speciesViewModel.getSpeciesStartingBy(text);
+                    setState(() {
+                      this.speciesList = speciesList;
+
+                    });
+                  },
+                  onTap: () {
+                    setState(() {
+                      isSearchBarClicked = true;
+                    });
+                  },
                 ),
               ),
-            ),
-            SizedBox(
-              height: 500,
-              child: GridView.builder(
-                itemCount: speciesImages.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 4.0,
-                  mainAxisSpacing: 4.0,
+              Visibility(
+                visible: speciesList.isEmpty,
+                child: Container(
+                  padding: horizontalPadding,
+                  child: Column(
+                    children: [
+                      QuestionCard(
+                        question: "Quelle est cette petite bête ?",
+                        imagePath: "assets/images/search_view.png",
+                        route: "/transition",
+                        tree: graph_tree,
+                        quizType: "species",
+                      ),
+                      const SizedBox(height: 20),
+                      QuestionCard(
+                          question: "Quelles espèces observer dans le coin ?",
+                          imagePath: 'assets/images/search_tree.png',
+                          route: "/questions",
+                          tree : graph_tree_habitats,
+                          quizType: "environment"
+                      ),
+                    ],
+                  ),
                 ),
-                itemBuilder: (BuildContext context, int index){
-                  return GestureDetector(
-                    onTap: (){
-                      print('*** Click sur image');
-                    },
-                    child:  Image.network(speciesImages[index], fit: BoxFit.cover,),
-                  );
+              ),
+              Visibility(
+                visible: isSearchBarClicked,
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: speciesList.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 15,
+                    mainAxisSpacing: 15,
+                    childAspectRatio: 0.95,
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 28),
+                  itemBuilder: (BuildContext context, int index) {
+                    Species species = speciesList[index];
+                    Color borderColor;
 
-                },
+                    if (species.category.toLowerCase() == "reptile") {
+                      borderColor = purple_02;
+                    } else if (species.category.toLowerCase() == "amphibien") {
+                      borderColor = mint_02;
+                    } else if (species.category.toLowerCase() == "insecte") {
+                      borderColor = orange_02;
+                    } else {
+                      borderColor = strawberry_02;
+                    }
+
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/sheet', arguments: species);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: borderColor,
+                            width: 4,
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                          color: darkBeige,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ExtendedImage.network(
+                              species.imageUrl!,
+                              height: 110,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                              cache: true,
+                              loadStateChanged: (ExtendedImageState state) {
+                                switch (state.extendedImageLoadState) {
+                                  case LoadState.loading:
+                                    return Container(
+                                      color: Colors.grey,
+                                    );
+                                  case LoadState.completed:
+                                    return null;
+                                  case LoadState.failed:
+                                    return Container(
+                                      color: greenBrown,
+                                    );
+                                }
+                              },
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10, right: 10, bottom: 5),
+                              child: Text(
+                                "${species.name[0].toUpperCase()}${species.name.substring(1).toLowerCase()}",
+                                style: smallTitle,
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: 50,
               )
-            ),
-          ],
+            ],
+          ),
         ),
       )
     );
+
   }
 }

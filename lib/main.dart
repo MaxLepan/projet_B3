@@ -1,35 +1,67 @@
-import 'dart:collection';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:projet_b3/Search/search_quizz_view.dart';
+import 'package:projet_b3/Informations/informations_view.dart';
 import 'package:projet_b3/firebase_options.dart';
 import 'package:projet_b3/routes.dart';
+import 'package:provider/provider.dart';
 import 'Search/search_view.dart';
-import 'Home/home_view.dart';
 import 'Map/map_view.dart';
+import 'Themes/app_bar.dart';
+import 'Themes/colors.dart';
+import 'coming_soon_view.dart';
+import 'filters_state.dart';
 
 
-Future<void> main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => FilterState(),
+      child: MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatefulWidget{
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  MyAppState createState()=> MyAppState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: materialGreeBrown,
+        scaffoldBackgroundColor: white,
+      ),
+      home: const MediaQuery(
+        data: MediaQueryData(),
+        child: Scaffold(
+          body: MyTabView(),
+        ),
+      ),
+      routes: routes,
+      initialRoute: '/',
+    );
+  }
 }
 
-class MyAppState extends State<MyApp> {
+class MyTabView extends StatefulWidget {
+  const MyTabView({super.key});
+
+  @override
+  _MyTabViewState createState() => _MyTabViewState();
+}
+
+class _MyTabViewState extends State<MyTabView> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [
-    HomePage(),
-    MapView(),
-    SearchView(),
+    const SearchView(),
+    const MapView(),
+    InformationsView(),
+    const ComingSoonView(showCloseButton: false,),
   ];
 
   void _onItemTapped(int index) {
@@ -40,34 +72,20 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Home Page',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
-        body: _pages[_selectedIndex],
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Accueil',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.location_pin),
-              label: 'Map',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'Trouver une bête',
-            )
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.blue,
-          onTap: _onItemTapped,
+    return DefaultTabController(
+      length: _pages.length,
+      initialIndex: _selectedIndex,
+      child: Scaffold(
+        body: TabBarView(
+          children: _pages,
         ),
-      ), routes: routes,
-         initialRoute: '/'
+        bottomNavigationBar: MyBottomNavigationBar(
+          selectedIndex: _selectedIndex,
+          onItemTapped: _onItemTapped,
+        ),
+      ),
     );
   }
 }
+
+
