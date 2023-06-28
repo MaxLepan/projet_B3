@@ -176,7 +176,7 @@ class SearchViewState extends State<SearchView> {
                                     return null;
                                   case LoadState.failed:
                                     return Container(
-                                      color: Colors.redAccent,
+                                      color: greenBrown,
                                     );
                                 }
                               },

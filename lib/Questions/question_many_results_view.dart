@@ -105,7 +105,7 @@ class QuestionManyResultsView extends StatelessWidget {
                               children: [
                               ClipRRect(
                                 borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
-                                child: imageWithPlaceholder(species.imageUrl!, 120),
+                                child: imageWithPlaceholder(species.imageUrl!, 110),
                               ),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 3, bottom: 5),
